@@ -8,3 +8,7 @@
 
 	IDE: visual studio 2019  16.11
 	NET版本: 5.0
+
+#### 说明
+
+	可以将xls/xlsx中的数据快速导入SQLite3数据库内
