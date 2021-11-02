@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "dgSpecHash": "/2h4WkMKwbJOuXEIfyT7W/DS3Xb0/XklZ2UzBDV0w1TBQInLKRoT2fiYj6NSLBgdim9cU9E4+iQicjLHJOOpGg==",
+  "success": true,
+  "projectFilePath": "D:\\apo\\C#\\天启幻境\\ExcelTools\\ExcelTools\\ExcelTools.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlite\\5.0.5\\microsoft.data.sqlite.5.0.5.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlite.core\\5.0.5\\microsoft.data.sqlite.core.5.0.5.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.win32.systemevents\\4.5.0\\microsoft.win32.systemevents.4.5.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\npoi\\2.5.3\\npoi.2.5.3.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\panuon.ui.core\\2.2.1\\panuon.ui.core.2.2.1.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\panuon.ui.silver\\2.2.3-alpha\\panuon.ui.silver.2.2.3-alpha.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\portable.bouncycastle\\1.8.6\\portable.bouncycastle.1.8.6.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\sharpziplib\\1.2.0\\sharpziplib.1.2.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.4\\sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\sqlitepclraw.core\\2.0.4\\sqlitepclraw.core.2.0.4.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.4\\sqlitepclraw.lib.e_sqlite3.2.0.4.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\sqlitepclraw.provider.dynamic_cdecl\\2.0.4\\sqlitepclraw.provider.dynamic_cdecl.2.0.4.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.configuration.configurationmanager\\4.5.0\\system.configuration.configurationmanager.4.5.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.drawing.common\\4.5.0\\system.drawing.common.4.5.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.security.accesscontrol\\4.5.0\\system.security.accesscontrol.4.5.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.5.0\\system.security.cryptography.protecteddata.4.5.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.security.permissions\\4.5.0\\system.security.permissions.4.5.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\5.0.5\\microsoft.netcore.app.runtime.win-x64.5.0.5.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\5.0.5\\microsoft.windowsdesktop.app.runtime.win-x64.5.0.5.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\5.0.5\\microsoft.aspnetcore.app.runtime.win-x64.5.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}

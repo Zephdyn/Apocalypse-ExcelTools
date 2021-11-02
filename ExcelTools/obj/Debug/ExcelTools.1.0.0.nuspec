@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ExcelTools</id>
+    <version>1.0.0</version>
+    <authors>ExcelTools</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net5.0-windows7.0">
+        <dependency id="Microsoft.Data.Sqlite" version="5.0.5" exclude="Build,Analyzers" />
+        <dependency id="NPOI" version="2.5.2" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
+        <dependency id="Panuon.UI.Silver" version="2.2.3-alpha" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net5.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="E:\apo\C#\debug\net5.0-windows\ExcelTools.runtimeconfig.json" target="lib\net5.0-windows7.0\ExcelTools.runtimeconfig.json" />
+    <file src="E:\apo\C#\debug\net5.0-windows\ExcelTools.dll" target="lib\net5.0-windows7.0\ExcelTools.dll" />
+  </files>
+</package>
