@@ -6,8 +6,8 @@
 
 #### 开发环境
 
-	IDE: visual studio 2019  16.11
-	NET版本: 5.0
+	IDE: visual studio 2022  17.0.0
+	NET版本: 6.0
 
 #### 说明
 

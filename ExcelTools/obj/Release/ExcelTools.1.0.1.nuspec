@@ -4,25 +4,24 @@
     <id>ExcelTools</id>
     <version>1.0.1</version>
     <authors>枭</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>天启幻境II - Excel快速操作工具</description>
     <copyright>apocalypse - Tapdrd</copyright>
     <dependencies>
-      <group targetFramework="net5.0-windows7.0">
-        <dependency id="Microsoft.Data.Sqlite" version="5.0.5" exclude="Build,Analyzers" />
-        <dependency id="NPOI" version="2.5.3" exclude="Build,Analyzers" />
+      <group targetFramework="net6.0-windows7.0">
+        <dependency id="Microsoft.Data.Sqlite" version="6.0.0" exclude="Build,Analyzers" />
+        <dependency id="NPOI" version="2.5.5" exclude="Build,Analyzers" />
         <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
         <dependency id="Panuon.UI.Silver" version="2.2.3-alpha" exclude="Build,Analyzers" />
       </group>
     </dependencies>
     <frameworkReferences>
-      <group targetFramework="net5.0-windows7.0">
+      <group targetFramework="net6.0-windows7.0">
         <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
       </group>
     </frameworkReferences>
   </metadata>
   <files>
-    <file src="D:\apo\C#\天启幻境\ExcelTools\ExcelTools\bin\Release\net5.0-windows\ExcelTools.runtimeconfig.json" target="lib\net5.0-windows7.0\ExcelTools.runtimeconfig.json" />
-    <file src="D:\apo\C#\天启幻境\ExcelTools\ExcelTools\bin\Release\net5.0-windows\ExcelTools.dll" target="lib\net5.0-windows7.0\ExcelTools.dll" />
+    <file src="D:\apo\C#\天启幻境\ExcelTools\ExcelTools\bin\Release\net6.0-windows\ExcelTools.runtimeconfig.json" target="lib\net6.0-windows7.0\ExcelTools.runtimeconfig.json" />
+    <file src="D:\apo\C#\天启幻境\ExcelTools\ExcelTools\bin\Release\net6.0-windows\ExcelTools.dll" target="lib\net6.0-windows7.0\ExcelTools.dll" />
   </files>
 </package>

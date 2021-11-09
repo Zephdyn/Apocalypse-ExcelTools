@@ -1,0 +1,7 @@
+D:\apo\C#\publish\ExcelTools\D3DCompiler_47_cor3.dll
+D:\apo\C#\publish\ExcelTools\PenImc_cor3.dll
+D:\apo\C#\publish\ExcelTools\PresentationNative_cor3.dll
+D:\apo\C#\publish\ExcelTools\vcruntime140_cor3.dll
+D:\apo\C#\publish\ExcelTools\wpfgfx_cor3.dll
+D:\apo\C#\publish\ExcelTools\e_sqlite3.dll
+D:\apo\C#\publish\ExcelTools\ExcelTools.exe
