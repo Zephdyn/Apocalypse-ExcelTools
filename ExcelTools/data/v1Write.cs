@@ -1207,10 +1207,10 @@ namespace excelTools.data
             return 0;
         }
         /// <summary>
-        /// 单人副本
+        /// 副本
         /// </summary>
         /// <returns></returns>
-        public static int CopyOne()
+        public static int Copy()
         {
             var arrWrite = excelTools.excel.Program.arrWrite;
             if (arrWrite.Count == 0) return -1;
@@ -1234,7 +1234,7 @@ namespace excelTools.data
                     // 删除第一个
                     string[] arr = arrWrite[i].ToArray();
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
-                    copy = arr[(int)ExcelType_v1.CopyOne.副本].Trim();
+                    copy = arr[(int)ExcelType_v1.Copy.副本].Trim();
                     if (copy == "") continue;
                     // 每3000提交一次事务
 
@@ -1252,8 +1252,8 @@ namespace excelTools.data
                         new object[] { "@copy", copy }
                     };
 
-                    if (Sqlite.Select("SELECT `ID` FROM `单人副本地图` WHERE `copy` = @copy", list))
-                        Sqlite.NonQuery("DELETE FROM `单人副本地图` WHERE `copy` = @copy", list);
+                    if (Sqlite.Select("SELECT `ID` FROM `副本地图` WHERE `copy` = @copy", list))
+                        Sqlite.NonQuery("DELETE FROM `副本地图` WHERE `copy` = @copy", list);
                 }
                 // 清理完毕提交一次事务
                 transaction.Commit();
@@ -1265,7 +1265,7 @@ namespace excelTools.data
                     // 删除第一个
                     string[] arr = arrWrite[i].ToArray();
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
-                    copy = arr[(int)ExcelType_v1.CopyOne.副本].Trim();
+                    copy = arr[(int)ExcelType_v1.Copy.副本].Trim();
                     if (copy == "") continue;
 
                     numCount++; // 执行的次数
@@ -1277,32 +1277,33 @@ namespace excelTools.data
 
                         transaction = con.BeginTransaction();
                     }
-                    if (!int.TryParse(arr[(int)ExcelType_v1.CopyOne.副本类型], out int type)) type = 0;
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Copy.副本类型], out int type)) type = 0;
                     if (type < 0 || type > 4) type = 0;
                     object entries; // 进入次数
                     if (type == 0 || type == 4) entries = null;
                     else
                     {
-                        if (!int.TryParse(arr[(int)ExcelType_v1.CopyOne.进入次数], out int tnum)) entries = 0;
+                        if (!int.TryParse(arr[(int)ExcelType_v1.Copy.进入次数], out int tnum)) entries = 0;
                         else if (tnum < 0) entries = 0;
                         else entries = tnum;
                     }
 
-                    if (!int.TryParse(arr[(int)ExcelType_v1.CopyOne.奖励类型], out int rewardType)) rewardType = 0;
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Copy.奖励类型], out int rewardType)) rewardType = 0;
                     if (rewardType < 0 || rewardType > 1) rewardType = 0;
 
-                    string rewards = arr[(int)ExcelType_v1.CopyOne.通过奖励];
-                    if (!int.TryParse(arr[(int)ExcelType_v1.CopyOne.副本排序], out int copySort)) copySort = 0;
+                    string rewards = arr[(int)ExcelType_v1.Copy.通过奖励];
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Copy.副本排序], out int copySort)) copySort = 0;
 
-
+                    // 限制人数,默认为0
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Copy.限制人数], out int limitUser)) limitUser = 0;
                     // 限制消耗
-                    if (arr[(int)ExcelType_v1.CopyOne.限制消耗] != "")
+                    if (arr[(int)ExcelType_v1.Copy.限制消耗] != "")
                     {
-                        string ret = TString.LimitConfigCheck(arr[(int)ExcelType_v1.CopyOne.限制消耗]);
+                        string ret = TString.LimitConfigCheck(arr[(int)ExcelType_v1.Copy.限制消耗]);
                         if (ret != "") errorCheck++;
-                        else Update.Check(Update.ECheck.单人副本, arr[(int)ExcelType_v1.CopyOne.副本], arr[(int)ExcelType_v1.CopyOne.限制消耗], false);
+                        else Update.Check(Update.ECheck.单人副本, arr[(int)ExcelType_v1.Copy.副本], arr[(int)ExcelType_v1.Copy.限制消耗], false);
                     }
-                    else Update.Check(Update.ECheck.单人副本, arr[(int)ExcelType_v1.CopyOne.副本], arr[(int)ExcelType_v1.CopyOne.限制消耗], true);
+                    else Update.Check(Update.ECheck.单人副本, arr[(int)ExcelType_v1.Copy.副本], arr[(int)ExcelType_v1.Copy.限制消耗], true);
 
 
                     List<object[]> list = new()
@@ -1310,42 +1311,43 @@ namespace excelTools.data
                         new object[] { "@copy", copy }
                     };
 
-                    if (Sqlite.Select("SELECT `ID` FROM `单人副本配置` WHERE `copy` = @copy", list)) sqlTxt = "UPDATE `单人副本配置` SET `type`=@type, `t_number`=@entries, `reward_1`=@rewardType, `c_drop`=@rewards, `sor`=@copySort WHERE `copy` = @copy;";
-                    else sqlTxt = "INSERT INTO `单人副本配置` (`copy`,`type`,`t_number`,`reward_1`,`c_drop`,`sor`) VALUES (@copy,@type,@entries,@rewardType,@rewards,@copySort);";
+                    if (Sqlite.Select("SELECT `ID` FROM `副本配置` WHERE `copy` = @copy", list)) sqlTxt = "UPDATE `副本配置` SET `type`=@type, `t_number`=@entries, `reward_1`=@rewardType, `c_drop`=@rewards, `sor`=@copySort,`limit_user`=@limitUser WHERE `copy` = @copy;";
+                    else sqlTxt = "INSERT INTO `副本配置` (`copy`,`type`,`t_number`,`reward_1`,`c_drop`,`sor`,`limit_user`) VALUES (@copy,@type,@entries,@rewardType,@rewards,@copySort,@limitUser);";
                     list.Add(new object[] { "type", type });
                     list.Add(new object[] { "entries", entries });
                     list.Add(new object[] { "rewardType", rewardType });
                     list.Add(new object[] { "rewards", rewards });
                     list.Add(new object[] { "copySort", copySort });
+                    list.Add(new object[] { "limitUser", limitUser });
                     Sqlite.NonQuery(sqlTxt, list);
 
                     // 写入地图
-                    string map = arr[(int)ExcelType_v1.CopyOne.地图];
-                    string pos_1 = arr[(int)ExcelType_v1.CopyOne.前];
-                    string pos_2 = arr[(int)ExcelType_v1.CopyOne.后];
-                    string pos_3 = arr[(int)ExcelType_v1.CopyOne.左];
-                    string pos_4 = arr[(int)ExcelType_v1.CopyOne.右];
-                    string pos_5 = arr[(int)ExcelType_v1.CopyOne.上];
-                    string pos_6 = arr[(int)ExcelType_v1.CopyOne.下];
-                    string monster = arr[(int)ExcelType_v1.CopyOne.怪物];
-                    if (!int.TryParse(arr[(int)ExcelType_v1.CopyOne.数量], out int mNum)) mNum = 0;
+                    string map = arr[(int)ExcelType_v1.Copy.地图];
+                    string pos_1 = arr[(int)ExcelType_v1.Copy.前];
+                    string pos_2 = arr[(int)ExcelType_v1.Copy.后];
+                    string pos_3 = arr[(int)ExcelType_v1.Copy.左];
+                    string pos_4 = arr[(int)ExcelType_v1.Copy.右];
+                    string pos_5 = arr[(int)ExcelType_v1.Copy.上];
+                    string pos_6 = arr[(int)ExcelType_v1.Copy.下];
+                    string monster = arr[(int)ExcelType_v1.Copy.怪物];
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Copy.数量], out int mNum)) mNum = 0;
                     if (mNum < 0) mNum = 0;
-                    if (!int.TryParse(arr[(int)ExcelType_v1.CopyOne.强制攻击], out int force)) force = 0;
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Copy.强制攻击], out int force)) force = 0;
                     if (force != 0 || force != 1) force = 0;
-                    string mDrop = arr[(int)ExcelType_v1.CopyOne.掉落];
+                    string mDrop = arr[(int)ExcelType_v1.Copy.掉落];
 
                     // 通关地图
-                    if (!int.TryParse(arr[(int)ExcelType_v1.CopyOne.通关地图], out int entriesMap)) entriesMap = 0;
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Copy.通关地图], out int entriesMap)) entriesMap = 0;
                     if (entriesMap != 0 && entriesMap != 1) entriesMap = 0;
                     // 初始地图
-                    if (!int.TryParse(arr[(int)ExcelType_v1.CopyOne.初始地图], out int initialMap)) initialMap = 0;
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Copy.初始地图], out int initialMap)) initialMap = 0;
                     if (initialMap != 0 && initialMap != 1) initialMap = 0;
 
                     list = new()
                     {
                         new object[] { "@copy", copy }
                     };
-                    sqlTxt = "INSERT INTO `单人副本地图` (`copy`,`位置`,`前`,`后`,`左`,`右`,`上`,`下`,`怪物`,`数量`,`强制`,`打怪奖励`,`通关地图`,`初始地图`) VALUES (@copy,@map,@pos_1,@pos_2,@pos_3,@pos_4,@pos_5,@pos_6,@monser,@mNum,@force,@mDrop,0,0);";
+                    sqlTxt = "INSERT INTO `副本地图` (`copy`,`位置`,`前`,`后`,`左`,`右`,`上`,`下`,`怪物`,`数量`,`强制`,`打怪奖励`,`通关地图`,`初始地图`) VALUES (@copy,@map,@pos_1,@pos_2,@pos_3,@pos_4,@pos_5,@pos_6,@monser,@mNum,@force,@mDrop,0,0);";
                     list.Add(new object[] { "map", map == "" ? null : map });
                     list.Add(new object[] { "pos_1", pos_1 == "" ? null : pos_1 });
                     list.Add(new object[] { "pos_2", pos_2 == "" ? null : pos_2 });
@@ -1367,14 +1369,14 @@ namespace excelTools.data
                     };
                     if (entriesMap == 1)
                     {
-                        sqlTxt = "UPDATE `单人副本地图` SET `通关地图`=1 WHERE `copy`=@copy AND `位置`=@map;";
-                        sqlTxt += "UPDATE `单人副本地图` SET `通关地图`=0 WHERE `copy`=@copy AND `位置`!=@map;";
+                        sqlTxt = "UPDATE `副本地图` SET `通关地图`=1 WHERE `copy`=@copy AND `位置`=@map;";
+                        sqlTxt += "UPDATE `副本地图` SET `通关地图`=0 WHERE `copy`=@copy AND `位置`!=@map;";
                         Sqlite.NonQuery(sqlTxt, list);
                     }
                     if (initialMap == 1)
                     {
-                        sqlTxt = "UPDATE `单人副本地图` SET `初始地图`=1 WHERE `copy`=@copy AND `位置`=@map;";
-                        sqlTxt += "UPDATE `单人副本地图` SET `初始地图`=0 WHERE `copy`=@copy AND `位置`!=@map;";
+                        sqlTxt = "UPDATE `副本地图` SET `初始地图`=1 WHERE `copy`=@copy AND `位置`=@map;";
+                        sqlTxt += "UPDATE `副本地图` SET `初始地图`=0 WHERE `copy`=@copy AND `位置`!=@map;";
                         Sqlite.NonQuery(sqlTxt, list);
                     }
                 }

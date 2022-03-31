@@ -32,7 +32,7 @@
                     <TextBlock TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"><Run Text="这是天启幻境II Excel工具"/><LineBreak/><Run Text="&#x9;"/><LineBreak/><Run Text="[说明]"/><LineBreak/><Run Text="&#x9;"/><Run Text="将"/><Run Text="excel"/><Run Text="中的数据"/><Run Text="快速将数据导入到天启幻境II的数据库中"/><LineBreak/><Run Text="&#x9;"/><LineBreak/><Run Text="[使用方法]"/><LineBreak/><Run Text="&#x9;1. 先选择数据库, 将数据库成功连接"/><LineBreak/><Run Text="&#x9;"/><Run Text="2. 选择要导入的Excel文件"/><LineBreak/><Run Text="&#x9;"/><Run Text="3. 点击导入"/></TextBlock>
                     <Button Grid.Row="2" Content="进入Excel" Margin="0,45,10,0" Width="80" Click="Button_Tab_2" Height="30" Grid.Column="2" HorizontalAlignment="Right"/>
                     <TextBlock TextWrapping="Wrap" Grid.Column="2" Margin="10,10,83,10" FontSize="13"><Run Text="支持Excel格式"/><LineBreak/><Run Text="xls &#x9;【√】"/><LineBreak/><Run Text="xlsx &#x9;【√】★"/><LineBreak/><Run Text=""/><LineBreak/><Run Text="// 推荐使用xlsx格式"/></TextBlock>
-                    <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Margin="10,10,10,15" Height="80" Width="400" Text="当前支持数据库版本：3.0.0"/>
+                    <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Margin="10,10,10,15" Height="80" Width="400"><Run Text="当前支持数据库版本：3."/><Run Language="zh-cn" Text="2"/><Run Text=".0"/></TextBlock>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabItem_2" Header="Excel">
@@ -59,7 +59,7 @@
                     <Button Content="物品" HorizontalAlignment="Left" Margin="450,0,0,0" VerticalAlignment="Center" Width="80" Click="Button_Tab_2_goods" Height="30" Grid.Row="1" />
                     <Button Content="商店" HorizontalAlignment="Left" Margin="550,0,0,0" VerticalAlignment="Center" Width="80" Click="Button_Tab_2_shop" Height="30" Grid.Row="1"/>
                     <Button Content="任务" HorizontalAlignment="Left" Margin="650,0,0,0" VerticalAlignment="Center" Width="80" Click="Button_Tab_2_duties" Height="30" Grid.Row="1"/>
-                    <Button Content="单人副本" HorizontalAlignment="Left" Margin="750,0,0,0" VerticalAlignment="Center" Width="80" Click="Button_Tab_2_copyOne" Height="30" Grid.Row="1"/>
+                    <Button Content="副本" HorizontalAlignment="Left" Margin="750,0,0,0" VerticalAlignment="Center" Width="80" Click="Button_Tab_2_copyOne" Height="30" Grid.Row="1"/>
                 </Grid>
             </TabItem>
 

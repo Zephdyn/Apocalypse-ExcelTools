@@ -157,13 +157,14 @@ namespace excelTools.excel
         /// <summary>
         /// 单人副本
         /// </summary>
-        public static readonly string[] copyOne = new string[] {
+        public static readonly string[] copy = new string[] {
             "副本",
             "副本类型",
             "进入次数",
             "奖励类型",
             "通过奖励",
             "副本排序",
+            "限制人数",
             "限制消耗",
             "地图",
             "初始地图",
@@ -311,7 +312,7 @@ namespace excelTools.excel
         /// <summary>
         /// 单人副本
         /// </summary>
-        public enum CopyOne
+        public enum Copy
         {        
             副本,
             副本类型,
@@ -319,6 +320,7 @@ namespace excelTools.excel
             奖励类型,
             通过奖励,
             副本排序,
+            限制人数,
             限制消耗,
             地图,
             初始地图,

@@ -25,7 +25,7 @@ namespace ExcelTools
     public partial class MainWindow : Window
     {
         // 软件支持的数据库版本
-        private static readonly int DbVersion = 3000003;
+        private static readonly int DbVersion = 3020000;
 
         public delegate void UpdateUI(int step);
         public int Readint = 0;
@@ -47,7 +47,7 @@ namespace ExcelTools
             InitializeComponent();
             // 数据初始化            
             string configPath = "config.db";
-            WIfon.Version = "Ver：1.1.0";
+            WIfon.Version = "Ver：1.2.0";
             WIfon.DbConfigInfo = "未连接数据库, 请先选择要连接的数据库";
             string filePath = "config.json";
             if (File.Exists(filePath))
@@ -296,7 +296,7 @@ namespace ExcelTools
                         t1 = new Task(() => V1Write.Duties());
                         break;
                     case 8:
-                        t1 = new Task(() => V1Write.CopyOne());
+                        t1 = new Task(() => V1Write.Copy());
                         break;
                     default:
                         MessageBox.Show("异常类型");
@@ -368,9 +368,9 @@ namespace ExcelTools
                     template = Properties.Resources.任务示例;
                     break;
                 case 8:
-                    Rtype = ExcelTypeRead_v1.copyOne;
-                    name = "单人副本示例.xlsx";
-                    template = Properties.Resources.单人副本示例;
+                    Rtype = ExcelTypeRead_v1.copy;
+                    name = "副本示例.xlsx";
+                    template = Properties.Resources.副本示例;
                     break;
 
             }
