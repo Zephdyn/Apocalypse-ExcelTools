@@ -47,7 +47,7 @@ namespace ExcelTools
             InitializeComponent();
             // 数据初始化            
             string configPath = "config.db";
-            WIfon.Version = "Ver：1.2.0";
+            WIfon.Version = "Ver：1.2.1";
             WIfon.DbConfigInfo = "未连接数据库, 请先选择要连接的数据库";
             string filePath = "config.json";
             if (File.Exists(filePath))

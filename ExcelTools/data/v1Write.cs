@@ -88,7 +88,7 @@ namespace excelTools.data
                     arr[3] = arr[3] == "1" ? "1" : "0";
                     write.Parameters.AddWithValue("@bind", arr[(int)ExcelType_v1.Equip.绑定]);
                     //"部位",
-                    write.Parameters.AddWithValue("@部位", ExcelType_v1.Equip.部位);
+                    write.Parameters.AddWithValue("@部位", arr[(int)ExcelType_v1.Equip.部位]);
                     //"等级",
                     if (!int.TryParse(arr[(int)ExcelType_v1.Equip.等级], out int num)) num = 1;
                     write.Parameters.AddWithValue("@等级", num);
