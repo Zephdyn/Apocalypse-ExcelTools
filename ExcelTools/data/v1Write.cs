@@ -178,7 +178,7 @@ namespace excelTools.data
                         testing = 1;
                     }
                     write.Parameters.AddWithValue("@装备", arr[(int)ExcelType_v1.Equip.名称]);
-                    if (!int.TryParse(arr[15], out num)) num = 0;
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.卸下], out num)) num = 0;
                     if (num < 0 || num > 1) num = 0;
                     write.Parameters.AddWithValue("@状态", num);
                     write.Parameters.AddWithValue("@类型", 1);
