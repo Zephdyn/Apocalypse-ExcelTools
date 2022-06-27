@@ -46,11 +46,11 @@
           "dependencies": {
             "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[6.0.6, )"
             },
             "NPOI": {
               "target": "Package",
-              "version": "[2.5.5, )"
+              "version": "[2.5.6, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -58,7 +58,7 @@
             },
             "Panuon.UI.Silver": {
               "target": "Package",
-              "version": "[2.2.18, )"
+              "version": "[2.2.19, )"
             }
           },
           "imports": [
@@ -79,7 +79,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
