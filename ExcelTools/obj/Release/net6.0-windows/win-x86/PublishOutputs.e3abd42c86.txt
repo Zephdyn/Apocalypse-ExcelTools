@@ -1,2 +1,0 @@
-D:\apo\C#\publish\ExcelTools\x32\e_sqlite3.dll
-D:\apo\C#\publish\ExcelTools\x32\ExcelTools.exe
