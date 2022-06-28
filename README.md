@@ -7,7 +7,7 @@
 #### 开发环境
 
 	推荐:
-	IDE: visual studio 2022  17.0.0
+	IDE: visual studio 2022  17.2.5
 	NET版本: 6.0
 
 #### 说明
