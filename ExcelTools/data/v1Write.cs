@@ -305,22 +305,19 @@ namespace excelTools.data
                         if (yarr[0].Trim() == "") continue;
                         write.CommandText = @"
                         INSERT INTO `怪物刷新配置`
-                        (`位置`,`怪物`,`刷新数量`,`刷新间隔`,`刷新时间`,`当前数量`,`攻击几率`) VALUES
-                        (@位置, @怪物, @刷新数量, @刷新间隔, @刷新时间, @当前数量, @攻击几率);";
+                        (`位置`,`怪物`,`刷新数量`,`刷新间隔`,`攻击几率`) VALUES
+                        (@位置, @怪物, @刷新数量, @刷新间隔, @攻击几率);";
                         write.Parameters.AddWithValue("@位置", arr[(int)ExcelType_v1.Map.位置]);
                         write.Parameters.AddWithValue("@怪物", yarr[0]);
                         if (!int.TryParse(yarr[1], out num)) num = 0;
                         else if (num < 0) num = 0;
                         write.Parameters.AddWithValue("@刷新数量", num);
-                        write.Parameters.AddWithValue("@当前数量", num);
                         if (!int.TryParse(yarr[2], out num)) num = 0;
                         else if (num < 0) num = 0;
                         write.Parameters.AddWithValue("@刷新间隔", num);
                         if (!int.TryParse(yarr[3], out num)) num = 0;
                         else if (num < 0) num = 0;
                         write.Parameters.AddWithValue("@攻击几率", num);
-                        write.Parameters.AddWithValue("@刷新时间", DateTime.Now.ToString("yyyy年M月d日h小时m分s秒"));
-
                         write.ExecuteNonQuery();
                         write.Parameters.Clear();
                     }

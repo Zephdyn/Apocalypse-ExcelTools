@@ -2,10 +2,10 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
-      "Microsoft.Data.Sqlite/6.0.6": {
+      "Microsoft.Data.Sqlite/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "6.0.6",
+          "Microsoft.Data.Sqlite.Core": "6.0.8",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.0.6"
         },
         "compile": {
@@ -15,16 +15,20 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/6.0.6": {
+      "Microsoft.Data.Sqlite.Core/6.0.8": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6"
         },
         "compile": {
-          "lib/net6.0/Microsoft.Data.Sqlite.dll": {}
+          "lib/net6.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.Data.Sqlite.dll": {}
+          "lib/net6.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.NETCore.Platforms/2.0.0": {
@@ -57,10 +61,14 @@
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "NPOI/2.5.6": {
@@ -72,19 +80,35 @@
           "System.Drawing.Common": "4.5.0"
         },
         "compile": {
-          "lib/netstandard2.1/NPOI.OOXML.dll": {},
-          "lib/netstandard2.1/NPOI.OpenXml4Net.dll": {},
-          "lib/netstandard2.1/NPOI.OpenXmlFormats.dll": {},
-          "lib/netstandard2.1/NPOI.dll": {}
+          "lib/netstandard2.1/NPOI.OOXML.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/netstandard2.1/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb"
+          },
+          "lib/netstandard2.1/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/netstandard2.1/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.xml;.OpenXml4Net.pdb;.OpenXmlFormats.pdb;.pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.1/NPOI.OOXML.dll": {},
-          "lib/netstandard2.1/NPOI.OpenXml4Net.dll": {},
-          "lib/netstandard2.1/NPOI.OpenXmlFormats.dll": {},
-          "lib/netstandard2.1/NPOI.dll": {}
+          "lib/netstandard2.1/NPOI.OOXML.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/netstandard2.1/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb"
+          },
+          "lib/netstandard2.1/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/netstandard2.1/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.xml;.OpenXml4Net.pdb;.OpenXmlFormats.pdb;.pdb;.xml"
+          }
         }
       },
-      "Panuon.UI.Core/2.2.5": {
+      "Panuon.UI.Core/2.2.6": {
         "type": "package",
         "compile": {
           "lib/netcoreapp3.1/Panuon.UI.Core.dll": {}
@@ -96,10 +120,10 @@
           "Microsoft.WindowsDesktop.App"
         ]
       },
-      "Panuon.UI.Silver/2.2.19": {
+      "Panuon.UI.Silver/2.2.20": {
         "type": "package",
         "dependencies": {
-          "Panuon.UI.Core": "2.2.5"
+          "Panuon.UI.Core": "2.2.6"
         },
         "compile": {
           "lib/netcoreapp3.1/Panuon.UI.Silver.dll": {}
@@ -114,19 +138,27 @@
       "Portable.BouncyCastle/1.8.9": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpZipLib/1.3.3": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.1/ICSharpCode.SharpZipLib.dll": {}
+          "lib/netstandard2.1/ICSharpCode.SharpZipLib.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.1/ICSharpCode.SharpZipLib.dll": {}
+          "lib/netstandard2.1/ICSharpCode.SharpZipLib.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
@@ -245,7 +277,9 @@
           "System.Security.Permissions": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
+          "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
@@ -290,7 +324,9 @@
           "System.Security.Principal.Windows": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Security.AccessControl.dll": {}
+          "ref/netstandard2.0/System.Security.AccessControl.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.AccessControl.dll": {}
@@ -305,7 +341,9 @@
       "System.Security.Cryptography.ProtectedData/4.5.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {}
@@ -323,7 +361,9 @@
           "System.Security.AccessControl": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Security.Permissions.dll": {}
+          "ref/netstandard2.0/System.Security.Permissions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.Permissions.dll": {}
@@ -335,7 +375,9 @@
           "Microsoft.NETCore.Platforms": "2.0.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Security.Principal.Windows.dll": {}
+          "ref/netstandard2.0/System.Security.Principal.Windows.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.Principal.Windows.dll": {}
@@ -354,23 +396,23 @@
     }
   },
   "libraries": {
-    "Microsoft.Data.Sqlite/6.0.6": {
-      "sha512": "TeDZscqrRYe7p/d6AYL7eMLUQpqsUvr5tOvhheBikFqrlDMnPgg4SilnBaurRATvM5AzxMhgnsdo3FeqLNWDBQ==",
+    "Microsoft.Data.Sqlite/6.0.8": {
+      "sha512": "oX2Ehhy1s/5CLaXRzajASHu2bAp87QrMqPzF3MjQlAm3alUwgmeIDdbm2Mp4i4BB2oxdujyeYCGcDnbew8mBdA==",
       "type": "package",
-      "path": "microsoft.data.sqlite/6.0.6",
+      "path": "microsoft.data.sqlite/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.0/_._",
-        "microsoft.data.sqlite.6.0.6.nupkg.sha512",
+        "microsoft.data.sqlite.6.0.8.nupkg.sha512",
         "microsoft.data.sqlite.nuspec"
       ]
     },
-    "Microsoft.Data.Sqlite.Core/6.0.6": {
-      "sha512": "FGMTc3w380mXGBqygWtWIMJYwhckjZe6Ee0Eq9ClzspXuz87Ks8hey/f1g/gIUpV8/r0HirI2knhomcfuOMJrw==",
+    "Microsoft.Data.Sqlite.Core/6.0.8": {
+      "sha512": "ssJbtn9p7vXh3T4gi7g1Ir0bY4cJgVOU1MtTvnl4JvbLNmlq2q24SNK5jJHK/IPI37nhDqcPLHtfW40bscYU/Q==",
       "type": "package",
-      "path": "microsoft.data.sqlite.core/6.0.6",
+      "path": "microsoft.data.sqlite.core/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -379,7 +421,7 @@
         "lib/net6.0/Microsoft.Data.Sqlite.xml",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
-        "microsoft.data.sqlite.core.6.0.6.nupkg.sha512",
+        "microsoft.data.sqlite.core.6.0.8.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
       ]
     },
@@ -495,10 +537,10 @@
         "npoi.nuspec"
       ]
     },
-    "Panuon.UI.Core/2.2.5": {
-      "sha512": "b4JUTNTks3IxYDoQwsJdOSQvGmhVON+YPuH2d3Tg9H3YxIhO+NMml2r53kba/LJfa6b8FQApwM5Jgpq9NJafUw==",
+    "Panuon.UI.Core/2.2.6": {
+      "sha512": "duhXcmodIlUdX9Cj5ApQDyqXzvionlmgE7BvzzC+ZH5P1S9jSIdN0frzuE5mDxcviTLz8WJtpqy88OM2m/K4eA==",
       "type": "package",
-      "path": "panuon.ui.core/2.2.5",
+      "path": "panuon.ui.core/2.2.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -507,14 +549,14 @@
         "lib/net472/Panuon.UI.Core.dll",
         "lib/netcoreapp3.1/Panuon.UI.Core.dll",
         "nuget.exe",
-        "panuon.ui.core.2.2.5.nupkg.sha512",
+        "panuon.ui.core.2.2.6.nupkg.sha512",
         "panuon.ui.core.nuspec"
       ]
     },
-    "Panuon.UI.Silver/2.2.19": {
-      "sha512": "uZ88lRKob96vzaFAQPQg2sjUd31MYMwgT/T0B2ygZtQ5tnTjoI3179Zk8zR2Gj/2Ro8bmeOtCjfZEih5WA+SbQ==",
+    "Panuon.UI.Silver/2.2.20": {
+      "sha512": "IyTxpOsSTB11fjm6W4Idbn/QWm0MbQVUKGHKMb+8pNkx39w+uP5df697WCSZSciBF/hDBP1yswS5oat4lG+oag==",
       "type": "package",
-      "path": "panuon.ui.silver/2.2.19",
+      "path": "panuon.ui.silver/2.2.20",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -523,7 +565,7 @@
         "lib/net472/Panuon.UI.Silver.dll",
         "lib/netcoreapp3.1/Panuon.UI.Silver.dll",
         "nuget.exe",
-        "panuon.ui.silver.2.2.19.nupkg.sha512",
+        "panuon.ui.silver.2.2.20.nupkg.sha512",
         "panuon.ui.silver.nuspec"
       ]
     },
@@ -862,10 +904,10 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "Microsoft.Data.Sqlite >= 6.0.6",
+      "Microsoft.Data.Sqlite >= 6.0.8",
       "NPOI >= 2.5.6",
       "Newtonsoft.Json >= 13.0.1",
-      "Panuon.UI.Silver >= 2.2.19"
+      "Panuon.UI.Silver >= 2.2.20"
     ]
   },
   "packageFolders": {
@@ -890,7 +932,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0-windows7.0"
+        "net6.0-windows"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -914,7 +956,7 @@
         "dependencies": {
           "Microsoft.Data.Sqlite": {
             "target": "Package",
-            "version": "[6.0.6, )"
+            "version": "[6.0.8, )"
           },
           "NPOI": {
             "target": "Package",
@@ -926,7 +968,7 @@
           },
           "Panuon.UI.Silver": {
             "target": "Package",
-            "version": "[2.2.19, )"
+            "version": "[2.2.20, )"
           }
         },
         "imports": [
@@ -935,7 +977,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -947,7 +990,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
