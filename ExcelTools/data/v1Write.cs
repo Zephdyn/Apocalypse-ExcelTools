@@ -511,8 +511,8 @@ namespace excelTools.data
                         new object[2] { "@id", arr[(int)ExcelType_v1.Drop.掉落] }
                     };
 
-                    if (Sqlite.Select("SELECT `ID` FROM `掉落配置` WHERE `ID` = @id", list))
-                        Sqlite.NonQuery("DELETE  FROM `掉落配置` WHERE `ID` = @id", list);
+                    if (Sqlite.Select("SELECT id FROM `掉落配置` WHERE `掉落` = @id", list)) // 查询是否已有掉落
+                        Sqlite.NonQuery("DELETE  FROM `掉落配置` WHERE `掉落` = @id", list);
 
                 }
 
@@ -622,7 +622,7 @@ namespace excelTools.data
                                 new object[2] { "@max", max }, // 最大几率
                                 new object[2] { "@occ", narr.Length == 1 ? null : narr[1] }// 职业
                             };
-                            Sqlite.NonQuery("INSERT INTO `掉落配置` (`ID`,`类型`,`物品`,`几率`,`最小数量`,`最大数量`,`掉落类型`,`职业`,`地图掉落`) VALUES (@id, @type, @goods, @por, @min, @max, @dropType, @occ, @dropMap)", list);
+                            Sqlite.NonQuery("INSERT INTO `掉落配置` (`掉落`,`类型`,`物品`,`几率`,`最小数量`,`最大数量`,`掉落类型`,`职业`,`地图掉落`) VALUES (@id, @type, @goods, @por, @min, @max, @dropType, @occ, @dropMap)", list);
                         }
                     }
                 }

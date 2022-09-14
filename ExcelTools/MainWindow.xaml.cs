@@ -25,7 +25,7 @@ namespace ExcelTools
     public partial class MainWindow : Window
     {
         // 软件支持的数据库版本
-        private static readonly int DbVersion = 3020000;
+        private static readonly int DbVersion = 3030001;
 
         public delegate void UpdateUI(int step);
         public int Readint = 0;
@@ -47,7 +47,7 @@ namespace ExcelTools
             InitializeComponent();
             // 数据初始化            
             string configPath = "config.db";
-            WIfon.Version = "Ver：1.2.3";
+            WIfon.Version = "Ver：1.3.0";
             WIfon.DbConfigInfo = "未连接数据库, 请先选择要连接的数据库";
             string filePath = "config.json";
             if (File.Exists(filePath))

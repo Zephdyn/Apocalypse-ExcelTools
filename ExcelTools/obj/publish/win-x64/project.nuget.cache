@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "DPePfxo40FAQctWPJEoenYg/XeEKQ5MEvBhuI6VZRTT+Akzw95h4BvQsZQY50sk7IWCKVY4kZkYoy9EabjsjMg==",
+  "dgSpecHash": "oKEv77vlfb2Stv7MG8x1/1Uy9x5hdcqjIAs4GH98Bo3MZRVuYFXrCVzRKX8H9VP/bgLkX7DzKmguI2clQcdegA==",
   "success": true,
   "projectFilePath": "D:\\apo\\C#\\天启幻境\\ExcelTools\\ExcelTools\\ExcelTools.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlite\\6.0.8\\microsoft.data.sqlite.6.0.8.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.8\\microsoft.data.sqlite.core.6.0.8.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlite\\6.0.9\\microsoft.data.sqlite.6.0.9.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.9\\microsoft.data.sqlite.core.6.0.9.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.win32.systemevents\\4.5.0\\microsoft.win32.systemevents.4.5.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",

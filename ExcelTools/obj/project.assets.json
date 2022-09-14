@@ -2,10 +2,10 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
-      "Microsoft.Data.Sqlite/6.0.8": {
+      "Microsoft.Data.Sqlite/6.0.9": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "6.0.8",
+          "Microsoft.Data.Sqlite.Core": "6.0.9",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.0.6"
         },
         "compile": {
@@ -15,7 +15,7 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/6.0.8": {
+      "Microsoft.Data.Sqlite.Core/6.0.9": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6"
@@ -396,23 +396,23 @@
     }
   },
   "libraries": {
-    "Microsoft.Data.Sqlite/6.0.8": {
-      "sha512": "oX2Ehhy1s/5CLaXRzajASHu2bAp87QrMqPzF3MjQlAm3alUwgmeIDdbm2Mp4i4BB2oxdujyeYCGcDnbew8mBdA==",
+    "Microsoft.Data.Sqlite/6.0.9": {
+      "sha512": "hkicTW4qEVQUgPs4qCSsd0cP1+1IiM0WRmlinnixGMUyxvIOT98BpVbQd9Ukc52q8mDEhDVam1oLa5yAofdQ1Q==",
       "type": "package",
-      "path": "microsoft.data.sqlite/6.0.8",
+      "path": "microsoft.data.sqlite/6.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.0/_._",
-        "microsoft.data.sqlite.6.0.8.nupkg.sha512",
+        "microsoft.data.sqlite.6.0.9.nupkg.sha512",
         "microsoft.data.sqlite.nuspec"
       ]
     },
-    "Microsoft.Data.Sqlite.Core/6.0.8": {
-      "sha512": "ssJbtn9p7vXh3T4gi7g1Ir0bY4cJgVOU1MtTvnl4JvbLNmlq2q24SNK5jJHK/IPI37nhDqcPLHtfW40bscYU/Q==",
+    "Microsoft.Data.Sqlite.Core/6.0.9": {
+      "sha512": "vH2Mul/lTqCYIaLDl1ICvv8LrDl1870s7erbRjyWdMNWIzL05I+k6osKifzQpqFNkhAApjU3GgEYHuw1XZBoxA==",
       "type": "package",
-      "path": "microsoft.data.sqlite.core/6.0.8",
+      "path": "microsoft.data.sqlite.core/6.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -421,7 +421,7 @@
         "lib/net6.0/Microsoft.Data.Sqlite.xml",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
-        "microsoft.data.sqlite.core.6.0.8.nupkg.sha512",
+        "microsoft.data.sqlite.core.6.0.9.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
       ]
     },
@@ -904,7 +904,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "Microsoft.Data.Sqlite >= 6.0.8",
+      "Microsoft.Data.Sqlite >= 6.0.9",
       "NPOI >= 2.5.6",
       "Newtonsoft.Json >= 13.0.1",
       "Panuon.UI.Silver >= 2.2.20"
@@ -956,7 +956,7 @@
         "dependencies": {
           "Microsoft.Data.Sqlite": {
             "target": "Package",
-            "version": "[6.0.8, )"
+            "version": "[6.0.9, )"
           },
           "NPOI": {
             "target": "Package",
@@ -990,7 +990,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
