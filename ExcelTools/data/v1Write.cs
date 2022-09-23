@@ -40,8 +40,8 @@ namespace excelTools.data
 
             long startTime = Stopwatch.GetTimestamp();
 
-            int testing, numCount = 0;
-
+            int testing, numCount = 0, errorCheck = 0; ;
+            string ret;
             try
             {
                 state = 1;
@@ -185,6 +185,15 @@ namespace excelTools.data
                     if (testing == 0 || (testing == 1 && num == 1))
                         write.ExecuteNonQuery();
                     write.Parameters.Clear();
+
+                    // 限制消耗
+                    if (arr[(int)ExcelType_v1.Equip.装备限制消耗] != "")
+                    {
+                        ret = TString.LimitConfigCheck(arr[(int)ExcelType_v1.Equip.装备限制消耗]);
+                        if (ret != "") errorCheck++;
+                        else Update.Check(Update.ECheck.装备, arr[(int)ExcelType_v1.Equip.名称], arr[(int)ExcelType_v1.Equip.装备限制消耗], false);
+                    }
+                    else Update.Check(Update.ECheck.装备, arr[(int)ExcelType_v1.Equip.名称], arr[(int)ExcelType_v1.Equip.装备限制消耗], true);
                 }
             }
             catch (Exception ex)
@@ -198,6 +207,8 @@ namespace excelTools.data
 
             string stime = ((Stopwatch.GetTimestamp() - startTime) / (double)Stopwatch.Frequency).ToString("0.00");
             MessageBox.Show("执行数据量：" + numCount.ToString() + "\r\n耗时：" + stime + " s", "写入完毕");
+            if (errorCheck > 0)
+                MessageBox.Show($"本次限制消耗共有：{errorCheck}处错误未写入", "提示");
             return 0;
         }
         /// <summary>

@@ -55,7 +55,8 @@ namespace excelTools.excel
             "饥饿",
             "卸下",
             "技能",
-            "描述"
+            "描述",
+            "装备限制消耗"
         };
         /// <summary>
         /// 地图
@@ -207,6 +208,7 @@ namespace excelTools.excel
             卸下 = 15,
             技能 = 16,
             描述 = 17,
+            装备限制消耗=18,
         };
         /// <summary>
         /// 地图
