@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\apo\\C#\\天启幻境\\ExcelTools\\ExcelTools\\ExcelTools.csproj": {
-      "version": "1.2.0",
+      "version": "1.0.0",
       "restore": {
         "projectUniqueName": "D:\\apo\\C#\\天启幻境\\ExcelTools\\ExcelTools\\ExcelTools.csproj",
         "projectName": "ExcelTools",
@@ -46,7 +46,7 @@
           "dependencies": {
             "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[6.0.9, )"
+              "version": "[6.0.10, )"
             },
             "NPOI": {
               "target": "Package",
@@ -56,9 +56,13 @@
               "target": "Package",
               "version": "[13.0.1, )"
             },
-            "Panuon.UI.Silver": {
+            "Panuon.WPF": {
               "target": "Package",
-              "version": "[2.2.20, )"
+              "version": "[1.0.1, )"
+            },
+            "Panuon.WPF.UI": {
+              "target": "Package",
+              "version": "[1.1.6.5, )"
             }
           },
           "imports": [

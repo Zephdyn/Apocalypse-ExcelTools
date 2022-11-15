@@ -9,12 +9,20 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="window\Main.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainWindow.xaml">
+    <Page Update="window\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="window\Main.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

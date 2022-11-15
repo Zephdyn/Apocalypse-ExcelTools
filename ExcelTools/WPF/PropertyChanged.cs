@@ -10,10 +10,10 @@ namespace excelTools.WPF
 {
     public class WpfInfo : INotifyPropertyChanged
     {
-        private static string _Version;
+        private static string _Version; // 版本
         private static string _DbConfigInfo;
-        private static int _TabControl;
-        private static string _TabWriteDataNum;
+        private static int _TabControl; // 选择
+        private static string _TabWriteDataNum; 
         /// <summary>
         /// 软件版本信息
         /// </summary>
@@ -57,6 +57,5 @@ namespace excelTools.WPF
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
     }
 }

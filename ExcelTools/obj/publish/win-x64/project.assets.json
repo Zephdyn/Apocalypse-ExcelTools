@@ -2,10 +2,10 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
-      "Microsoft.Data.Sqlite/6.0.9": {
+      "Microsoft.Data.Sqlite/6.0.10": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "6.0.9",
+          "Microsoft.Data.Sqlite.Core": "6.0.10",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.0.6"
         },
         "compile": {
@@ -15,7 +15,7 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/6.0.9": {
+      "Microsoft.Data.Sqlite.Core/6.0.10": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6"
@@ -108,32 +108,34 @@
           }
         }
       },
-      "Panuon.UI.Core/2.2.6": {
+      "Panuon.WPF/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp3.1/Panuon.UI.Core.dll": {}
+          "lib/net6.0-windows/Panuon.WPF.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Panuon.UI.Core.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App"
-        ]
+          "lib/net6.0-windows/Panuon.WPF.dll": {
+            "related": ".pdb"
+          }
+        }
       },
-      "Panuon.UI.Silver/2.2.20": {
+      "Panuon.WPF.UI/1.1.6.5": {
         "type": "package",
         "dependencies": {
-          "Panuon.UI.Core": "2.2.6"
+          "Panuon.WPF": "1.0.1"
         },
         "compile": {
-          "lib/netcoreapp3.1/Panuon.UI.Silver.dll": {}
+          "lib/net6.0-windows/Panuon.WPF.UI.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Panuon.UI.Silver.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App"
-        ]
+          "lib/net6.0-windows/Panuon.WPF.UI.dll": {
+            "related": ".pdb"
+          }
+        }
       },
       "Portable.BouncyCastle/1.8.9": {
         "type": "package",
@@ -395,10 +397,10 @@
       }
     },
     "net6.0-windows7.0/win-x64": {
-      "Microsoft.Data.Sqlite/6.0.9": {
+      "Microsoft.Data.Sqlite/6.0.10": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "6.0.9",
+          "Microsoft.Data.Sqlite.Core": "6.0.10",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.0.6"
         },
         "compile": {
@@ -408,7 +410,7 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/6.0.9": {
+      "Microsoft.Data.Sqlite.Core/6.0.10": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6"
@@ -495,32 +497,34 @@
           }
         }
       },
-      "Panuon.UI.Core/2.2.6": {
+      "Panuon.WPF/1.0.1": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp3.1/Panuon.UI.Core.dll": {}
+          "lib/net6.0-windows/Panuon.WPF.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Panuon.UI.Core.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App"
-        ]
+          "lib/net6.0-windows/Panuon.WPF.dll": {
+            "related": ".pdb"
+          }
+        }
       },
-      "Panuon.UI.Silver/2.2.20": {
+      "Panuon.WPF.UI/1.1.6.5": {
         "type": "package",
         "dependencies": {
-          "Panuon.UI.Core": "2.2.6"
+          "Panuon.WPF": "1.0.1"
         },
         "compile": {
-          "lib/netcoreapp3.1/Panuon.UI.Silver.dll": {}
+          "lib/net6.0-windows/Panuon.WPF.UI.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Panuon.UI.Silver.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App"
-        ]
+          "lib/net6.0-windows/Panuon.WPF.UI.dll": {
+            "related": ".pdb"
+          }
+        }
       },
       "Portable.BouncyCastle/1.8.9": {
         "type": "package",
@@ -692,23 +696,23 @@
     }
   },
   "libraries": {
-    "Microsoft.Data.Sqlite/6.0.9": {
-      "sha512": "hkicTW4qEVQUgPs4qCSsd0cP1+1IiM0WRmlinnixGMUyxvIOT98BpVbQd9Ukc52q8mDEhDVam1oLa5yAofdQ1Q==",
+    "Microsoft.Data.Sqlite/6.0.10": {
+      "sha512": "pqOOplHlr/5pvq2N9NYdsCVaY7ffzz5nNzaKBgjPDrWoQg33+KG/mOjhirsxCFBYgodA6rUdwp3Gic/TpBhUQQ==",
       "type": "package",
-      "path": "microsoft.data.sqlite/6.0.9",
+      "path": "microsoft.data.sqlite/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.0/_._",
-        "microsoft.data.sqlite.6.0.9.nupkg.sha512",
+        "microsoft.data.sqlite.6.0.10.nupkg.sha512",
         "microsoft.data.sqlite.nuspec"
       ]
     },
-    "Microsoft.Data.Sqlite.Core/6.0.9": {
-      "sha512": "vH2Mul/lTqCYIaLDl1ICvv8LrDl1870s7erbRjyWdMNWIzL05I+k6osKifzQpqFNkhAApjU3GgEYHuw1XZBoxA==",
+    "Microsoft.Data.Sqlite.Core/6.0.10": {
+      "sha512": "TWUjLTzSeENkEChqWrcaAzIrD9i5M2l2qrWDI00lC38xBPUuK1Qf57ZywO+dwmr2S3yS0VUPvpdpqCrq60QaRw==",
       "type": "package",
-      "path": "microsoft.data.sqlite.core/6.0.9",
+      "path": "microsoft.data.sqlite.core/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -717,7 +721,7 @@
         "lib/net6.0/Microsoft.Data.Sqlite.xml",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
-        "microsoft.data.sqlite.core.6.0.9.nupkg.sha512",
+        "microsoft.data.sqlite.core.6.0.10.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
       ]
     },
@@ -833,36 +837,58 @@
         "npoi.nuspec"
       ]
     },
-    "Panuon.UI.Core/2.2.6": {
-      "sha512": "duhXcmodIlUdX9Cj5ApQDyqXzvionlmgE7BvzzC+ZH5P1S9jSIdN0frzuE5mDxcviTLz8WJtpqy88OM2m/K4eA==",
+    "Panuon.WPF/1.0.1": {
+      "sha512": "7vg7uSjYV54/dONsGEJJBID3BOwe7QL0zktiNIzrYhX+etqz0Sq8TnBQLC1h4OHyEuuB1FAiXff7ayKry157RQ==",
       "type": "package",
-      "path": "panuon.ui.core/2.2.6",
+      "path": "panuon.wpf/1.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net40/Panuon.UI.Core.dll",
-        "lib/net45/Panuon.UI.Core.dll",
-        "lib/net472/Panuon.UI.Core.dll",
-        "lib/netcoreapp3.1/Panuon.UI.Core.dll",
+        "lib/net45/Panuon.WPF.dll",
+        "lib/net45/Panuon.WPF.pdb",
+        "lib/net462/Panuon.WPF.dll",
+        "lib/net462/Panuon.WPF.pdb",
+        "lib/net472/Panuon.WPF.dll",
+        "lib/net472/Panuon.WPF.pdb",
+        "lib/net48/Panuon.WPF.dll",
+        "lib/net48/Panuon.WPF.pdb",
+        "lib/net5.0-windows/Panuon.WPF.dll",
+        "lib/net5.0-windows/Panuon.WPF.pdb",
+        "lib/net6.0-windows/Panuon.WPF.dll",
+        "lib/net6.0-windows/Panuon.WPF.pdb",
+        "lib/netcoreapp3.1/Panuon.WPF.dll",
+        "lib/netcoreapp3.1/Panuon.WPF.pdb",
         "nuget.exe",
-        "panuon.ui.core.2.2.6.nupkg.sha512",
-        "panuon.ui.core.nuspec"
+        "panuon.wpf.1.0.1.nupkg.sha512",
+        "panuon.wpf.nuspec",
+        "批量复制.bat"
       ]
     },
-    "Panuon.UI.Silver/2.2.20": {
-      "sha512": "IyTxpOsSTB11fjm6W4Idbn/QWm0MbQVUKGHKMb+8pNkx39w+uP5df697WCSZSciBF/hDBP1yswS5oat4lG+oag==",
+    "Panuon.WPF.UI/1.1.6.5": {
+      "sha512": "vLP5YXGcziWHNSzh9AgPEcJ/8jqufUeM6DmYC1+6DnQPof+tdd59JxuVlvyFCRhq7igxYxTC9YWIfuK9z67B9w==",
       "type": "package",
-      "path": "panuon.ui.silver/2.2.20",
+      "path": "panuon.wpf.ui/1.1.6.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net40/Panuon.UI.Silver.dll",
-        "lib/net45/Panuon.UI.Silver.dll",
-        "lib/net472/Panuon.UI.Silver.dll",
-        "lib/netcoreapp3.1/Panuon.UI.Silver.dll",
+        "lib/net45/Panuon.WPF.UI.dll",
+        "lib/net45/Panuon.WPF.UI.pdb",
+        "lib/net462/Panuon.WPF.UI.dll",
+        "lib/net462/Panuon.WPF.UI.pdb",
+        "lib/net472/Panuon.WPF.UI.dll",
+        "lib/net472/Panuon.WPF.UI.pdb",
+        "lib/net48/Panuon.WPF.UI.dll",
+        "lib/net48/Panuon.WPF.UI.pdb",
+        "lib/net5.0-windows/Panuon.WPF.UI.dll",
+        "lib/net5.0-windows/Panuon.WPF.UI.pdb",
+        "lib/net6.0-windows/Panuon.WPF.UI.dll",
+        "lib/net6.0-windows/Panuon.WPF.UI.pdb",
+        "lib/netcoreapp3.1/Panuon.WPF.UI.dll",
+        "lib/netcoreapp3.1/Panuon.WPF.UI.pdb",
         "nuget.exe",
-        "panuon.ui.silver.2.2.20.nupkg.sha512",
-        "panuon.ui.silver.nuspec"
+        "panuon.wpf.ui.1.1.6.5.nupkg.sha512",
+        "panuon.wpf.ui.nuspec",
+        "批量复制.bat"
       ]
     },
     "Portable.BouncyCastle/1.8.9": {
@@ -1200,10 +1226,10 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "Microsoft.Data.Sqlite >= 6.0.9",
+      "Microsoft.Data.Sqlite >= 6.0.10",
       "NPOI >= 2.5.6",
       "Newtonsoft.Json >= 13.0.1",
-      "Panuon.UI.Silver >= 2.2.20"
+      "Panuon.WPF.UI >= 1.1.6.5"
     ]
   },
   "packageFolders": {
@@ -1252,7 +1278,7 @@
         "dependencies": {
           "Microsoft.Data.Sqlite": {
             "target": "Package",
-            "version": "[6.0.9, )"
+            "version": "[6.0.10, )"
           },
           "NPOI": {
             "target": "Package",
@@ -1262,9 +1288,9 @@
             "target": "Package",
             "version": "[13.0.1, )"
           },
-          "Panuon.UI.Silver": {
+          "Panuon.WPF.UI": {
             "target": "Package",
-            "version": "[2.2.20, )"
+            "version": "[1.1.6.5, )"
           }
         },
         "imports": [
@@ -1286,7 +1312,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

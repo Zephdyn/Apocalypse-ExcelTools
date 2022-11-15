@@ -16,6 +16,7 @@ using Microsoft.Win32;
 using excelTools.WPF;
 using excelTools.data;
 using excelTools.excel;
+using System.Windows.Input;
 
 namespace ExcelTools
 {
@@ -528,6 +529,12 @@ namespace ExcelTools
             int sheeId = Tab_3_ComboBox_Shhet.SelectedIndex;
             Tab_2_Get(GetDataVersion, GetDataReadType, GetDataFileName, sheeId);
         }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
     }
 
     class TrdRead

@@ -4,13 +4,16 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>1.2.0</Version>
+    <Version>1.0.0</Version>
     <Authors>枭</Authors>
     <Description>天启幻境II - Excel快速操作工具</Description>
     <Copyright>apocalypse - Tapdrd</Copyright>
     <NeutralLanguage>zh-CN</NeutralLanguage>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
     <UseWindowsForms>False</UseWindowsForms>
+    <FileVersion></FileVersion>
+    <PackageIcon>logo.png</PackageIcon>
+    <ApplicationIcon>window\favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -23,14 +26,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\Microsoft.Data.Sqlite.png" />
+    <None Remove="images\Newtonsoft.Json.png" />
+    <None Remove="images\NPOI.png" />
+    <None Remove="images\Panuon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="window\favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.9" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NPOI" Version="2.5.6" />
-    <PackageReference Include="Panuon.UI.Silver" Version="2.2.20" />
+    <PackageReference Include="Panuon.WPF" Version="1.0.1" />
+    <PackageReference Include="Panuon.WPF.UI" Version="1.1.6.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\about\Microsoft.Data.Sqlite.png" />
+    <Resource Include="images\about\Newtonsoft.Json.png" />
+    <Resource Include="images\about\NPOI.png" />
+    <Resource Include="images\about\Panuon.png" />
+    <Resource Include="window\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +80,10 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="window\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
