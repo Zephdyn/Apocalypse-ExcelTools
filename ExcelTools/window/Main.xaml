@@ -138,6 +138,7 @@
                 Background="Transparent"
                 BorderThickness="0"
                 SelectedIndex="{Binding TabControl}"
+                SelectionChanged="功能_栏_SelectionChanged"
                 TabStripPlacement="Left">
                 <!--  首页  -->
                 <TabItem x:Name="TabItem_首页" Header="&#xE941; 首页">
@@ -479,10 +480,254 @@
                     </Grid>
                 </TabItem>
                 <!--  功能  -->
-                <TabItem
-                    x:Name="TabItem_导入"
-                    Content="2"
-                    Header="&#xE9AF; 导入" />
+                <TabItem x:Name="TabItem_导入" Header="&#xE9AF; 导入">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="120" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <StackPanel Margin="0,0,0,15">
+                                <pu:Card
+                                    Height="70"
+                                    Margin="0,15,0,0"
+                                    pu:ShadowHelper.BlurRadius="15"
+                                    pu:ShadowHelper.Direction="270"
+                                    pu:ShadowHelper.Opacity="0.15"
+                                    pu:ShadowHelper.ShadowDepth="7"
+                                    Background="White"
+                                    BorderThickness="0"
+                                    CornerRadius="10"
+                                    ShadowColor="Gray">
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="150" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            pu:LabelHelper.CornerRadius="5"
+                                            Background="#69d0cb"
+                                            Content="&#xe9c2;"
+                                            FontFamily="{StaticResource PanuonIconFont}"
+                                            FontSize="20"
+                                            Foreground="White" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Margin="15,0,0,0"
+                                            VerticalAlignment="Center">
+                                            <TextBlock
+                                                FontSize="15"
+                                                FontWeight="Bold"
+                                                Text="数据库信息" />
+                                            <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                                                <TextBlock Foreground="#C9D4E4" Text="支持:3.3.0(30300001)" />
+                                                <Rectangle
+                                                    Width="1"
+                                                    Margin="10,0"
+                                                    Fill="#EFEFEF" />
+                                                <TextBlock Foreground="#C9D4E4" Text="当前:3.3.0" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Grid Grid.Column="2" VerticalAlignment="Center">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Button
+                                                Grid.RowSpan="3"
+                                                Height="30"
+                                                Padding="15,0"
+                                                VerticalAlignment="Top"
+                                                pu:ButtonHelper.CornerRadius="15"
+                                                pu:ButtonHelper.Icon="&#xe989;"
+                                                pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                pu:IconHelper.FontSize="12"
+                                                pu:IconHelper.Margin="0,0,10,0"
+                                                Background="#F44336"
+                                                Content="连接"
+                                                Foreground="White" />
+                                            <!--<ProgressBar
+                                                Grid.Row="2"
+                                                Height="10"
+                                                Margin="0,10,0,0"
+                                                pu:ProgressBarHelper.CornerRadius="5"
+                                                Background="#EFEFEF"
+                                                Foreground="#3480F1"
+                                                Value="50" />-->
+                                        </Grid>
+                                    </Grid>
+                                </pu:Card>
+
+                            </StackPanel>
+                        </Grid>
+                        <!--  滚动条  -->
+                        <Grid Grid.Row="1">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" MinHeight="120" />
+                                        <RowDefinition Height="1*" MinHeight="120" />
+                                        <RowDefinition Height="1*" MinHeight="120" />
+                                        <RowDefinition Height="1*" MinHeight="120" />
+                                        <RowDefinition Height="1*" MinHeight="120" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="350" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="350" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <!--  装备  -->
+                                    <Grid Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border
+                                            Width="50"
+                                            Height="50"
+                                            CornerRadius="25">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/images/excel/equip.png" />
+                                            </Border.Background>
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.RowSpan="2"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Center">
+                                                <TextBlock Text="装备" />
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="游戏中使用装饰物" />
+                                            </StackPanel>
+                                            <Grid Grid.Row="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button
+                                                    Grid.Column="2"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#03A9F4"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="1"
+                                                    Content="示例导出"
+                                                    Foreground="White" />
+                                                <Button
+                                                    Grid.Column="4"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#009688"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="1"
+                                                    Content="数据导入"
+                                                    Foreground="White" />
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border
+                                            Width="50"
+                                            Height="50"
+                                            CornerRadius="25">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/images/excel/map.png" />
+                                            </Border.Background>
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.RowSpan="2"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Center">
+                                                <TextBlock Text="地图" />
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="游戏中使用装饰物" />
+                                            </StackPanel>
+                                            <Grid Grid.Row="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button
+                                                    Grid.Column="2"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#03A9F4"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="2"
+                                                    Content="示例导出"
+                                                    Foreground="White" />
+                                                <Button
+                                                    Grid.Column="4"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#009688"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="2"
+                                                    Content="数据导入"
+                                                    Foreground="White" />
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+
+                                </Grid>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </TabItem>
                 <TabItem x:Name="TabItem_关于" Header="&#xE92F; 关于">
                     <Grid>
                         <Grid.RowDefinitions>

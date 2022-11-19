@@ -26,6 +26,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\excel\equip.png" />
+    <None Remove="images\excel\map.png" />
+    <None Remove="images\excel\monster.png" />
     <None Remove="images\Microsoft.Data.Sqlite.png" />
     <None Remove="images\Newtonsoft.Json.png" />
     <None Remove="images\NPOI.png" />
@@ -41,9 +44,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.10" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NPOI" Version="2.5.6" />
+    <PackageReference Include="NPOI" Version="2.6.0" />
     <PackageReference Include="Panuon.WPF" Version="1.0.1" />
     <PackageReference Include="Panuon.WPF.UI" Version="1.1.6.5" />
   </ItemGroup>
@@ -53,6 +56,9 @@
     <Resource Include="images\about\Newtonsoft.Json.png" />
     <Resource Include="images\about\NPOI.png" />
     <Resource Include="images\about\Panuon.png" />
+    <Resource Include="images\excel\map.png" />
+    <Resource Include="images\excel\equip.png" />
+    <Resource Include="images\excel\monster.png" />
     <Resource Include="window\logo.png" />
   </ItemGroup>
 

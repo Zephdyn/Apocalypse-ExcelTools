@@ -1,8 +1,12 @@
 ﻿using excelTools.data;
+using excelTools.excel;
 using excelTools.WPF;
+using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,6 +36,12 @@ namespace ExcelTools.window
         private static readonly int DatabaseVersion = 3030001;
         // 当前数据库版本
         private static int DatabaseReadVersion;
+
+        // 打开保存文件
+        readonly OpenFileDialog Odialog = new();
+        readonly SaveFileDialog Sdialog = new();
+        // 写入类型
+        private static int WriteType = 0;
         public Main()
         {
             // 窗口居中显示
@@ -132,8 +142,107 @@ namespace ExcelTools.window
                     "警告",
                     MessageBoxButton.OKCancel) != MessageBoxResult.OK)
                     return false;
+
+            Debug.WriteLine("数据库已连接", filePath);
             return true;
         }
 
+
+        private void 功能_栏_SelectionChanged(object sender, SelectionChangedEventArgs e) // 选择夹选中
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                var data = this.功能_栏.SelectedItem as TabItem;
+                var datas = data.Header; //主要是在后端获取到当前的TabItem的Heade 
+                Debug.WriteLine("content:" + this.功能_栏.SelectedContent + "; index = " + this.功能_栏.SelectedIndex + "; datas" + datas);
+
+            }));
+        }
+
+        private void Button_Excel_Click(object sender, RoutedEventArgs e) // 数据导入
+        {
+            Button bt = sender as Button;
+            int command = Int32.Parse(bt.CommandParameter.ToString());
+            string content = bt.Content.ToString();
+            Debug.WriteLine(content);
+            Debug.WriteLine(Config.Status());
+            if (Config.Status() != (int)System.Data.ConnectionState.Open)
+            {
+                if (content == "数据导入")
+                {
+                    MessageBox.Show("还未连接数据库");
+                    return;
+                }
+            }
+            string[] Rtype = Array.Empty<string>();
+            string name = "";
+            byte[] template = Array.Empty<byte>();
+            switch (command)
+            {
+                case 1:
+                    Rtype = ExcelTypeRead_v1.equip;
+                    name = "装备示例.xlsx";
+                    template = Properties.Resources.装备示例;
+                    break;
+                case 2:
+                    Rtype = ExcelTypeRead_v1.map;
+                    name = "地图示例.xlsx";
+                    template = Properties.Resources.地图示例;
+                    break;
+                case 3:
+                    Rtype = ExcelTypeRead_v1.monster;
+                    name = "怪物示例.xlsx";
+                    template = Properties.Resources.怪物示例;
+                    break;
+                case 4:
+                    Rtype = ExcelTypeRead_v1.drop;
+                    name = "掉落示例.xlsx";
+                    template = Properties.Resources.掉落示例;
+                    break;
+                case 5:
+                    Rtype = ExcelTypeRead_v1.goods;
+                    name = "物品示例.xlsx";
+                    template = Properties.Resources.物品示例;
+                    break;
+                case 6:
+                    Rtype = ExcelTypeRead_v1.shop;
+                    name = "商店示例.xlsx";
+                    template = Properties.Resources.商店示例;
+                    break;
+                case 7:
+                    Rtype = ExcelTypeRead_v1.duties;
+                    name = "任务示例.xlsx";
+                    template = Properties.Resources.任务示例;
+                    break;
+                case 8:
+                    Rtype = ExcelTypeRead_v1.copy;
+                    name = "副本示例.xlsx";
+                    template = Properties.Resources.副本示例;
+                    break;
+
+            }
+            if (content=="数据导入")
+            {
+                // 选择excel
+                Odialog.Filter = "Xlsx|*.xlsx|Xls|*.xls";
+                if (Odialog.ShowDialog(this) == false) return;
+                var _fileName = Odialog.FileName;
+                // 进行数据读取
+                WriteType = command;
+                //Tab_2_Get(1, Rtype, _fileName, 0);
+            }
+            else
+            {
+                // 导出excel示例
+                Sdialog.FileName = name;
+                Sdialog.Filter = "Excel(*xlsx)|*.xlsx";
+                if (Sdialog.ShowDialog(this) == false) return;
+                var _fileName = Sdialog.FileName;
+
+                //byte[] template = Properties.Resources.装备示例;
+                File.WriteAllBytes(_fileName, template);
+                MessageBox.Show("已写出示例文件");
+            }
+        }
     }
 }
