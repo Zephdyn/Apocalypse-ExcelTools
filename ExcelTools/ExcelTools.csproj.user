@@ -12,6 +12,9 @@
     <Compile Update="window\Main.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="window\Window_Excel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
@@ -19,10 +22,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="window\MainWindow.xaml">
+    <Page Update="window\Main.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="window\Main.xaml">
+    <Page Update="window\Window_Excel.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

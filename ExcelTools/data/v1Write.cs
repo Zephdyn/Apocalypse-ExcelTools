@@ -8,6 +8,10 @@ using Microsoft.Data.Sqlite;
 using System.Windows;
 using System.Data;
 using System.Diagnostics;
+using System.Windows.Documents;
+using static excelTools.excel.ExcelType_v1;
+using static NPOI.HSSF.Util.HSSFColor;
+using System.Windows.Controls.Primitives;
 
 namespace excelTools.data
 {
@@ -45,6 +49,8 @@ namespace excelTools.data
             try
             {
                 state = 1;
+                // 读取所有数据
+                List<string> selectArr = Sqlite.SelectAll("装备配置", "SELECT `装备` FROM `装备配置`", null, "装备");
                 for (int i = 0; i < arrWrite.Count; i++)
                 {
                     numCount++;
@@ -64,14 +70,13 @@ namespace excelTools.data
                         new object[2] { "@装备", arr[(int)ExcelType_v1.Equip.名称] }
                     };
 
-                    if (Sqlite.Select("SELECT `装备` FROM `装备配置` WHERE `装备` = @装备", list))
+                    if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Equip.名称]))
                     {
                         write.CommandText = @"
                         UPDATE `装备配置` SET
                         `部位` = @部位, `等级` = @等级, `生命` = @生命, `法力` = @法力, `攻击` = @攻击, `防御` = @防御, `闪避`=@闪避, `命中`=@命中,
                         `暴击概率` = @暴击概率, `暴击伤害` = @暴击伤害, `技能` = @技能, `饥饿` = @饥饿, `bind` = @bind
                         WHERE `装备` = @装备";
-
                     }
                     else
                     {
@@ -79,6 +84,7 @@ namespace excelTools.data
                         INSERT INTO `装备配置`
                         (`装备`,`部位`,`等级`,`生命`,`法力`,`攻击`,`防御`,`闪避`,`命中`,`暴击概率`,`暴击伤害`,`技能`,`饥饿`,`bind`) VALUES
                         (@装备,@部位,@等级,@生命,@法力,@攻击,@防御,@闪避,@命中,@暴击概率,@暴击伤害,@技能,@饥饿,@bind);";
+                        selectArr.Add(arr[(int)ExcelType_v1.Equip.名称]); // 已添加,后续有重复的视为修改
                     }
                     // 对数据进行处理
                     //"名称",
@@ -233,6 +239,9 @@ namespace excelTools.data
             try
             {
                 state = 1;
+                // 读取所有数据
+                List<string> selectArr = Sqlite.SelectAll("config_map", "SELECT `id`,`map` FROM `config_map`", null, "map");
+
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
 
@@ -254,7 +263,7 @@ namespace excelTools.data
                         new object[2] { "@map", arr[(int)ExcelType_v1.Map.位置] }
                     };
 
-                    if (Sqlite.Select("SELECT `id` FROM `config_map` WHERE `map` = @map", list))
+                    if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Map.位置]))
                     {
                         write.CommandText = @"
                         UPDATE `config_map` SET
@@ -269,6 +278,7 @@ namespace excelTools.data
                         INSERT INTO `config_map`
                         (`map`,`pos_1`, `pos_2`,`pos_3`,`pos_4` ,`pos_5`, `pos_6`,`status`) VALUES
                         (@map, @pos1, @pos2, @pos3, @pos4, @pos5, @pos6, @status);";
+                        selectArr.Add(arr[(int)ExcelType_v1.Map.位置]);
                     }
                     // 对数据进行处理
                     write.Parameters.AddWithValue("@map", arr[(int)ExcelType_v1.Map.位置]);
@@ -370,6 +380,8 @@ namespace excelTools.data
             try
             {
                 state = 1;
+                // 读取所有数据
+                List<string> selectArr = Sqlite.SelectAll("config_monster", "SELECT `id`,`monster` FROM `config_monster`", null, "monster");
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
@@ -392,7 +404,7 @@ namespace excelTools.data
                         new object[2] { "@monster", arr[(int)ExcelType_v1.Monster.怪物] }
                     };
 
-                    if (Sqlite.Select("SELECT `id` FROM `config_monster` WHERE `monster` = @monster", list))
+                    if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Monster.怪物]))
                     {
                         write.CommandText = @"
                         UPDATE `config_monster` SET
@@ -407,6 +419,7 @@ namespace excelTools.data
                         INSERT INTO `config_monster`
                         (`monster`,`lv`,`life`,`mana`,`attack`,`def`,`crit_prob`,`crit_hurt`,`drop`,`show`,`dodge`,`hit`,`show_map`) VALUES
                         (@monster,@lv,@life,@mana,@attack,@def,@prob,@hurt,@drop,@show,@dodge,@hit,@show_map);";
+                        selectArr.Add(arr[(int)ExcelType_v1.Monster.怪物]);
                     }
                     // 对数据进行处理
                     write.Parameters.AddWithValue("@monster", arr[(int)ExcelType_v1.Monster.怪物]);
@@ -675,6 +688,8 @@ namespace excelTools.data
             {
                 // 0(null) 1(num) 2(double) 3(string)
                 state = 1;
+                // 读取所有数据
+                List<string> selectArr = Sqlite.SelectAll("道具配置", "SELECT `道具` FROM `道具配置`", null, "道具");
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
@@ -691,7 +706,7 @@ namespace excelTools.data
                     if (goodsType < 1 || goodsType > 10) continue;
                     numCount++; // 执行的次数
                     Numwrite = i + 1; // 外部显示当前处理进度
-                    // 每3000提交一次事务
+                                      // 每3000提交一次事务
                     if (i > 0 && i % 3000 == 0)
                     {
                         transaction.Commit();
@@ -739,8 +754,15 @@ namespace excelTools.data
 
                     };
 
-                    if (Sqlite.Select("SELECT `道具` FROM `道具配置` WHERE `道具`= @goods", list)) sqlTxt = "UPDATE `道具配置` SET `类型` = @type ,`名称` = @value,`绑定` = @bind,'批量' = @batch,`战斗` = @fight WHERE `道具` = @goods";
-                    else sqlTxt = "INSERT INTO `道具配置` (`道具`,`类型`,`名称`,`绑定`,'批量',`战斗`) VALUES (@goods, @type, @value, @bind, @batch, @fight)";
+                    if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Goods.物品]))
+                    {
+                        sqlTxt = "UPDATE `道具配置` SET `类型` = @type ,`名称` = @value,`绑定` = @bind,'批量' = @batch,`战斗` = @fight WHERE `道具` = @goods";
+                    }
+                    else
+                    {
+                        sqlTxt = "INSERT INTO `道具配置` (`道具`,`类型`,`名称`,`绑定`,'批量',`战斗`) VALUES (@goods, @type, @value, @bind, @batch, @fight)";
+                        selectArr.Add(arr[(int)ExcelType_v1.Goods.物品]);
+                    }
 
                     list = new()
                     {
@@ -827,7 +849,7 @@ namespace excelTools.data
 
                     numCount++; // 执行的次数
                     Numwrite = i + 1; // 外部显示当前处理进度
-                    // 每3000提交一次事务
+                                      // 每3000提交一次事务
                     if (i > 0 && i % 3000 == 0)
                     {
                         transaction.Commit();
@@ -1080,6 +1102,9 @@ namespace excelTools.data
 
                 numCount = 0;
                 state = 1;
+                // 读取所有数据
+                List<string> selectArr = Sqlite.SelectAll("任务配置", "SELECT `任务` FROM `任务配置`", null, "任务");
+
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
@@ -1090,7 +1115,7 @@ namespace excelTools.data
 
                     numCount++; // 执行的次数
                     Numwrite = i + 1; // 外部显示当前处理进度
-                    // 每1000提交一次事务
+                                      // 每1000提交一次事务
                     if (i > 0 && i % 1000 == 0)
                     {
                         transaction.Commit();
@@ -1115,8 +1140,15 @@ namespace excelTools.data
                         new object[] { "@任务", duties }
                     };
 
-                    if (Sqlite.Select("SELECT `任务` FROM `任务配置`  WHERE `任务`=@任务;", sList)) sqlTxt = "UPDATE `任务配置` SET `类型`=@类型 , `掉落` = @掉落 WHERE `任务` = @任务;";
-                    else sqlTxt = "INSERT INTO `任务配置` (`任务`,`类型`,`掉落`) VALUES (@任务,@类型,@掉落);";
+                    if (selectArr.Exists(t => t == duties))
+                    {
+                        sqlTxt = "UPDATE `任务配置` SET `类型`=@类型 , `掉落` = @掉落 WHERE `任务` = @任务;";
+                    }
+                    else
+                    {
+                        sqlTxt = "INSERT INTO `任务配置` (`任务`,`类型`,`掉落`) VALUES (@任务,@类型,@掉落);";
+                        selectArr.Add(duties);
+                    }
                     sList.Add(new object[] { "@类型", typeString });
                     sList.Add(new object[] { "@掉落", drop });
                     Sqlite.NonQuery(sqlTxt, sList);
@@ -1268,6 +1300,9 @@ namespace excelTools.data
                 transaction = con.BeginTransaction();
                 numCount = 0;
                 state = 1;
+                // 读取所有数据
+                List<string> selectArr = Sqlite.SelectAll("副本配置", "SELECT `ID`,`copy` FROM `副本配置`", null, "copy");
+
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
@@ -1278,7 +1313,7 @@ namespace excelTools.data
 
                     numCount++; // 执行的次数
                     Numwrite = i + 1; // 外部显示当前处理进度
-                    // 每1000提交一次事务
+                                      // 每1000提交一次事务
                     if (i > 0 && i % 1000 == 0)
                     {
                         transaction.Commit();
@@ -1318,9 +1353,15 @@ namespace excelTools.data
                     {
                         new object[] { "@copy", copy }
                     };
-
-                    if (Sqlite.Select("SELECT `ID` FROM `副本配置` WHERE `copy` = @copy", list)) sqlTxt = "UPDATE `副本配置` SET `type`=@type, `t_number`=@entries, `reward_1`=@rewardType, `c_drop`=@rewards, `sor`=@copySort,`limit_user`=@limitUser WHERE `copy` = @copy;";
-                    else sqlTxt = "INSERT INTO `副本配置` (`copy`,`type`,`t_number`,`reward_1`,`c_drop`,`sor`,`limit_user`) VALUES (@copy,@type,@entries,@rewardType,@rewards,@copySort,@limitUser);";
+                    if (selectArr.Exists(t => t == copy))
+                    {
+                        sqlTxt = "UPDATE `副本配置` SET `type`=@type, `t_number`=@entries, `reward_1`=@rewardType, `c_drop`=@rewards, `sor`=@copySort,`limit_user`=@limitUser WHERE `copy` = @copy;";
+                    }
+                    else
+                    {
+                        sqlTxt = "INSERT INTO `副本配置` (`copy`,`type`,`t_number`,`reward_1`,`c_drop`,`sor`,`limit_user`) VALUES (@copy,@type,@entries,@rewardType,@rewards,@copySort,@limitUser);";
+                        selectArr.Add(copy);
+                    }
                     list.Add(new object[] { "type", type });
                     list.Add(new object[] { "entries", entries });
                     list.Add(new object[] { "rewardType", rewardType });

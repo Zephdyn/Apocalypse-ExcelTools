@@ -14,6 +14,7 @@
     MinHeight="665"
     d:DataContext="{d:DesignInstance Type=wpf:WpfInfo}"
     AllowsTransparency="True"
+    KeyDown="Window_PreviewKeyDown"
     WindowStyle="None"
     mc:Ignorable="d">
     <WindowChrome.WindowChrome>
@@ -524,7 +525,7 @@
                                                 FontWeight="Bold"
                                                 Text="数据库信息" />
                                             <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                                <TextBlock Foreground="#757575" Text="支持：3.3.0(30300001)" />
+                                                <TextBlock Foreground="#757575" Text="支持：3.3.0(3030001)" />
                                                 <Rectangle
                                                     Width="1"
                                                     Margin="10,0"
@@ -549,6 +550,7 @@
                                                 pu:IconHelper.FontSize="12"
                                                 pu:IconHelper.Margin="0,0,10,0"
                                                 Background="{Binding DbConnectButtonBackground, FallbackValue=#FFF44336}"
+                                                Click="Button_Click_OpenDB"
                                                 Content="连接"
                                                 Foreground="White" />
                                             <!--<ProgressBar
@@ -627,7 +629,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#03A9F4"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="1"
                                                     Content="示例导出"
                                                     Foreground="White" />
@@ -641,7 +643,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#009688"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="1"
                                                     Content="数据导入"
                                                     Foreground="White" />
@@ -694,7 +696,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#03A9F4"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="2"
                                                     Content="示例导出"
                                                     Foreground="White" />
@@ -708,7 +710,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#009688"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="2"
                                                     Content="数据导入"
                                                     Foreground="White" />
@@ -761,7 +763,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#03A9F4"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="3"
                                                     Content="示例导出"
                                                     Foreground="White" />
@@ -775,7 +777,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#009688"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="3"
                                                     Content="数据导入"
                                                     Foreground="White" />
@@ -828,7 +830,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#03A9F4"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="4"
                                                     Content="示例导出"
                                                     Foreground="White" />
@@ -842,7 +844,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#009688"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="4"
                                                     Content="数据导入"
                                                     Foreground="White" />
@@ -895,7 +897,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#03A9F4"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="4"
                                                     Content="示例导出"
                                                     Foreground="White" />
@@ -909,7 +911,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#009688"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="5"
                                                     Content="数据导入"
                                                     Foreground="White" />
@@ -962,7 +964,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#03A9F4"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="6"
                                                     Content="示例导出"
                                                     Foreground="White" />
@@ -976,7 +978,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#009688"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="6"
                                                     Content="数据导入"
                                                     Foreground="White" />
@@ -1029,7 +1031,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#03A9F4"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="7"
                                                     Content="示例导出"
                                                     Foreground="White" />
@@ -1043,7 +1045,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#009688"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="7"
                                                     Content="数据导入"
                                                     Foreground="White" />
@@ -1096,7 +1098,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#03A9F4"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="8"
                                                     Content="示例导出"
                                                     Foreground="White" />
@@ -1110,7 +1112,7 @@
                                                     pu:IconHelper.FontSize="12"
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#009688"
-                                                    Click="Button_Excel_Click"
+                                                    Click="Button_Click_Excel"
                                                     CommandParameter="8"
                                                     Content="数据导入"
                                                     Foreground="White" />
