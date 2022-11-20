@@ -26,9 +26,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\excel\copy.png" />
+    <None Remove="images\excel\drop.png" />
     <None Remove="images\excel\equip.png" />
+    <None Remove="images\excel\goods.png" />
     <None Remove="images\excel\map.png" />
     <None Remove="images\excel\monster.png" />
+    <None Remove="images\excel\shop.png" />
+    <None Remove="images\excel\task.png" />
     <None Remove="images\Microsoft.Data.Sqlite.png" />
     <None Remove="images\Newtonsoft.Json.png" />
     <None Remove="images\NPOI.png" />
@@ -56,9 +61,14 @@
     <Resource Include="images\about\Newtonsoft.Json.png" />
     <Resource Include="images\about\NPOI.png" />
     <Resource Include="images\about\Panuon.png" />
+    <Resource Include="images\excel\copy.png" />
+    <Resource Include="images\excel\drop.png" />
+    <Resource Include="images\excel\goods.png" />
     <Resource Include="images\excel\map.png" />
     <Resource Include="images\excel\equip.png" />
     <Resource Include="images\excel\monster.png" />
+    <Resource Include="images\excel\shop.png" />
+    <Resource Include="images\excel\task.png" />
     <Resource Include="window\logo.png" />
   </ItemGroup>
 

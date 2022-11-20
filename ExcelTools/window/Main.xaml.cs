@@ -99,6 +99,7 @@ namespace ExcelTools.window
         }
         private void 顶层_关闭_Click(object sender, RoutedEventArgs e)
         {
+            Debug.WriteLine("index = " + this.功能_栏.SelectedIndex);
             this.Close();
         }
         #endregion
@@ -109,6 +110,7 @@ namespace ExcelTools.window
         /// <returns></returns>
         private static bool GetConfigInfo(string filePath)
         {
+            WIfon.DbConfigInfo = "未连接数据库";
             if (!File.Exists(filePath))// 路径不存在
             {
                 return false;
@@ -137,13 +139,20 @@ namespace ExcelTools.window
             }
             // 读取版本超过 软件版本
             if (DatabaseReadVersion > DatabaseVersion)
+            {
                 if (MessageBox.Show(
                     $"当前数据库版本大于本工具, 推荐使用与数据库版本匹配的工具{System.Environment.NewLine}否则可能出现导入数据后异常的情况{System.Environment.NewLine}当前数据库版本：{DatabaseReadVersion} {System.Environment.NewLine} 当前工具支持版本：{DatabaseVersion}{System.Environment.NewLine} 是否要继续使用?",
                     "警告",
                     MessageBoxButton.OKCancel) != MessageBoxResult.OK)
                     return false;
-
-            Debug.WriteLine("数据库已连接", filePath);
+                // 显示黄色
+                WIfon.DbConnectButtonBackground = "#FF9800";
+            }
+            else {
+                // 显示绿色
+                WIfon.DbConnectButtonBackground = "#4CAF50";
+            }
+            WIfon.DbConfigInfo = $"当前版本：{ver[0]}({ver[1]})";
             return true;
         }
 

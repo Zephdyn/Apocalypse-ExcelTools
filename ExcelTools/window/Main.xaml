@@ -524,12 +524,12 @@
                                                 FontWeight="Bold"
                                                 Text="数据库信息" />
                                             <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                                <TextBlock Foreground="#C9D4E4" Text="支持:3.3.0(30300001)" />
+                                                <TextBlock Foreground="#757575" Text="支持：3.3.0(30300001)" />
                                                 <Rectangle
                                                     Width="1"
                                                     Margin="10,0"
                                                     Fill="#EFEFEF" />
-                                                <TextBlock Foreground="#C9D4E4" Text="当前:3.3.0" />
+                                                <TextBlock Foreground="#757575" Text="{Binding DbConfigInfo, FallbackValue=当前版本}" />
                                             </StackPanel>
                                         </StackPanel>
                                         <Grid Grid.Column="2" VerticalAlignment="Center">
@@ -548,7 +548,7 @@
                                                 pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
                                                 pu:IconHelper.FontSize="12"
                                                 pu:IconHelper.Margin="0,0,10,0"
-                                                Background="#F44336"
+                                                Background="{Binding DbConnectButtonBackground, FallbackValue=#FFF44336}"
                                                 Content="连接"
                                                 Foreground="White" />
                                             <!--<ProgressBar
@@ -570,11 +570,10 @@
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*" MinHeight="120" />
-                                        <RowDefinition Height="1*" MinHeight="120" />
-                                        <RowDefinition Height="1*" MinHeight="120" />
-                                        <RowDefinition Height="1*" MinHeight="120" />
-                                        <RowDefinition Height="1*" MinHeight="120" />
+                                        <RowDefinition Height="1*" MinHeight="100" />
+                                        <RowDefinition Height="1*" MinHeight="100" />
+                                        <RowDefinition Height="1*" MinHeight="100" />
+                                        <RowDefinition Height="1*" MinHeight="100" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
@@ -608,10 +607,7 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="装备" />
-                                                <TextBlock
-                                                    Margin="0,5,0,0"
-                                                    Foreground="#AAAAAA"
-                                                    Text="游戏中使用装饰物" />
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="角色 " /><Run Language="zh-cn" Text="增强" /><Run Language="zh-cn" Text="/" /><Run Text="装饰物" /></TextBlock>
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -653,6 +649,7 @@
 
                                         </Grid>
                                     </Grid>
+                                    <!--  地图  -->
                                     <Grid Grid.Column="3">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -677,10 +674,7 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="地图" />
-                                                <TextBlock
-                                                    Margin="0,5,0,0"
-                                                    Foreground="#AAAAAA"
-                                                    Text="游戏中使用装饰物" />
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="增加可活动范围" /></TextBlock>
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -716,6 +710,408 @@
                                                     Background="#009688"
                                                     Click="Button_Excel_Click"
                                                     CommandParameter="2"
+                                                    Content="数据导入"
+                                                    Foreground="White" />
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+                                    <!--  怪物  -->
+                                    <Grid Grid.Row="1" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border
+                                            Width="50"
+                                            Height="50"
+                                            CornerRadius="25">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/images/excel/monster.png" />
+                                            </Border.Background>
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.RowSpan="2"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Center">
+                                                <TextBlock Text="怪物" />
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="怪异物类与角色对抗" /></TextBlock>
+                                            </StackPanel>
+                                            <Grid Grid.Row="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button
+                                                    Grid.Column="2"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#03A9F4"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="3"
+                                                    Content="示例导出"
+                                                    Foreground="White" />
+                                                <Button
+                                                    Grid.Column="4"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#009688"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="3"
+                                                    Content="数据导入"
+                                                    Foreground="White" />
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+                                    <!--  掉落  -->
+                                    <Grid Grid.Row="1" Grid.Column="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border
+                                            Width="50"
+                                            Height="50"
+                                            CornerRadius="25">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/images/excel/drop.png" />
+                                            </Border.Background>
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.RowSpan="2"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Center">
+                                                <TextBlock Text="掉落" />
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="使用/打怪/彩蛋 获得奖励" /><LineBreak /><Run Language="zh-cn" /></TextBlock>
+                                            </StackPanel>
+                                            <Grid Grid.Row="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button
+                                                    Grid.Column="2"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#03A9F4"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="4"
+                                                    Content="示例导出"
+                                                    Foreground="White" />
+                                                <Button
+                                                    Grid.Column="4"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#009688"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="4"
+                                                    Content="数据导入"
+                                                    Foreground="White" />
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+                                    <!--  物品  -->
+                                    <Grid Grid.Row="2" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border
+                                            Width="50"
+                                            Height="50"
+                                            CornerRadius="25">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/images/excel/goods.png" />
+                                            </Border.Background>
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.RowSpan="2"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Center">
+                                                <TextBlock Text="物品" />
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="消耗类 道具/材料" /></TextBlock>
+                                            </StackPanel>
+                                            <Grid Grid.Row="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button
+                                                    Grid.Column="2"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#03A9F4"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="4"
+                                                    Content="示例导出"
+                                                    Foreground="White" />
+                                                <Button
+                                                    Grid.Column="5"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#009688"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="5"
+                                                    Content="数据导入"
+                                                    Foreground="White" />
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+                                    <!--  商店  -->
+                                    <Grid Grid.Row="2" Grid.Column="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border
+                                            Width="50"
+                                            Height="50"
+                                            CornerRadius="25">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/images/excel/shop.png" />
+                                            </Border.Background>
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.RowSpan="2"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Center">
+                                                <TextBlock Text="商店" />
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Text="购买物品装备," /><Run Language="zh-cn" Text="也可" /><Run Text="以物易物" /></TextBlock>
+                                            </StackPanel>
+                                            <Grid Grid.Row="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button
+                                                    Grid.Column="2"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#03A9F4"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="6"
+                                                    Content="示例导出"
+                                                    Foreground="White" />
+                                                <Button
+                                                    Grid.Column="4"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#009688"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="6"
+                                                    Content="数据导入"
+                                                    Foreground="White" />
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+                                    <!--  任务  -->
+                                    <Grid Grid.Row="3" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border
+                                            Width="50"
+                                            Height="50"
+                                            CornerRadius="25">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/images/excel/task.png" />
+                                            </Border.Background>
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.RowSpan="2"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Center">
+                                                <TextBlock Text="任务" />
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="完成委托获得奖励" /></TextBlock>
+                                            </StackPanel>
+                                            <Grid Grid.Row="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button
+                                                    Grid.Column="2"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#03A9F4"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="7"
+                                                    Content="示例导出"
+                                                    Foreground="White" />
+                                                <Button
+                                                    Grid.Column="4"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#009688"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="7"
+                                                    Content="数据导入"
+                                                    Foreground="White" />
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+                                    <!--  副本  -->
+                                    <Grid Grid.Row="3" Grid.Column="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Border
+                                            Width="50"
+                                            Height="50"
+                                            CornerRadius="25">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="/images/excel/copy.png" />
+                                            </Border.Background>
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.RowSpan="2"
+                                                Margin="15,0,0,0"
+                                                VerticalAlignment="Center">
+                                                <TextBlock Text="副本" />
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="独有私人的地域探索" /></TextBlock>
+                                            </StackPanel>
+                                            <Grid Grid.Row="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="120" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button
+                                                    Grid.Column="2"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#03A9F4"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="8"
+                                                    Content="示例导出"
+                                                    Foreground="White" />
+                                                <Button
+                                                    Grid.Column="4"
+                                                    Height="30"
+                                                    Padding="15,0"
+                                                    VerticalAlignment="Center"
+                                                    pu:ButtonHelper.CornerRadius="15"
+                                                    pu:IconHelper.FontFamily="{StaticResource PanuonIconFont}"
+                                                    pu:IconHelper.FontSize="12"
+                                                    pu:IconHelper.Margin="0,0,10,0"
+                                                    Background="#009688"
+                                                    Click="Button_Excel_Click"
+                                                    CommandParameter="8"
                                                     Content="数据导入"
                                                     Foreground="White" />
                                             </Grid>

@@ -11,26 +11,29 @@ namespace excelTools.WPF
     public class WpfInfo : INotifyPropertyChanged
     {
         private static string _Version; // 版本
-        private static string _DbConfigInfo;
+        
         private static int _TabControl; // 选择
-        private static string _TabWriteDataNum; 
-        /// <summary>
-        /// 软件版本信息
-        /// </summary>
+        private static string _TabWriteDataNum;
+
+
+        private static string _DbConfigInfo;// 数据库信息
+        private static string _DbConnectButtonBackground= "F44336";// 数据库连接按钮背景颜色
+
         public string Version
         {
             get { return _Version; }
             set { _Version = value; OnPropertyChanged(); }
         }
-        /// <summary>
-        /// 数据库信息
-        /// </summary>
         public string DbConfigInfo
         {
             get { return _DbConfigInfo; }
             set { _DbConfigInfo = value; OnPropertyChanged(); }
         }
-
+        public string DbConnectButtonBackground
+        {
+            get { return _DbConnectButtonBackground; }
+            set { _DbConnectButtonBackground = value; OnPropertyChanged(); }
+        }
         public int TabControl
         {
 
@@ -48,11 +51,13 @@ namespace excelTools.WPF
             public int ID { get; set; }
             public string Name { get; set; }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+
+
         /// <summary>
         /// 进行数据绑定更改
         /// </summary>
         /// <param name="name"></param>
+        public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
