@@ -38,8 +38,8 @@ namespace excelTools.excel
                 catch
                 {
                     MessageBox.Show("打开xls失败");
-                    if (fs != null) fs.Close();
-                    if (wk != null) wk.Close();
+                    fs?.Close();
+                    wk?.Close();
                     return false;
                 }
             }
@@ -52,7 +52,7 @@ namespace excelTools.excel
                 catch
                 {
                     MessageBox.Show("打开xlsx失败");
-                    if (wk != null) wk.Close();
+                    wk?.Close();
                     return false;
                 }
 
@@ -91,9 +91,9 @@ namespace excelTools.excel
             }
             // 进行数据写入
             // 关闭打开的文件
-            if (fs != null) fs.Close();
+            fs?.Close();
             // 关闭workbook
-            wk.Close();
+            wk?.Close();
             File.Delete(fileName);
             return true;
 

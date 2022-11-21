@@ -14,6 +14,9 @@
     <FileVersion></FileVersion>
     <PackageIcon>logo.png</PackageIcon>
     <ApplicationIcon>window\favicon.ico</ApplicationIcon>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <BaseOutputPath></BaseOutputPath>
+    <BaseIntermediateOutputPath></BaseIntermediateOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
