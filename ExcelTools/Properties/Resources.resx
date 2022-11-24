@@ -133,6 +133,9 @@
   <data name="怪物示例" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\怪物示例.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="技能示例" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\技能示例.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="掉落示例" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\掉落示例.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

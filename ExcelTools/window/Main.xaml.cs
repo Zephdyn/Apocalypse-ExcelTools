@@ -196,6 +196,11 @@ namespace ExcelTools.window
                     name = "副本示例.xlsx";
                     template = Properties.Resources.副本示例;
                     break;
+                case 9:
+                    Rtype = ExcelTypeRead_v1.skill;
+                    name = "技能示例.xlsx";
+                    template = Properties.Resources.技能示例;
+                    break;
 
             }
             if (content == "数据导入")

@@ -214,6 +214,9 @@ namespace ExcelTools.window
                     case 8:
                         t1 = new Task(() => V1Write.Copy());
                         break;
+                    case 9:
+                        t1 = new Task(() => V1Write.Skill());
+                        break;
                     default:
                         MessageBox.Show("异常类型", "错误");
                         return;

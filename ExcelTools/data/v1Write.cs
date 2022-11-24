@@ -44,6 +44,9 @@ namespace excelTools.data
         // 副本
         public static int Copy()
             => ExcelTools.data.write.Copy.V1();
+        // 技能
+        public static int Skill()
+            => ExcelTools.data.write.Skill.V1();
 
     }
 }
