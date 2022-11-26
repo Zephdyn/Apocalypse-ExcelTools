@@ -164,7 +164,11 @@ namespace ExcelTools.window
             Tab_3_ComboBox_Shhet.ItemsSource = shee;
             Tab_3_ComboBox_Shhet.SelectedIndex = 0;
         }
-
+        /// <summary>
+        /// 写入数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_Writedata(object sender, RoutedEventArgs e)
         {
             if (Readint == 1)
@@ -242,7 +246,6 @@ namespace ExcelTools.window
             }
 
         }
-
         /// <summary>
         /// 切换Excel 工作表
         /// </summary>

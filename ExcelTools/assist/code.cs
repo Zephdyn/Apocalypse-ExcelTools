@@ -1,4 +1,5 @@
-﻿using System;
+﻿using excelTools.excel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -95,6 +96,9 @@ namespace excelTools.assist
             ret = ret.ToLower();
             return ret.ToUpper();
         }
+
+
+
     }
 
     /// <summary>
@@ -102,6 +106,30 @@ namespace excelTools.assist
     /// </summary>
     class TString
     {
+        /// <summary>
+        /// 转整数
+        /// </summary>
+        /// <param name="text">原文本</param>
+        /// <param name="def">转换失败,返回默认值</param>
+        /// <returns></returns>
+        public static int GetInt(string text, int def)
+        {
+            if (!int.TryParse(text, out int num)) num = def;
+            return num;
+        }
+        /// <summary>
+        /// 转整数,并整理
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="max"></param>
+        /// <param name="min"></param>
+        /// <param name="def"></param>
+        /// <returns></returns>
+        public static int GetIntTidy(string text, int max, int min, int def)
+        {
+            if (!int.TryParse(text, out int num)) num = def;
+            return TNumber.Tidy(num, max, min, def);
+        }
         /// <summary>
         /// 获取时间
         /// </summary>
@@ -151,7 +179,7 @@ namespace excelTools.assist
         public static string LimitConfigCheck(string str)
         {
             if (str == "") return "";
-            int state = 0;
+            int state;
             string[] item = new string[2];
             string[] sArr = str.Split(new char[] { '\n' });
             foreach (var temp in sArr)
@@ -214,7 +242,7 @@ namespace excelTools.assist
                 // 防止substring异常
                 if (vs[0].Length > 2)
                 {
-                    item[0] = vs[0].Substring(0, 2);
+                    item[0] = vs[0][..2];
                     item[1] = vs[0][2..];
                     switch (item[0])
                     {
@@ -256,6 +284,27 @@ namespace excelTools.assist
             }
 
             return "";
+        }
+    }
+
+    /// <summary>
+    /// 对数值进行处理
+    /// </summary>
+    class TNumber
+    {
+        /// <summary>
+        /// 整理数值
+        /// </summary>
+        /// <param name="num">当前</param>
+        /// <param name="max">上限</param>
+        /// <param name="main">下限</param>
+        /// <param name="def">超过上限,低于下限则为默认</param>
+        /// <returns></returns>
+        public static int Tidy(int num, int max, int min, int def)
+        {
+            if (num > max) return def;
+            if (num < min) return def;
+            return num;
         }
     }
 }

@@ -90,6 +90,9 @@ namespace excelTools.data
 
     class Update
     {
+        /// <summary>
+        /// 描述
+        /// </summary>
         public enum EShow
         {
             //类型: 1装备 2道具 3技能 4地图 5怪物 6任务 7NPC 8职业 9成就  10事件 11商店  12道具提示 13坐骑描述 14合成 15婚宴描述
@@ -109,14 +112,17 @@ namespace excelTools.data
             合成 = 14,
             婚宴描述 = 15
         }
-
+        /// <summary>
+        /// 限制消耗
+        /// </summary>
         public enum ECheck
         {
             地图 = 1,
-            任务 =2,
+            任务 = 2,
             物品 = 3,
             单人副本 = 15,
-            装备=19,
+            技能 = 17,
+            装备 = 19,
             /*
             ' 1. 地图
             ' 2. 任务
@@ -140,6 +146,9 @@ namespace excelTools.data
             ' 100.属性修改
             */
         }
+        /// <summary>
+        /// 拓展配置
+        /// </summary>
         public enum EPluginConfig
         {
             地图 = 6,
@@ -351,6 +360,32 @@ namespace excelTools.data
 
             list.Add(new object[2] { "@value", Code.Asm_TextTo16(value) });
             return Sqlite.NonQuery(sqlTxt, list) > 0;
+        }
+
+        /// <summary>
+        /// 技能配置插入
+        /// </summary>
+        /// <param name="skill">技能名称</param>
+        /// <param name="type">类型</param>
+        /// <param name="value">值</param>
+        /// <returns></returns>
+        public static bool SkillConfigInsert(string skill, string type, object value)
+        {
+            //CREATE TABLE 技能配置 (技能 TEXT, 类型 TEXT, 内容 TEXT);
+            var con = Config.connection;
+            // sql操作
+            SqliteCommand command = con.CreateCommand();
+
+
+            command.CommandText = "INSERT INTO 技能配置 (技能,类型,内容) VALUES (@skill,@type,@value);";
+
+
+            command.Parameters.AddWithValue("@skill", Code.Asm_TextTo16(skill));
+            command.Parameters.AddWithValue("@type", Code.Asm_TextTo16(type));
+            command.Parameters.AddWithValue("@value", Code.Asm_TextTo16(value.ToString()));
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
+            return true;
         }
     }
 }
