@@ -29,7 +29,7 @@ namespace ExcelTools.window
         // 数据绑定
         private static readonly WpfInfo WIfon = new();
         // 记录
-        private static int GetDataVersion, GetDataSheetId;
+        private static int GetDataVersion;
         private static string[] GetDataReadType;
         private static string GetDataFileName;
         public int Readint = 0;
@@ -103,7 +103,7 @@ namespace ExcelTools.window
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
-            if (key == Key.Tab)
+            if (key == Key.Tab || key == Key.LeftAlt || key == Key.RightAlt)
             {
                 e.Handled = true;
             }
@@ -274,7 +274,6 @@ namespace ExcelTools.window
             GetDataVersion = version;
             GetDataReadType = readType;
             GetDataFileName = _fileName;
-            GetDataSheetId = sheetId;
             Task t = new(() =>
             {
                 TrdRead info = new()

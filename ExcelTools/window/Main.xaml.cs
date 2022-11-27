@@ -117,7 +117,7 @@ namespace ExcelTools.window
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
-            if (key == Key.Tab)
+            if (key == Key.Tab || key == Key.LeftAlt || key == Key.RightAlt)
             {
                 e.Handled = true;
             }
