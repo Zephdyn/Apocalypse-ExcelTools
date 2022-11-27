@@ -128,7 +128,20 @@ namespace excelTools.assist
         public static int GetIntTidy(string text, int max, int min, int def)
         {
             if (!int.TryParse(text, out int num)) num = def;
-            return TNumber.Tidy(num, max, min, def);
+            return TNumber.IntTidy(num, max, min, def);
+        }
+        /// <summary>
+        /// 转双精度小数,并整理
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="max"></param>
+        /// <param name="min"></param>
+        /// <param name="def"></param>
+        /// <returns></returns>
+        public static double GetDoubleTidy(string text, double max, double min, double def)
+        {
+            if (!double.TryParse(text, out double num)) num = def;
+            return TNumber.DoubleTidy(num, max, min, def);
         }
         /// <summary>
         /// 获取时间
@@ -293,14 +306,28 @@ namespace excelTools.assist
     class TNumber
     {
         /// <summary>
-        /// 整理数值
+        /// 整理整数
         /// </summary>
         /// <param name="num">当前</param>
         /// <param name="max">上限</param>
         /// <param name="main">下限</param>
         /// <param name="def">超过上限,低于下限则为默认</param>
         /// <returns></returns>
-        public static int Tidy(int num, int max, int min, int def)
+        public static int IntTidy(int num, int max, int min, int def)
+        {
+            if (num > max) return def;
+            if (num < min) return def;
+            return num;
+        }
+        /// <summary>
+        /// 整理双精度小数
+        /// </summary>
+        /// <param name="num">当前</param>
+        /// <param name="max">上限</param>
+        /// <param name="main">下限</param>
+        /// <param name="def">超过上限,低于下限则为默认</param>
+        /// <returns></returns>
+        public static double DoubleTidy(double num, double max, double min, double def)
         {
             if (num > max) return def;
             if (num < min) return def;

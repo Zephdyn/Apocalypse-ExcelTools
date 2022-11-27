@@ -371,6 +371,8 @@ namespace excelTools.data
         /// <returns></returns>
         public static bool SkillConfigInsert(string skill, string type, object value)
         {
+            // 为空不插入
+            if (value.ToString() == "") return false;
             //CREATE TABLE 技能配置 (技能 TEXT, 类型 TEXT, 内容 TEXT);
             var con = Config.connection;
             // sql操作

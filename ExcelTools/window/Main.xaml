@@ -945,7 +945,7 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="商店" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Text="购买物品装备," /><Run Language="zh-cn" Text="也可" /><Run Text="以物易物" /></TextBlock>
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Text="购买物品装备, 也可以物易物" /></TextBlock>
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -1146,7 +1146,7 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="技能" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="独有私人的地域探索" /></TextBlock>
+                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="绚丽多彩, 增强削弱回复伤害" /></TextBlock>
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
