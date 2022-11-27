@@ -29,7 +29,7 @@ namespace ExcelTools.window
         // 数据绑定
         private static readonly WpfInfo WIfon = new();
         // 记录
-        private static int GetDataVersion, GetDataSheetId;
+        private static int GetDataVersion;
         private static string[] GetDataReadType;
         private static string GetDataFileName;
         public int Readint = 0;
@@ -103,7 +103,7 @@ namespace ExcelTools.window
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
-            if (key == Key.Tab)
+            if (key == Key.Tab || key == Key.LeftAlt || key == Key.RightAlt)
             {
                 e.Handled = true;
             }
@@ -164,7 +164,11 @@ namespace ExcelTools.window
             Tab_3_ComboBox_Shhet.ItemsSource = shee;
             Tab_3_ComboBox_Shhet.SelectedIndex = 0;
         }
-
+        /// <summary>
+        /// 写入数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_Writedata(object sender, RoutedEventArgs e)
         {
             if (Readint == 1)
@@ -214,6 +218,9 @@ namespace ExcelTools.window
                     case 8:
                         t1 = new Task(() => V1Write.Copy());
                         break;
+                    case 9:
+                        t1 = new Task(() => V1Write.Skill());
+                        break;
                     default:
                         MessageBox.Show("异常类型", "错误");
                         return;
@@ -239,7 +246,6 @@ namespace ExcelTools.window
             }
 
         }
-
         /// <summary>
         /// 切换Excel 工作表
         /// </summary>
@@ -268,7 +274,6 @@ namespace ExcelTools.window
             GetDataVersion = version;
             GetDataReadType = readType;
             GetDataFileName = _fileName;
-            GetDataSheetId = sheetId;
             Task t = new(() =>
             {
                 TrdRead info = new()

@@ -117,7 +117,7 @@ namespace ExcelTools.window
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
-            if (key == Key.Tab)
+            if (key == Key.Tab || key == Key.LeftAlt || key == Key.RightAlt)
             {
                 e.Handled = true;
             }
@@ -195,6 +195,11 @@ namespace ExcelTools.window
                     Rtype = ExcelTypeRead_v1.copy;
                     name = "副本示例.xlsx";
                     template = Properties.Resources.副本示例;
+                    break;
+                case 9:
+                    Rtype = ExcelTypeRead_v1.skill;
+                    name = "技能示例.xlsx";
+                    template = Properties.Resources.技能示例;
                     break;
 
             }

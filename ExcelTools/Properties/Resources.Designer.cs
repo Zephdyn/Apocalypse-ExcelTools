@@ -113,6 +113,16 @@ namespace ExcelTools.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
+        internal static byte[] 技能示例 {
+            get {
+                object obj = ResourceManager.GetObject("技能示例", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
         internal static byte[] 掉落示例 {
             get {
                 object obj = ResourceManager.GetObject("掉落示例", resourceCulture);

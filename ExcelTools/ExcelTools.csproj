@@ -9,7 +9,7 @@
     <Description>天启幻境II - Excel快速操作工具</Description>
     <Copyright>apocalypse - Tapdrd</Copyright>
     <NeutralLanguage>zh-CN</NeutralLanguage>
-    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.1</AssemblyVersion>
     <UseWindowsForms>False</UseWindowsForms>
     <FileVersion></FileVersion>
     <PackageIcon>logo.png</PackageIcon>
@@ -36,6 +36,7 @@
     <None Remove="images\excel\map.png" />
     <None Remove="images\excel\monster.png" />
     <None Remove="images\excel\shop.png" />
+    <None Remove="images\excel\skill.png" />
     <None Remove="images\excel\task.png" />
     <None Remove="images\Microsoft.Data.Sqlite.png" />
     <None Remove="images\Newtonsoft.Json.png" />
@@ -53,7 +54,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="NPOI" Version="2.6.0" />
     <PackageReference Include="Panuon.WPF" Version="1.0.1" />
     <PackageReference Include="Panuon.WPF.UI" Version="1.1.6.5" />
@@ -71,6 +72,7 @@
     <Resource Include="images\excel\equip.png" />
     <Resource Include="images\excel\monster.png" />
     <Resource Include="images\excel\shop.png" />
+    <Resource Include="images\excel\skill.png" />
     <Resource Include="images\excel\task.png" />
     <Resource Include="window\logo.png" />
   </ItemGroup>

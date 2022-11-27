@@ -1,0 +1,9 @@
+#忽略目录
+
+.editorconfig
+#/.git/
+/.vs/
+
+/ExcelTools/bin/
+/ExcelTools/obj/
+/ExcelTools/Properties/PublishProfiles/
