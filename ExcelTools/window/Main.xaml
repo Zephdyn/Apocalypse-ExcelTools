@@ -142,7 +142,10 @@
                 SelectionChanged="功能_栏_SelectionChanged"
                 TabStripPlacement="Left">
                 <!--  首页  -->
-                <TabItem x:Name="TabItem_首页" Header="&#xE941; 首页">
+                <TabItem
+                    x:Name="TabItem_首页"
+                    FontSize="14"
+                    Header="&#xE941; 首页">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -521,7 +524,7 @@
                                             Margin="15,0,0,0"
                                             VerticalAlignment="Center">
                                             <TextBlock
-                                                FontSize="15"
+                                                FontSize="17"
                                                 FontWeight="Bold"
                                                 Text="数据库信息" />
                                             <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
@@ -610,7 +613,10 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="装备" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="角色 " /><Run Language="zh-cn" Text="增强" /><Run Language="zh-cn" Text="/" /><Run Text="装饰物" /></TextBlock>
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="角色 增强/装饰物" />
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -677,7 +683,10 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="地图" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="增加可活动范围" /></TextBlock>
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="增加可活动范围" />
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -744,7 +753,10 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="怪物" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="怪异物类与角色对抗" /></TextBlock>
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="怪异物类与角色对抗" />
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -811,7 +823,10 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="掉落" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="使用/打怪/彩蛋 获得奖励" /><LineBreak /><Run Language="zh-cn" /></TextBlock>
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="使用/打怪/彩蛋 获得奖励" />
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -945,7 +960,10 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="商店" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Text="购买物品装备, 也可以物易物" /></TextBlock>
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="购买物品装备, 也可以物易物" />
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -1012,7 +1030,10 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="任务" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="完成委托获得奖励" /></TextBlock>
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="完成委托获得奖励" />
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -1079,7 +1100,10 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="副本" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="独有私人的地域探索" /></TextBlock>
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="独有私人的地域探索" />
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
@@ -1146,7 +1170,10 @@
                                                 Margin="15,0,0,0"
                                                 VerticalAlignment="Center">
                                                 <TextBlock Text="技能" />
-                                                <TextBlock Margin="0,5,0,0" Foreground="#AAAAAA"><Run Language="zh-cn" Text="绚丽多彩, 增强削弱回复伤害" /></TextBlock>
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    Foreground="#AAAAAA"
+                                                    Text="绚丽多彩, 增强削弱回复伤害" />
                                             </StackPanel>
                                             <Grid Grid.Row="3">
                                                 <Grid.ColumnDefinitions>
