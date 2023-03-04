@@ -53,11 +53,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="NPOI" Version="2.6.0" />
     <PackageReference Include="Panuon.WPF" Version="1.0.1" />
-    <PackageReference Include="Panuon.WPF.UI" Version="1.1.6.5" />
+    <PackageReference Include="Panuon.WPF.UI" Version="1.1.8.2" />
   </ItemGroup>
 
   <ItemGroup>
