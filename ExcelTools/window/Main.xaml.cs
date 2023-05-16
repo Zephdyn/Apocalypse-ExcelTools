@@ -36,7 +36,7 @@ namespace ExcelTools.window
         // 数据库路径
         private static string DatabasePath;
         // 软件支持的数据库版本
-        private static readonly int DatabaseVersion = 3030001;
+        private static readonly int DatabaseVersion = 3040003;
         // 当前数据库版本
         private static int DatabaseReadVersion;
 

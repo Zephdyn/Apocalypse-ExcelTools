@@ -9,7 +9,7 @@
     <Description>天启幻境II - Excel快速操作工具</Description>
     <Copyright>apocalypse - Tapdrd</Copyright>
     <NeutralLanguage>zh-CN</NeutralLanguage>
-    <AssemblyVersion>2.0.1</AssemblyVersion>
+    <AssemblyVersion>2.0.2</AssemblyVersion>
     <UseWindowsForms>False</UseWindowsForms>
     <FileVersion></FileVersion>
     <PackageIcon>logo.png</PackageIcon>
@@ -53,11 +53,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NPOI" Version="2.6.0" />
     <PackageReference Include="Panuon.WPF" Version="1.0.1" />
-    <PackageReference Include="Panuon.WPF.UI" Version="1.1.8.2" />
+    <PackageReference Include="Panuon.WPF.UI" Version="1.1.10" />
   </ItemGroup>
 
   <ItemGroup>

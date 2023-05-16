@@ -525,7 +525,7 @@
                                                 FontWeight="Bold"
                                                 Text="数据库信息" />
                                             <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                                <TextBlock Foreground="#757575" Text="支持：3.3.0(3030001)" />
+                                                <TextBlock Foreground="#757575" Text="支持：3.4.0(3040003)" />
                                                 <Rectangle
                                                     Width="1"
                                                     Margin="10,0"

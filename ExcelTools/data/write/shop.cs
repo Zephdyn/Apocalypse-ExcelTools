@@ -195,20 +195,20 @@ namespace ExcelTools.data.write
                     if (type == 0)
                         list.Add(new object[2] { "@价格物品", priceName });
 
-                    // 商店收购, 所有内容加密
-                    if (type == 1)
-                    {
-                        for (var j = 0; j < list.Count; j++)
-                        {
-                            object value = null;
-                            if (list[j].GetValue(1) != null)
-                            {
-                                value = (string)list[j].GetValue(1).ToString();
-                                value = Code.Asm_TextTo16((string)value);
-                            }
-                            list[j].SetValue(value, 1);
-                        }
-                    }
+                    // 商店收购, 所有内容加密 3.4.0 版本去除
+                    //if (type == 1)
+                    //{
+                    //    for (var j = 0; j < list.Count; j++)
+                    //    {
+                    //        object value = null;
+                    //        if (list[j].GetValue(1) != null)
+                    //        {
+                    //            value = (string)list[j].GetValue(1).ToString();
+                    //            value = Code.Asm_TextTo16((string)value);
+                    //        }
+                    //        list[j].SetValue(value, 1);
+                    //    }
+                    //}
 
                     Sqlite.NonQuery(sqlTxt, list);
 
