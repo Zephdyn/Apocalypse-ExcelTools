@@ -90,29 +90,29 @@ namespace ExcelTools.window
         {
             if (e.ClickCount == 2)
             {
-                this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+                WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             }
         }
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
         private void 顶层_缩小_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;
         }
         private void 顶层_最大_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+            WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
         private void 顶层_关闭_Click(object sender, RoutedEventArgs e)
         {
             // 保存上次界面
             if (Infojson.Property("window") == null)
                 Infojson.Add(new JProperty("window", new JObject(new JProperty("tab"))));
-            Infojson["window"]["tab"] = this.功能_栏.SelectedIndex;
+            Infojson["window"]["tab"] = 功能_栏.SelectedIndex;
             File.WriteAllText("config.json", Infojson.ToString());
-            this.Close();
+            Close();
         }
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {

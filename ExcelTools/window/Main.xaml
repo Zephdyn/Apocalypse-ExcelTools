@@ -14,6 +14,7 @@
     MinHeight="665"
     d:DataContext="{d:DesignInstance Type=wpf:WpfInfo}"
     AllowsTransparency="True"
+    FontFamily="HarmonyOS Sans SC Medium"
     KeyDown="Window_PreviewKeyDown"
     WindowStyle="None"
     mc:Ignorable="d">

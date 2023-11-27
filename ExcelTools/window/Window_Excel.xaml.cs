@@ -48,12 +48,12 @@ namespace ExcelTools.window
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             // 数据绑定
-            this.DataContext = WIfon;
+            DataContext = WIfon;
             // 设置窗口名称
-            this.Title = "Excel Tools - 数据导入";
+            Title = "Excel Tools - 数据导入";
 
             // 注册可否被关闭事件
-            this.Closing += WpfClosing;
+            Closing += WpfClosing;
 
             // 读取数据
             WriteType = type;
@@ -85,20 +85,20 @@ namespace ExcelTools.window
         {
             if (e.ClickCount == 2)
             {
-                this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+               WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             }
         }
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
         private void 顶层_最大_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+           WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
         private void 顶层_关闭_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
