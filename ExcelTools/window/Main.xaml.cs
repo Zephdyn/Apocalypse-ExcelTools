@@ -143,7 +143,7 @@ namespace ExcelTools.window
             string content = bt.Content.ToString();
             Debug.WriteLine(content);
             Debug.WriteLine(Config.Status());
-            if (Config.Status() != (int)System.Data.ConnectionState.Open)
+            if (Config.Status() != (int)ConnectionState.Open)
             {
                 if (content == "数据导入")
                 {

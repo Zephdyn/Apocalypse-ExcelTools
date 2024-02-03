@@ -29,8 +29,7 @@ namespace ExcelTools.data.write
             SqliteCommand write = con.CreateCommand();
 
             long startTime = Stopwatch.GetTimestamp();
-
-            int testing,errorCheck = 0; ;
+            int testing, errorCheck = 0; ;
             string ret;
             try
             {
@@ -51,11 +50,13 @@ namespace ExcelTools.data.write
 
 
                     string[] arr = [.. arrWrite[i]];
+                    arr = arr.Where((val, idx) => idx > 0).ToArray();
                     List<object[]> list =
                     [
                         ["@装备", arr[(int)ExcelType_v1.Equip.名称]]
                     ];
 
+                    
                     if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Equip.名称]))
                     {
                         write.CommandText = @"
@@ -109,7 +110,7 @@ namespace ExcelTools.data.write
                     if (!double.TryParse(arr[(int)ExcelType_v1.Equip.暴击伤害], out dnum)) dnum = 0;
                     write.Parameters.AddWithValue("@暴击伤害", dnum.ToString("0.00"));
                     //"饥饿",
-                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.饥饿], out num)) dnum = 0;
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.饥饿], out num)) num = 0;
                     write.Parameters.AddWithValue("@饥饿", num);
                     //"卸下",
                     //"技能",
@@ -186,6 +187,22 @@ namespace ExcelTools.data.write
                         else Update.Check(Update.ECheck.装备, arr[(int)ExcelType_v1.Equip.名称], arr[(int)ExcelType_v1.Equip.装备限制消耗], false);
                     }
                     else Update.Check(Update.ECheck.装备, arr[(int)ExcelType_v1.Equip.名称], arr[(int)ExcelType_v1.Equip.装备限制消耗], true);
+
+
+                    // 自定义属性
+                    Update.ExtendStatsClear(write, Update.EExtendStats.装备, arr[(int)ExcelType_v1.Equip.名称]);
+                    string[] tarr = arr[(int)ExcelType_v1.Equip.自定义属性].Split(['\n']);
+                    foreach (string item in tarr)
+                    {
+                        string[] yarr = item.Split(["[too]"], StringSplitOptions.None);
+                        if (yarr.Length != 2) continue;
+                        if (yarr[0].Trim() == "") continue;
+
+                        if (!Int64.TryParse(yarr[1], out long longNum)) longNum = 0;
+                        Update.ExtendStatsInsert(write, Update.EExtendStats.装备, arr[(int)ExcelType_v1.Equip.名称], yarr[0], longNum);
+
+
+                    }
                 }
             }
             catch (Exception ex)

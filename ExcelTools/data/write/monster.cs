@@ -126,6 +126,20 @@ namespace ExcelTools.data.write
                         Sqlite.NonQuery("INSERT INTO `怪物技能` (`怪物`,`技能`) VALUES (@monster,@skill)", list);
                     }
 
+
+                    // 自定义属性
+                    Update.ExtendStatsClear(write, Update.EExtendStats.怪物, arr[(int)ExcelType_v1.Monster.怪物]);
+                    tarr = arr[(int)ExcelType_v1.Equip.自定义属性].Split(['\n']);
+                    foreach (string item in tarr)
+                    {
+                        string[] yarr = item.Split(["[too]"], StringSplitOptions.None);
+                        if (yarr.Length != 2) continue;
+                        if (yarr[0].Trim() == "") continue;
+
+                        if (!Int64.TryParse(yarr[1], out long longNum)) longNum = 0;
+                        Update.ExtendStatsInsert(write, Update.EExtendStats.怪物, arr[(int)ExcelType_v1.Monster.怪物], yarr[0], longNum);
+                    }
+
                 }
             }
             catch (Exception ex)

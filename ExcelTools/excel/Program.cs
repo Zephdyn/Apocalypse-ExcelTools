@@ -128,15 +128,11 @@ namespace excelTools.excel
                 // 不读取string以外的内容
                 if (currentCell.CellType != CellType.String) continue;
                 int classId = Array.IndexOf(arr, currentCell.StringCellValue);
-                if (classId != -1)
-                {
-                    // 只读取这些列的数据
-                    ExcelType.RCache temp;
-                    temp._rowId = i;
-                    temp._classID = classId;
-                    arrReadCell.Add(temp);
-                    //Console.WriteLine(currentCell);
-                }
+                if (classId == -1) continue;
+                ExcelType.RCache temp;
+                temp._rowId = i;
+                temp._classID = classId;
+                arrReadCell.Add(temp);
             }
             ExcelType.RCache[] arrCell = [.. arrReadCell];
             // 获取总行数

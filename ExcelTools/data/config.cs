@@ -155,6 +155,16 @@ namespace excelTools.data
             物品 = 7
         }
         /// <summary>
+        /// 自定义属性配置
+        /// </summary>
+        public enum EExtendStats
+        {
+            等级 = 1,
+            装备 = 2,
+            坐骑 = 3,
+            怪物 = 4
+        }
+        /// <summary>
         /// 描述
         /// </summary>
         /// <param name="type">类型</param>
@@ -281,9 +291,9 @@ namespace excelTools.data
             SqliteCommand command = con.CreateCommand();
             if (msg == "") delete = true;
             List<object[]> list = [
-               [ "@ID", Code.Asm_TextTo16(((int)id).ToString())],
-               [ "@sec", Code.Asm_TextTo16(sec) ],
-                [ "@type", Code.Asm_TextTo16(type)]
+               ["@ID", Code.Asm_TextTo16(((int)id).ToString())],
+                ["@sec", Code.Asm_TextTo16(sec)],
+                ["@type", Code.Asm_TextTo16(type)]
             ];
             if (Sqlite.Select("SELECT ID FROM `拓展配置` WHERE `ID` = @ID AND `sec` = @sec AND `type` = @type;", list))
             {
@@ -359,7 +369,6 @@ namespace excelTools.data
             list.Add(["@value", Code.Asm_TextTo16(value)]);
             return Sqlite.NonQuery(sqlTxt, list) > 0;
         }
-
         /// <summary>
         /// 技能配置插入
         /// </summary>
@@ -386,6 +395,28 @@ namespace excelTools.data
             command.ExecuteNonQuery();
             command.Parameters.Clear();
             return true;
+        }
+
+        public static void ExtendStatsInsert(SqliteCommand write, EExtendStats type, string name, string stats, Int64 number)
+        {
+            write.CommandText = "INSERT INTO 自定义属性_数据 (类型,名称,属性,数值) VALUES (@类型,@名称,@属性,@数值);";
+
+            write.Parameters.AddWithValue("@类型", (int)type);
+            write.Parameters.AddWithValue("@名称", name);
+            write.Parameters.AddWithValue("@属性", stats);
+            write.Parameters.AddWithValue("@数值", number);
+            write.ExecuteNonQuery();
+            write.Parameters.Clear();
+        }
+
+        public static void ExtendStatsClear(SqliteCommand write, EExtendStats type, string name)
+        {
+            write.CommandText = "DELETE FROM 自定义属性_数据 WHERE 类型=@类型 AND 名称=@名称;";
+
+            write.Parameters.AddWithValue("@类型", (int)type);
+            write.Parameters.AddWithValue("@名称", name);
+            write.ExecuteNonQuery();
+            write.Parameters.Clear();
         }
     }
 }

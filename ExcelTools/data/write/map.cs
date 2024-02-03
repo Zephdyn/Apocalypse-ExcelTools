@@ -39,6 +39,7 @@ namespace ExcelTools.data.write
                 {
 
                     string[] arr = [.. arrWrite[i]];
+                    arr = arr.Where((val, idx) => idx > 0).ToArray();
                     if (arr[(int)ExcelType_v1.Map.位置].Trim() == "") continue;
                     V1Write.Numwrite++;
                     if (i > 0 && i % 3000 == 0)

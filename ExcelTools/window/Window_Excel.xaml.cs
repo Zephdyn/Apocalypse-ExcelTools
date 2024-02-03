@@ -78,7 +78,8 @@ namespace ExcelTools.window
                 e.Cancel = true;
                 return;
             }
-            if (Config.Status() == (int)System.Data.ConnectionState.Open) Config.Close(); // 如果数据库已连接,则关闭数据库
+            // 此处代码会导致只能读取一次Excel数据,第二次再读取会提示数据库未连接
+            // if (Config.Status() == (int)System.Data.ConnectionState.Open) Config.Close(); // 如果数据库已连接,则关闭数据库
             e.Cancel = false;
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e) // 双击放大缩小
