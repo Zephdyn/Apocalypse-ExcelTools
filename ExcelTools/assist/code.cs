@@ -173,7 +173,7 @@ namespace excelTools.assist
         /// <returns></returns>
         public static string HandingBank(string str)
         {
-            string[] sArr = str.Split(new char[] { '\n' });
+            string[] sArr = str.Split(['\n']);
             string temp = "";
             foreach (var sTemp in sArr)
             {
@@ -183,7 +183,6 @@ namespace excelTools.assist
             if (temp != "") temp = temp[0..^5];
             return temp;
         }
-
         /// <summary>
         /// 限制消耗检测, 返回错误信息
         /// </summary>
@@ -194,11 +193,11 @@ namespace excelTools.assist
             if (str == "") return "";
             int state;
             string[] item = new string[2];
-            string[] sArr = str.Split(new char[] { '\n' });
+            string[] sArr = str.Split(['\n']);
             foreach (var temp in sArr)
             {
                 state = 0;
-                string[] vs = temp.Split(new string[] { "[too]" }, StringSplitOptions.None);
+                string[] vs = temp.Split(["[too]" ], StringSplitOptions.None);
                 if (vs.Length != 3) return $"错误内容: {temp} {System.Environment.NewLine}错误信息: 格式不符合";
                 if (vs[0].Length == 0) return $"错误内容: {temp} {System.Environment.NewLine}错误信息: 功能类型不能为空";
                 if (vs[1] != "0" && vs[1] != "1" && vs[1] != "2") return $"错误内容: {temp} {System.Environment.NewLine}错误信息: 操作类型应为0/1/2";

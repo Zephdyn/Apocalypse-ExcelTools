@@ -28,7 +28,7 @@ namespace ExcelTools.data.write
             Int64 startTime = Stopwatch.GetTimestamp();
 
             string copy, sqlTxt;
-            int  errorCheck = 0;
+            int errorCheck = 0;
             try
             {
                 V1Write.state = 2;
@@ -36,7 +36,7 @@ namespace ExcelTools.data.write
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     copy = arr[(int)ExcelType_v1.Copy.副本].Trim();
                     if (copy == "") continue;
@@ -50,10 +50,9 @@ namespace ExcelTools.data.write
 
                         transaction = con.BeginTransaction();
                     }
-                    List<object[]> list = new()
-                    {
-                        new object[] { "@copy", copy }
-                    };
+                    List<object[]> list = [
+                        ["@copy", copy]
+                    ];
 
                     if (Sqlite.Select("SELECT `ID` FROM `副本地图` WHERE `copy` = @copy", list))
                         Sqlite.NonQuery("DELETE FROM `副本地图` WHERE `copy` = @copy", list);
@@ -64,18 +63,18 @@ namespace ExcelTools.data.write
 
                 V1Write.state = 1;
                 // 读取所有数据
-                List<string> selectArr = Sqlite.SelectAll("副本配置", "SELECT `ID`,`copy` FROM `副本配置`", null, "copy");
+                List<string> selectArr = Sqlite.SelectAll("SELECT `ID`,`copy` FROM `副本配置`", null, "copy");
 
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     copy = arr[(int)ExcelType_v1.Copy.副本].Trim();
                     if (copy == "") continue;
 
                     V1Write.Numwrite++; // 执行的次数
-                                      // 每1000提交一次事务
+                                        // 每1000提交一次事务
                     if (i > 0 && i % 1000 == 0)
                     {
                         transaction.Commit();
@@ -111,10 +110,10 @@ namespace ExcelTools.data.write
                     else Update.Check(Update.ECheck.单人副本, arr[(int)ExcelType_v1.Copy.副本], arr[(int)ExcelType_v1.Copy.限制消耗], true);
 
 
-                    List<object[]> list = new()
-                    {
-                        new object[] { "@copy", copy }
-                    };
+                    List<object[]> list =
+                    [
+                        ["@copy", copy]
+                    ];
                     if (selectArr.Exists(t => t == copy))
                     {
                         sqlTxt = "UPDATE `副本配置` SET `type`=@type, `t_number`=@entries, `reward_1`=@rewardType, `c_drop`=@rewards, `sor`=@copySort,`limit_user`=@limitUser WHERE `copy` = @copy;";
@@ -124,12 +123,12 @@ namespace ExcelTools.data.write
                         sqlTxt = "INSERT INTO `副本配置` (`copy`,`type`,`t_number`,`reward_1`,`c_drop`,`sor`,`limit_user`) VALUES (@copy,@type,@entries,@rewardType,@rewards,@copySort,@limitUser);";
                         selectArr.Add(copy);
                     }
-                    list.Add(new object[] { "type", type });
-                    list.Add(new object[] { "entries", entries });
-                    list.Add(new object[] { "rewardType", rewardType });
-                    list.Add(new object[] { "rewards", rewards });
-                    list.Add(new object[] { "copySort", copySort });
-                    list.Add(new object[] { "limitUser", limitUser });
+                    list.Add(["type", type]);
+                    list.Add(["entries", entries]);
+                    list.Add(["rewardType", rewardType]);
+                    list.Add(["rewards", rewards]);
+                    list.Add(["copySort", copySort]);
+                    list.Add(["limitUser", limitUser]);
                     Sqlite.NonQuery(sqlTxt, list);
 
                     // 写入地图
@@ -154,30 +153,31 @@ namespace ExcelTools.data.write
                     if (!int.TryParse(arr[(int)ExcelType_v1.Copy.初始地图], out int initialMap)) initialMap = 0;
                     if (initialMap != 0 && initialMap != 1) initialMap = 0;
 
-                    list = new()
-                    {
-                        new object[] { "@copy", copy }
-                    };
+                    list =
+                    [
+                        ["@copy", copy],
+                        ["map", map == "" ? null : map],
+                        ["pos_1", pos_1 == "" ? null : pos_1],
+                        ["pos_2", pos_2 == "" ? null : pos_2],
+                        ["pos_3", pos_3 == "" ? null : pos_3],
+                        ["pos_4", pos_4 == "" ? null : pos_4],
+                        ["pos_5", pos_5 == "" ? null : pos_5],
+                        ["pos_6", pos_6 == "" ? null : pos_6],
+                        ["monser", monster == "" ? null : monster],
+                        ["mNum", monster == "" ? null : mNum],
+                        ["force", monster == "" ? null : force],
+                        ["mDrop", monster == "" ? null : mDrop],
+
+                    ];
                     sqlTxt = "INSERT INTO `副本地图` (`copy`,`位置`,`前`,`后`,`左`,`右`,`上`,`下`,`怪物`,`数量`,`强制`,`打怪奖励`,`通关地图`,`初始地图`) VALUES (@copy,@map,@pos_1,@pos_2,@pos_3,@pos_4,@pos_5,@pos_6,@monser,@mNum,@force,@mDrop,0,0);";
-                    list.Add(new object[] { "map", map == "" ? null : map });
-                    list.Add(new object[] { "pos_1", pos_1 == "" ? null : pos_1 });
-                    list.Add(new object[] { "pos_2", pos_2 == "" ? null : pos_2 });
-                    list.Add(new object[] { "pos_3", pos_3 == "" ? null : pos_3 });
-                    list.Add(new object[] { "pos_4", pos_4 == "" ? null : pos_4 });
-                    list.Add(new object[] { "pos_5", pos_5 == "" ? null : pos_5 });
-                    list.Add(new object[] { "pos_6", pos_6 == "" ? null : pos_6 });
-                    list.Add(new object[] { "monser", monster == "" ? null : monster });
-                    list.Add(new object[] { "mNum", monster == "" ? null : mNum });
-                    list.Add(new object[] { "force", monster == "" ? null : force });
-                    list.Add(new object[] { "mDrop", monster == "" ? null : mDrop });
 
                     Sqlite.NonQuery(sqlTxt, list);
 
-                    list = new()
-                    {
-                        new object[] { "@copy", copy },
-                        new object[] { "@map", map }
-                    };
+                    list =
+                    [
+                        ["@copy", copy],
+                        ["@map", map]
+                    ];
                     if (entriesMap == 1)
                     {
                         sqlTxt = "UPDATE `副本地图` SET `通关地图`=1 WHERE `copy`=@copy AND `位置`=@map;";
@@ -198,7 +198,7 @@ namespace ExcelTools.data.write
                 MessageBox.Show(ex.ToString());
                 return 1;
             }
-         V1Write.   state = 0;
+            V1Write.state = 0;
             transaction.Commit();
 
             string stime = ((Stopwatch.GetTimestamp() - startTime) / (double)Stopwatch.Frequency).ToString("0.00");

@@ -14,7 +14,7 @@
     MinHeight="665"
     d:DataContext="{d:DesignInstance Type=wpf:WpfInfo}"
     AllowsTransparency="True"
-    FontFamily="HarmonyOS Sans SC Medium"
+    FontFamily="HarmonyOS Sans SC"
     KeyDown="Window_PreviewKeyDown"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -526,7 +526,7 @@
                                                 FontWeight="Bold"
                                                 Text="数据库信息" />
                                             <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                                <TextBlock Foreground="#757575" Text="支持：3.4.0(3040003)" />
+                                                <TextBlock Foreground="#757575" Text="支持：4.0.0(4000000)" />
                                                 <Rectangle
                                                     Width="1"
                                                     Margin="10,0"

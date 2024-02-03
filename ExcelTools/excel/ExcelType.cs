@@ -37,8 +37,8 @@ namespace excelTools.excel
         /// <summary>
         /// 装备
         /// </summary>
-        public static readonly string[] equip = new string[]
-        {
+        public static readonly string[] equip =
+        [
             "名称",
             "职业",
             "绑定",
@@ -57,12 +57,12 @@ namespace excelTools.excel
             "技能",
             "描述",
             "装备限制消耗"
-        };
+        ];
         /// <summary>
         /// 地图
         /// </summary>
-        public static readonly string[] map = new string[]
-        {
+        public static readonly string[] map =
+        [
             "位置",
             "前",
             "后",
@@ -75,12 +75,12 @@ namespace excelTools.excel
             "怪物",
             "饥饿减少",
             "限制消耗"
-        };
+        ];
         /// <summary>
         /// 怪物
         /// </summary>
-        public static readonly string[] monster = new string[]
-        {
+        public static readonly string[] monster =
+        [
             "怪物",
             "等级",
             "生命",
@@ -96,22 +96,22 @@ namespace excelTools.excel
             "描述",
             "对外显示",
             "地图显示"
-        };
+        ];
         /// <summary>
         /// 掉落
         /// </summary>
-        public static readonly string[] drop = new string[] {
+        public static readonly string[] drop = [
             "掉落",
             "类型",
             "经验",
             "货币",
             "物品",
             "掉落地图"
-        };
+        ];
         /// <summary>
         /// 物品
         /// </summary>
-        public static readonly string[] goods = new string[] {
+        public static readonly string[] goods = [
             "物品",
             "类型",
             "名称",
@@ -122,11 +122,11 @@ namespace excelTools.excel
             "提示",
             "描述",
             "限制消耗"
-        };
+        ];
         /// <summary>
         /// 商店
         /// </summary>
-        public static readonly string[] shop = new string[] {
+        public static readonly string[] shop = [
             "商店",
             "位置",
             "类型",
@@ -139,11 +139,11 @@ namespace excelTools.excel
             "刷新类型",
             "刷新几率",
             "介绍"
-        };
+        ];
         /// <summary>
         /// 任务
         /// </summary>
-        public static readonly string[] duties = new string[] {
+        public static readonly string[] duties = [
             "任务",
             "类型",
             "掉落",
@@ -154,11 +154,11 @@ namespace excelTools.excel
             "任务目标",
             "放弃",
             "限制消耗"
-        };
+        ];
         /// <summary>
         /// 副本
         /// </summary>
-        public static readonly string[] copy = new string[] {
+        public static readonly string[] copy = [
             "副本",
             "副本类型",
             "进入次数",
@@ -180,11 +180,11 @@ namespace excelTools.excel
             "数量",
             "掉落",
             "强制攻击"
-        };
+        ];
         /// <summary>
         /// 技能
         /// </summary>
-        public static readonly string[] skill = new string[] {
+        public static readonly string[] skill = [
             "名称",
             "类型",
             "冷却时间",
@@ -227,7 +227,7 @@ namespace excelTools.excel
             "货币固定",
             "货币百分比",
             "叠加上限"
-        };
+        ];
 
     }
 

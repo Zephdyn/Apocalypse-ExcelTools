@@ -36,7 +36,7 @@ namespace ExcelTools.window
         // 数据库路径
         private static string DatabasePath;
         // 软件支持的数据库版本
-        private static readonly int DatabaseVersion = 3040003;
+        private static readonly int DatabaseVersion = 4000000;
         // 当前数据库版本
         private static int DatabaseReadVersion;
 
@@ -47,7 +47,7 @@ namespace ExcelTools.window
         private static int WriteType = 0;
 
         // 配置文件
-        private static JObject Infojson = new();
+        private static JObject Infojson = [];
         public Main()
         {
             // 窗口居中显示
@@ -151,9 +151,9 @@ namespace ExcelTools.window
                     return;
                 }
             }
-            string[] Rtype = Array.Empty<string>();
+            string[] Rtype = [];
             string name = "";
-            byte[] template = Array.Empty<byte>();
+            byte[] template = [];
             switch (command)
             {
                 case 1:
@@ -282,7 +282,8 @@ namespace ExcelTools.window
             if (ver[2] != null)
             {
                 Config.Close();// 关闭数据库连接
-                MessageBox.Show(ver[2], "读取数据库错误");
+                WIfon.DbConfigInfo = "当前数据库状态：读取错误";
+                //MessageBox.Show(ver[2], "读取数据库错误");
                 return false;
             }
             WIfon.DbConfigInfo = $"当前数据库信息：{ver[0]}({ver[1]})";

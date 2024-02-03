@@ -156,7 +156,7 @@ namespace ExcelTools.window
             this.Tab_3_DataGrid.IsReadOnly = true;
 
             List<object[]> oList = excelTools.excel.Program.arrShee;
-            List<WpfInfo.TabShee> shee = new();
+            List<WpfInfo.TabShee> shee = [];
             foreach (var item in oList)
             {
                 shee.Add(new WpfInfo.TabShee { ID = (int)item.GetValue(0), Name = (string)item.GetValue(1) });

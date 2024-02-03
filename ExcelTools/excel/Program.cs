@@ -10,8 +10,8 @@ namespace excelTools.excel
 {
     class Program
     {
-        public static List<string[]> arrWrite = new();
-        public static List<object[]> arrShee = new();
+        public static List<string[]> arrWrite = [];
+        public static List<object[]> arrShee =[];
         /// <summary>
         /// 打开 excel, 完成后会主动关闭
         /// </summary>
@@ -74,12 +74,12 @@ namespace excelTools.excel
                 return false;
             }
             string[] sheetName = new string[sheetCount];// 获取所有表名
-            arrShee.Add(new object[] { sheetId, wk.GetSheetName(sheetId) });
+            arrShee.Add([sheetId, wk.GetSheetName(sheetId)]);
             for (int i = 0; i < sheetCount; i++)
             {
                 sheetName[i] = wk.GetSheetName(i);
                 if (i == sheetId) continue;
-                arrShee.Add(new object[] { i, sheetName[i] });
+                arrShee.Add([i, sheetName[i]]);
             }
 
             // 获取sheetId
@@ -119,7 +119,7 @@ namespace excelTools.excel
             // 获取数量
             int rowConut = firstRow.LastCellNum;
 
-            List<ExcelType.RCache> arrReadCell = new();
+            List<ExcelType.RCache> arrReadCell = [];
             for (var i = 0; i < rowConut; i++)
             {
                 var currentCell = st.GetRow(0).GetCell(i);
@@ -138,7 +138,7 @@ namespace excelTools.excel
                     //Console.WriteLine(currentCell);
                 }
             }
-            ExcelType.RCache[] arrCell = arrReadCell.ToArray();
+            ExcelType.RCache[] arrCell = [.. arrReadCell];
             // 获取总行数
             rowConut = st.LastRowNum;
             int numConut = arrCell.Length;

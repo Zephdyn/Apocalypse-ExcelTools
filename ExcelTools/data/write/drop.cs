@@ -33,7 +33,7 @@ namespace ExcelTools.data.write
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     if (arr[(int)ExcelType_v1.Drop.掉落].Trim() == "") continue;
 
@@ -47,10 +47,10 @@ namespace ExcelTools.data.write
                     }
 
 
-                    List<object[]> list = new()
-                    {
-                        new object[2] { "@id", arr[(int)ExcelType_v1.Drop.掉落] }
-                    };
+                    List<object[]> list =
+                    [
+                        ["@id", arr[(int)ExcelType_v1.Drop.掉落]]
+                    ];
 
                     if (Sqlite.Select("SELECT id FROM `掉落配置` WHERE `掉落` = @id", list)) // 查询是否已有掉落
                         Sqlite.NonQuery("DELETE  FROM `掉落配置` WHERE `掉落` = @id", list);
@@ -65,7 +65,7 @@ namespace ExcelTools.data.write
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     if (arr[(int)ExcelType_v1.Drop.掉落].Trim() == "") continue;
                     // 类型必须为1-3
@@ -83,10 +83,10 @@ namespace ExcelTools.data.write
                         write = con.CreateCommand();
                     }
 
-                    List<object[]> list = new()
-                    {
-                        new object[2] { "@id", arr[(int)ExcelType_v1.Drop.掉落] }
-                    };
+                    List<object[]> list =
+                    [
+                        ["@id", arr[(int)ExcelType_v1.Drop.掉落]]
+                    ];
 
                     if (!int.TryParse(arr[(int)ExcelType_v1.Drop.掉落地图], out int dropMap)) dropMap = 0;
                     /*格式:
@@ -112,12 +112,12 @@ namespace ExcelTools.data.write
                                 del = 0;
                                 break;
                         }
-                        tarr = temp.Split(new char[] { '\n' });
+                        tarr = temp.Split(['\n']);
                         foreach (string item in tarr)
                         {
-                            narr = item.Split(new string[] { "[next]" }, StringSplitOptions.None);
+                            narr = item.Split(["[next]"], StringSplitOptions.None);
                             if (narr.Length < 1 || narr.Length > 2) continue;
-                            yarr = narr[0].Split(new string[] { "[too]" }, StringSplitOptions.None);
+                            yarr = narr[0].Split(["[too]"], StringSplitOptions.None);
                             if (yarr.Length != 4 && yarr.Length != 3)
                             {
                                 if (j != 1 || yarr.Length != 2) continue;
@@ -151,18 +151,18 @@ namespace ExcelTools.data.write
                             // 最大数量
                             if ((j != 1 && yarr.Length == 3) || (j == 1 && yarr.Length == 2)) max = min;
                             else { if (!int.TryParse(yarr[2 - del], out max)) max = 0; }
-                            list = new()
-                            {
-                                new object[2] { "@id", arr[(int)ExcelType_v1.Drop.掉落] }, // 掉落ID
-                                new object[2] { "@dropMap", dropMap }, // 掉落地图
-                                new object[2] { "@type", j },// 类型
-                                new object[2] { "@dropType", dropType },// 掉落类型
-                                new object[2] { "@goods", goods },// 物品
-                                new object[2] { "@por", por }, // 几率
-                                new object[2] { "@min", min }, // 最小几率
-                                new object[2] { "@max", max }, // 最大几率
-                                new object[2] { "@occ", narr.Length == 1 ? null : narr[1] }// 职业
-                            };
+                            list =
+                            [
+                                ["@id", arr[(int)ExcelType_v1.Drop.掉落]], // 掉落ID
+                                ["@dropMap", dropMap], // 掉落地图
+                                ["@type", j],// 类型
+                                ["@dropType", dropType],// 掉落类型
+                                ["@goods", goods],// 物品
+                                ["@por", por], // 几率
+                                ["@min", min], // 最小几率
+                                ["@max", max], // 最大几率
+                                ["@occ", narr.Length == 1 ? null : narr[1]]// 职业
+                            ];
                             Sqlite.NonQuery("INSERT INTO `掉落配置` (`掉落`,`类型`,`物品`,`几率`,`最小数量`,`最大数量`,`掉落类型`,`职业`,`地图掉落`) VALUES (@id, @type, @goods, @por, @min, @max, @dropType, @occ, @dropMap)", list);
                         }
                     }

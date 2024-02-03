@@ -37,7 +37,7 @@ namespace ExcelTools.data.write
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     skill = arr[(int)ExcelType_v1.Skill.名称].Trim();
                     if (skill == "") continue;
@@ -55,10 +55,10 @@ namespace ExcelTools.data.write
                     }
 
 
-                    List<object[]> list = new()
-                    {
-                        new object[2] { "@skill", Code.Asm_TextTo16( skill) }
-                    };
+                    List<object[]> list =
+                    [
+                        ["@skill", Code.Asm_TextTo16( skill)]
+                    ];
 
                     if (Sqlite.Select("SELECT 技能 FROM `技能配置` WHERE `技能` = @skill", list)) // 查询是否已有技能
                         Sqlite.NonQuery("DELETE  FROM `技能配置` WHERE `技能` = @skill", list);
@@ -70,7 +70,7 @@ namespace ExcelTools.data.write
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     skill = arr[(int)ExcelType_v1.Skill.名称].Trim();
                     if (skill == "") continue;

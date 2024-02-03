@@ -34,11 +34,11 @@ namespace ExcelTools.data.write
                 // 0(null) 1(num) 2(double) 3(string)
                 V1Write.state = 1;
                 // 读取所有数据
-                List<string> selectArr = Sqlite.SelectAll("道具配置", "SELECT `道具` FROM `道具配置`", null, "道具");
+                List<string> selectArr = Sqlite.SelectAll("SELECT `道具` FROM `道具配置`", null, "道具");
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     if (arr[(int)ExcelType_v1.Goods.物品].Trim() == "") continue;
 
@@ -92,11 +92,11 @@ namespace ExcelTools.data.write
                     // 战斗
                     if (!int.TryParse(arr[(int)ExcelType_v1.Goods.战斗], out int goodsFight)) goodsFight = 1;
                     if (goodsFight < 0 || goodsFight > 1) goodsFight = 0;
-                    List<object[]> list = new()
-                    {
-                        new object[2] { "@goods", arr[(int)ExcelType_v1.Goods.物品] },
+                    List<object[]> list =
+                    [
+                        ["@goods", arr[(int)ExcelType_v1.Goods.物品]],
 
-                    };
+                    ];
 
                     if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Goods.物品]))
                     {
@@ -108,16 +108,16 @@ namespace ExcelTools.data.write
                         selectArr.Add(arr[(int)ExcelType_v1.Goods.物品]);
                     }
 
-                    list = new()
-                    {
-                        new object[2] { "@goods", arr[(int)ExcelType_v1.Goods.物品] },
-                        new object[2] { "@type", goodsType },
-                        new object[2] { "@value", goodsName },
-                        new object[2] { "@bind", goodsBind },
-                        new object[2] { "@batch", goodsBatch },
-                        new object[2] { "@fight", goodsFight }
+                    list =
+                    [
+                        ["@goods", arr[(int)ExcelType_v1.Goods.物品]],
+                        ["@type", goodsType],
+                        ["@value", goodsName],
+                        ["@bind", goodsBind],
+                        ["@batch", goodsBatch],
+                        ["@fight", goodsFight]
 
-                    };
+                    ];
                     Sqlite.NonQuery(sqlTxt, list);
 
                     // 限制消耗

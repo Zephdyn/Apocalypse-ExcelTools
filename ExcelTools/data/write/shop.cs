@@ -36,7 +36,7 @@ namespace ExcelTools.data.write
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     shop = arr[(int)ExcelType_v1.Shop.商店].Trim();
                     if (shop == "") continue;
@@ -68,7 +68,7 @@ namespace ExcelTools.data.write
 
                     show = arr[(int)ExcelType_v1.Shop.描述];
                     stock = arr[(int)ExcelType_v1.Shop.库存];
-                    string[] arrS = stock.Split(new string[] { "[too]" }, StringSplitOptions.None);
+                    string[] arrS = stock.Split(["[too]"], StringSplitOptions.None);
 
                     int tNum = arrS.Length;
                     // 对arrS中的内容进行处理,将其修改为整数
@@ -101,7 +101,7 @@ namespace ExcelTools.data.write
 
                     // 商品单价
                     string priceOne = arr[(int)ExcelType_v1.Shop.单价];
-                    arrS = priceOne.Split(new string[] { "[too]" }, StringSplitOptions.None);
+                    arrS = priceOne.Split(["[too]"], StringSplitOptions.None);
 
                     tNum = arrS.Length;
                     // 对arrS中的内容进行处理,将其修改为整数
@@ -144,11 +144,11 @@ namespace ExcelTools.data.write
 
 
 
-                    List<object[]> list = new()
-                    {
-                        new object[2] { "@商店", shop },
-                        new object[2] { "@物品", arr[(int)ExcelType_v1.Shop.名称].Trim() }
-                    };
+                    List<object[]> list =
+                    [
+                        ["@商店", shop],
+                        ["@物品", arr[(int)ExcelType_v1.Shop.名称].Trim()]
+                    ];
 
                     // 商店收购, 所有内容加密
                     if (type == 1)
@@ -176,24 +176,24 @@ namespace ExcelTools.data.write
                         sqlTxt += $" VALUES (@商店,@状态,@物品,@数量,@数量2,@数量3,@价格类型,@价格,@价格2,@刷新几率,@刷新类型,@刷新时间,@描述{(type == 0 ? ",@价格物品" : "")})";
                     }
 
-                    list = new()
-                    {
-                        new object[2] { "@商店", shop },
-                        new object[2] { "@物品", arr[(int)ExcelType_v1.Shop.名称].Trim() },
-                        new object[2] { "@状态", nNum == 0 ? 0 : 1 }, // 有数量为1. 无数量状态为0
-                        new object[2] { "@数量", nNum },
-                        new object[2] { "@数量2", nNum },
-                        new object[2] { "@数量3", stock },
-                        new object[2] { "@价格类型", priceType },
-                        new object[2] { "@价格", oNum },
-                        new object[2] { "@价格2", priceOne },
-                        new object[2] { "@刷新几率", restPro },
-                        new object[2] { "@刷新类型", restTyep },
-                        new object[2] { "@刷新时间", TString.GetTime(1) },
-                        new object[2] { "@描述", intro }
-                    };
+                    list =
+                    [
+                        ["@商店", shop],
+                        ["@物品", arr[(int)ExcelType_v1.Shop.名称].Trim()],
+                        ["@状态", nNum == 0 ? 0 : 1], // 有数量为1. 无数量状态为0
+                        ["@数量", nNum],
+                        ["@数量2", nNum],
+                        ["@数量3", stock],
+                        ["@价格类型", priceType],
+                        ["@价格", oNum],
+                        ["@价格2", priceOne],
+                        ["@刷新几率", restPro],
+                        ["@刷新类型", restTyep],
+                        ["@刷新时间", TString.GetTime(1)],
+                        ["@描述", intro],
+                    ];
                     if (type == 0)
-                        list.Add(new object[2] { "@价格物品", priceName });
+                        list.Add(["@价格物品", priceName]);
 
                     // 商店收购, 所有内容加密 3.4.0 版本去除
                     //if (type == 1)
@@ -212,10 +212,10 @@ namespace ExcelTools.data.write
 
                     Sqlite.NonQuery(sqlTxt, list);
 
-                    list = new()
-                    {
-                        new object[2] { "@商店", shop }
-                    };
+                    list =
+                    [
+                        ["@商店", shop]
+                    ];
                     if (Sqlite.Select($"SELECT `商店` FROM `商店配置` WHERE `商店` = @商店", list))
                     {
 
@@ -226,8 +226,8 @@ namespace ExcelTools.data.write
                     {
                         sqlTxt = $"INSERT INTO `商店配置` (`商店`,`类型`,`位置`) VALUES (@商店,@类型,@位置)";
                     }
-                    list.Add(new object[2] { "@类型", typeMap });
-                    list.Add(new object[2] { "@位置", map });
+                    list.Add(["@类型", typeMap]);
+                    list.Add(["@位置", map]);
                     Sqlite.NonQuery(sqlTxt, list);
 
                     Update.Show(Update.EShow.商店, shop, show, show == "");

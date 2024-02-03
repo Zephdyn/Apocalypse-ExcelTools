@@ -171,11 +171,11 @@ namespace excelTools.data
             // sql操作
             SqliteCommand command = con.CreateCommand();
 
-            List<object[]> list = new()
-            {
-                new object[2] { "@类型", Code.Asm_TextTo16(((int)type).ToString()) },
-                new object[2] { "@名称", Code.Asm_TextTo16(name) }
-            };
+            List<object[]> list =
+            [
+                ["@类型", Code.Asm_TextTo16(((int)type).ToString())],
+                ["@名称", Code.Asm_TextTo16(name)]
+            ];
             if (Sqlite.Select("SELECT 描述 FROM 描述配置 WHERE 类型 = @类型 AND 名称 = @名称;", list))
             {
                 if (delete)
@@ -225,11 +225,10 @@ namespace excelTools.data
             // sql操作
             SqliteCommand command = con.CreateCommand();
             if (value == "") delete = true;
-            List<object[]> list = new()
-            {
-                new object[2] { "@ID", ((int)type).ToString() },
-                new object[2] { "@name", Code.Asm_TextTo16(name) }
-            };
+            List<object[]> list = [
+                ["@ID", ((int)type).ToString()],
+                ["@name", Code.Asm_TextTo16(name)]
+            ];
             if (Sqlite.Select("SELECT ID FROM `消耗限制` WHERE `ID` = @ID AND `name` = @name;", list))
             {
                 if (delete)
@@ -281,12 +280,11 @@ namespace excelTools.data
             // sql操作
             SqliteCommand command = con.CreateCommand();
             if (msg == "") delete = true;
-            List<object[]> list = new()
-            {
-                new object[2] { "@ID", Code.Asm_TextTo16(((int)id).ToString()) },
-                new object[2] { "@sec", Code.Asm_TextTo16(sec) },
-                new object[2] { "@type", Code.Asm_TextTo16(type) }
-            };
+            List<object[]> list = [
+               [ "@ID", Code.Asm_TextTo16(((int)id).ToString())],
+               [ "@sec", Code.Asm_TextTo16(sec) ],
+                [ "@type", Code.Asm_TextTo16(type)]
+            ];
             if (Sqlite.Select("SELECT ID FROM `拓展配置` WHERE `ID` = @ID AND `sec` = @sec AND `type` = @type;", list))
             {
                 if (delete)
@@ -335,12 +333,12 @@ namespace excelTools.data
         public static bool DbConfig(string file, string sec, string key, string value, bool delete)
         {
             string sqlTxt;
-            List<object[]> list = new()
-            {
-                new object[2] { "@file", Code.Asm_TextTo16(file) },
-                new object[2] { "@sec", Code.Asm_TextTo16(sec) },
-                new object[2] { "@key", Code.Asm_TextTo16(key) }
-            };
+            List<object[]> list =
+            [
+                ["@file", Code.Asm_TextTo16(file)],
+                ["@sec", Code.Asm_TextTo16(sec)],
+                ["@key", Code.Asm_TextTo16(key)]
+            ];
             if (Sqlite.Select("SELECT id FROM `record_ini` WHERE `file` = @file AND `sec` = @sec AND `c_key` = @key;", list))
             {
                 if (delete)
@@ -358,7 +356,7 @@ namespace excelTools.data
                 sqlTxt = "INSERT INTO `record_ini` (`file`,`sec`,`c_key`,`value`) VALUES (@file,@sec,@key,@value);";
             }
 
-            list.Add(new object[2] { "@value", Code.Asm_TextTo16(value) });
+            list.Add(["@value", Code.Asm_TextTo16(value)]);
             return Sqlite.NonQuery(sqlTxt, list) > 0;
         }
 

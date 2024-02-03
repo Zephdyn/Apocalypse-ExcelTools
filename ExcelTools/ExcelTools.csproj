@@ -9,7 +9,7 @@
     <Description>天启幻境II - Excel快速操作工具</Description>
     <Copyright>apocalypse - Tapdrd</Copyright>
     <NeutralLanguage>zh-CN</NeutralLanguage>
-    <AssemblyVersion>2.0.2</AssemblyVersion>
+    <AssemblyVersion>3.0.0.1</AssemblyVersion>
     <UseWindowsForms>False</UseWindowsForms>
     <FileVersion></FileVersion>
     <PackageIcon>logo.png</PackageIcon>

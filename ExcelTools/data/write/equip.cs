@@ -36,7 +36,7 @@ namespace ExcelTools.data.write
             {
                 V1Write.state = 1;
                 // 读取所有数据
-                List<string> selectArr = Sqlite.SelectAll("装备配置", "SELECT `装备` FROM `装备配置`", null, "装备");
+                List<string> selectArr = Sqlite.SelectAll( "SELECT `装备` FROM `装备配置`", null, "装备");
                 for (int i = 0; i < arrWrite.Count; i++)
                 {
                     V1Write.Numwrite++;
@@ -50,11 +50,11 @@ namespace ExcelTools.data.write
                     }
 
 
-                    string[] arr = arrWrite[i].ToArray();
-                    List<object[]> list = new()
-                    {
-                        new object[2] { "@装备", arr[(int)ExcelType_v1.Equip.名称] }
-                    };
+                    string[] arr = [.. arrWrite[i]];
+                    List<object[]> list =
+                    [
+                        ["@装备", arr[(int)ExcelType_v1.Equip.名称]]
+                    ];
 
                     if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Equip.名称]))
                     {
@@ -120,11 +120,11 @@ namespace ExcelTools.data.write
                     //"描述"
                     Update.Show(Update.EShow.装备, arr[(int)ExcelType_v1.Equip.名称], arr[(int)ExcelType_v1.Equip.描述], false);
 
-                    list = new()
-                    {
-                        new object[2] { "@装备", arr[(int)ExcelType_v1.Equip.名称] },
-                        new object[2] { "@类型", "1" }
-                    };
+                    list =
+                    [
+                        ["@装备", arr[(int)ExcelType_v1.Equip.名称]],
+                        ["@类型", "1"]
+                    ];
                     // 职业 [装备配置2]
                     // arr[2]
                     // 对arr[2]进行处理
