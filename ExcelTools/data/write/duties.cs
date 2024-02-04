@@ -26,7 +26,8 @@ namespace ExcelTools.data.write
             SqliteCommand write = con.CreateCommand();
 
             Int64 startTime = Stopwatch.GetTimestamp();
-
+            // 当前数量置0
+            V1Write.Numwrite = 0;
             string duties, show, aim, typeString, drop, dutiesSeries, dutiesNext, dutiesNpc, sqlTxt;
             int errorCheck = 0, tNum = 0;
             try

@@ -26,7 +26,8 @@ namespace ExcelTools.data.write
             SqliteCommand write = con.CreateCommand();
             // 获取当前时间戳
             Int64 startTime = Stopwatch.GetTimestamp();
-
+            // 当前数量置0
+            V1Write.Numwrite = 0;
             string copy, sqlTxt;
             int errorCheck = 0;
             try

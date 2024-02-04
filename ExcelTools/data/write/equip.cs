@@ -27,7 +27,8 @@ namespace ExcelTools.data.write
             SqliteTransaction transaction = con.BeginTransaction();
             // sql操作
             SqliteCommand write = con.CreateCommand();
-
+            // 当前数量置0
+            V1Write.Numwrite = 0;
             long startTime = Stopwatch.GetTimestamp();
             int testing, errorCheck = 0; ;
             string ret;

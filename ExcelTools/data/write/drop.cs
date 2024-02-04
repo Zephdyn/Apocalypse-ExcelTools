@@ -25,7 +25,8 @@ namespace ExcelTools.data.write
             SqliteCommand write = con.CreateCommand();
 
             Int64 startTime = Stopwatch.GetTimestamp();
-
+            // 当前数量置0
+            V1Write.Numwrite = 0;
             try
             {
                 // 删除所有掉落记录
