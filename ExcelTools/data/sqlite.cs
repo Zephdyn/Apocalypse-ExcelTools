@@ -18,9 +18,9 @@ namespace excelTools.data
         /// <param name="value">参数绑定</param>
         /// <param name="get">获取字段</param>
         /// <returns></returns>
-        public static List<string> SelectAll(string table, string sql, List<object[]> value, string get)
+        public static List<string> SelectAll( string sql, List<object[]> value, string get)
         {
-            List<string> arr = new();
+            List<string> arr = [];
             var con = Config.connection;
             SqliteCommand command = con.CreateCommand();
             command.CommandText = sql;

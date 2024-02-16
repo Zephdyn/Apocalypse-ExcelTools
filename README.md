@@ -1,8 +1,8 @@
 # 开发环境
 
 	推荐:
-	IDE: visual studio 2022  17.4.1
-	NET版本: 7.0
+	IDE: visual studio 2022  17.8.6
+	NET版本: 8.0
 	
 # 天启幻境II_ExcelTools
 

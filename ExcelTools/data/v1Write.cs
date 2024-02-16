@@ -13,7 +13,9 @@ namespace excelTools.data
 {
     internal class V1Write
     {
-        // 0未开启, 1 v1插入
+        /// <summary>
+        /// 0未开启, 1 v1插入  2 清理
+        /// </summary>
         public static int state;
         // 写入值
         public static int Numwrite;
@@ -44,6 +46,9 @@ namespace excelTools.data
         // 副本
         public static int Copy()
             => ExcelTools.data.write.Copy.V1();
+        // 技能
+        public static int Skill()
+            => ExcelTools.data.write.Skill.V1();
 
     }
 }

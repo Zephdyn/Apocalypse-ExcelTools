@@ -26,19 +26,21 @@ namespace ExcelTools.data.write
             SqliteCommand write = con.CreateCommand();
 
             long startTime = Stopwatch.GetTimestamp();
-
-            int  errorCheck = 0;
+            // 当前数量置0
+            V1Write.Numwrite = 0;
+            int errorCheck = 0;
             string temp, ret;
             try
             {
                 V1Write.state = 1;
                 // 读取所有数据
-                List<string> selectArr = Sqlite.SelectAll("config_map", "SELECT `id`,`map` FROM `config_map`", null, "map");
+                List<string> selectArr = Sqlite.SelectAll("SELECT `id`,`map` FROM `config_map`", null, "map");
 
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
 
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
+                    arr = arr.Where((val, idx) => idx > 0).ToArray();
                     if (arr[(int)ExcelType_v1.Map.位置].Trim() == "") continue;
                     V1Write.Numwrite++;
                     if (i > 0 && i % 3000 == 0)
@@ -50,10 +52,10 @@ namespace ExcelTools.data.write
                         write = con.CreateCommand();
                     }
 
-                    List<object[]> list = new()
-                    {
-                        new object[2] { "@map", arr[(int)ExcelType_v1.Map.位置] }
-                    };
+                    List<object[]> list =
+                    [
+                        ["@map", arr[(int)ExcelType_v1.Map.位置]]
+                    ];
 
                     if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Map.位置]))
                     {
@@ -110,10 +112,10 @@ namespace ExcelTools.data.write
                     write.Parameters.Clear();
                     if (temp == "") continue;
 
-                    string[] tarr = temp.Split(new char[] { '\n' });
+                    string[] tarr = temp.Split(['\n']);
                     foreach (string item in tarr)
                     {
-                        string[] yarr = item.Split(new string[] { "[too]" }, StringSplitOptions.None);
+                        string[] yarr = item.Split(["[too]"], StringSplitOptions.None);
                         if (yarr.Length != 4) continue;
                         if (yarr[0].Trim() == "") continue;
                         write.CommandText = @"

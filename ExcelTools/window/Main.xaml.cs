@@ -36,7 +36,7 @@ namespace ExcelTools.window
         // 数据库路径
         private static string DatabasePath;
         // 软件支持的数据库版本
-        private static readonly int DatabaseVersion = 3030001;
+        private static readonly int DatabaseVersion = 4000000;
         // 当前数据库版本
         private static int DatabaseReadVersion;
 
@@ -47,7 +47,7 @@ namespace ExcelTools.window
         private static int WriteType = 0;
 
         // 配置文件
-        private static JObject Infojson = new();
+        private static JObject Infojson = [];
         public Main()
         {
             // 窗口居中显示
@@ -90,34 +90,34 @@ namespace ExcelTools.window
         {
             if (e.ClickCount == 2)
             {
-                this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+                WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             }
         }
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
         private void 顶层_缩小_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;
         }
         private void 顶层_最大_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+            WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
         private void 顶层_关闭_Click(object sender, RoutedEventArgs e)
         {
             // 保存上次界面
             if (Infojson.Property("window") == null)
                 Infojson.Add(new JProperty("window", new JObject(new JProperty("tab"))));
-            Infojson["window"]["tab"] = this.功能_栏.SelectedIndex;
+            Infojson["window"]["tab"] = 功能_栏.SelectedIndex;
             File.WriteAllText("config.json", Infojson.ToString());
-            this.Close();
+            Close();
         }
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
-            if (key == Key.Tab)
+            if (key == Key.Tab || key == Key.LeftAlt || key == Key.RightAlt)
             {
                 e.Handled = true;
             }
@@ -143,7 +143,7 @@ namespace ExcelTools.window
             string content = bt.Content.ToString();
             Debug.WriteLine(content);
             Debug.WriteLine(Config.Status());
-            if (Config.Status() != (int)System.Data.ConnectionState.Open)
+            if (Config.Status() != (int)ConnectionState.Open)
             {
                 if (content == "数据导入")
                 {
@@ -151,9 +151,9 @@ namespace ExcelTools.window
                     return;
                 }
             }
-            string[] Rtype = Array.Empty<string>();
+            string[] Rtype = [];
             string name = "";
-            byte[] template = Array.Empty<byte>();
+            byte[] template = [];
             switch (command)
             {
                 case 1:
@@ -195,6 +195,11 @@ namespace ExcelTools.window
                     Rtype = ExcelTypeRead_v1.copy;
                     name = "副本示例.xlsx";
                     template = Properties.Resources.副本示例;
+                    break;
+                case 9:
+                    Rtype = ExcelTypeRead_v1.skill;
+                    name = "技能示例.xlsx";
+                    template = Properties.Resources.技能示例;
                     break;
 
             }
@@ -277,7 +282,8 @@ namespace ExcelTools.window
             if (ver[2] != null)
             {
                 Config.Close();// 关闭数据库连接
-                MessageBox.Show(ver[2], "读取数据库错误");
+                WIfon.DbConfigInfo = "当前数据库状态：读取错误";
+                //MessageBox.Show(ver[2], "读取数据库错误");
                 return false;
             }
             WIfon.DbConfigInfo = $"当前数据库信息：{ver[0]}({ver[1]})";

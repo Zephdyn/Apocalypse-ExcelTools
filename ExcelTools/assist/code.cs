@@ -1,4 +1,5 @@
-﻿using System;
+﻿using excelTools.excel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -95,6 +96,9 @@ namespace excelTools.assist
             ret = ret.ToLower();
             return ret.ToUpper();
         }
+
+
+
     }
 
     /// <summary>
@@ -102,6 +106,43 @@ namespace excelTools.assist
     /// </summary>
     class TString
     {
+        /// <summary>
+        /// 转整数
+        /// </summary>
+        /// <param name="text">原文本</param>
+        /// <param name="def">转换失败,返回默认值</param>
+        /// <returns></returns>
+        public static int GetInt(string text, int def)
+        {
+            if (!int.TryParse(text, out int num)) num = def;
+            return num;
+        }
+        /// <summary>
+        /// 转整数,并整理
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="max"></param>
+        /// <param name="min"></param>
+        /// <param name="def"></param>
+        /// <returns></returns>
+        public static int GetIntTidy(string text, int max, int min, int def)
+        {
+            if (!int.TryParse(text, out int num)) num = def;
+            return TNumber.IntTidy(num, max, min, def);
+        }
+        /// <summary>
+        /// 转双精度小数,并整理
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="max"></param>
+        /// <param name="min"></param>
+        /// <param name="def"></param>
+        /// <returns></returns>
+        public static double GetDoubleTidy(string text, double max, double min, double def)
+        {
+            if (!double.TryParse(text, out double num)) num = def;
+            return TNumber.DoubleTidy(num, max, min, def);
+        }
         /// <summary>
         /// 获取时间
         /// </summary>
@@ -132,7 +173,7 @@ namespace excelTools.assist
         /// <returns></returns>
         public static string HandingBank(string str)
         {
-            string[] sArr = str.Split(new char[] { '\n' });
+            string[] sArr = str.Split(['\n']);
             string temp = "";
             foreach (var sTemp in sArr)
             {
@@ -142,7 +183,6 @@ namespace excelTools.assist
             if (temp != "") temp = temp[0..^5];
             return temp;
         }
-
         /// <summary>
         /// 限制消耗检测, 返回错误信息
         /// </summary>
@@ -151,13 +191,13 @@ namespace excelTools.assist
         public static string LimitConfigCheck(string str)
         {
             if (str == "") return "";
-            int state = 0;
+            int state;
             string[] item = new string[2];
-            string[] sArr = str.Split(new char[] { '\n' });
+            string[] sArr = str.Split(['\n']);
             foreach (var temp in sArr)
             {
                 state = 0;
-                string[] vs = temp.Split(new string[] { "[too]" }, StringSplitOptions.None);
+                string[] vs = temp.Split(["[too]" ], StringSplitOptions.None);
                 if (vs.Length != 3) return $"错误内容: {temp} {System.Environment.NewLine}错误信息: 格式不符合";
                 if (vs[0].Length == 0) return $"错误内容: {temp} {System.Environment.NewLine}错误信息: 功能类型不能为空";
                 if (vs[1] != "0" && vs[1] != "1" && vs[1] != "2") return $"错误内容: {temp} {System.Environment.NewLine}错误信息: 操作类型应为0/1/2";
@@ -214,7 +254,7 @@ namespace excelTools.assist
                 // 防止substring异常
                 if (vs[0].Length > 2)
                 {
-                    item[0] = vs[0].Substring(0, 2);
+                    item[0] = vs[0][..2];
                     item[1] = vs[0][2..];
                     switch (item[0])
                     {
@@ -256,6 +296,41 @@ namespace excelTools.assist
             }
 
             return "";
+        }
+    }
+
+    /// <summary>
+    /// 对数值进行处理
+    /// </summary>
+    class TNumber
+    {
+        /// <summary>
+        /// 整理整数
+        /// </summary>
+        /// <param name="num">当前</param>
+        /// <param name="max">上限</param>
+        /// <param name="main">下限</param>
+        /// <param name="def">超过上限,低于下限则为默认</param>
+        /// <returns></returns>
+        public static int IntTidy(int num, int max, int min, int def)
+        {
+            if (num > max) return def;
+            if (num < min) return def;
+            return num;
+        }
+        /// <summary>
+        /// 整理双精度小数
+        /// </summary>
+        /// <param name="num">当前</param>
+        /// <param name="max">上限</param>
+        /// <param name="main">下限</param>
+        /// <param name="def">超过上限,低于下限则为默认</param>
+        /// <returns></returns>
+        public static double DoubleTidy(double num, double max, double min, double def)
+        {
+            if (num > max) return def;
+            if (num < min) return def;
+            return num;
         }
     }
 }
