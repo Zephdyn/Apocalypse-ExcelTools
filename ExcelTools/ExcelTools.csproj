@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>1.0.0</Version>
+    <Version>3.0.0</Version>
     <Authors>枭</Authors>
     <Description>天启幻境II - Excel快速操作工具</Description>
     <Copyright>apocalypse - Tapdrd</Copyright>
     <NeutralLanguage>zh-CN</NeutralLanguage>
-    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <AssemblyVersion>3.0.0</AssemblyVersion>
     <UseWindowsForms>False</UseWindowsForms>
-    <FileVersion></FileVersion>
+    <FileVersion>3.0.0</FileVersion>
     <PackageIcon>logo.png</PackageIcon>
     <ApplicationIcon>window\favicon.ico</ApplicationIcon>
     <ImplicitUsings>disable</ImplicitUsings>
@@ -36,6 +36,7 @@
     <None Remove="images\excel\map.png" />
     <None Remove="images\excel\monster.png" />
     <None Remove="images\excel\shop.png" />
+    <None Remove="images\excel\skill.png" />
     <None Remove="images\excel\task.png" />
     <None Remove="images\Microsoft.Data.Sqlite.png" />
     <None Remove="images\Newtonsoft.Json.png" />
@@ -52,11 +53,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NPOI" Version="2.6.0" />
-    <PackageReference Include="Panuon.WPF" Version="1.0.1" />
-    <PackageReference Include="Panuon.WPF.UI" Version="1.1.6.5" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NPOI" Version="2.6.2" />
+    <PackageReference Include="Panuon.WPF" Version="1.0.3" />
+    <PackageReference Include="Panuon.WPF.UI" Version="1.1.14.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +72,7 @@
     <Resource Include="images\excel\equip.png" />
     <Resource Include="images\excel\monster.png" />
     <Resource Include="images\excel\shop.png" />
+    <Resource Include="images\excel\skill.png" />
     <Resource Include="images\excel\task.png" />
     <Resource Include="window\logo.png" />
   </ItemGroup>

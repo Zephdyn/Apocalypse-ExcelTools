@@ -37,8 +37,8 @@ namespace excelTools.excel
         /// <summary>
         /// 装备
         /// </summary>
-        public static readonly string[] equip = new string[]
-        {
+        public static readonly string[] equip =
+        [
             "名称",
             "职业",
             "绑定",
@@ -56,13 +56,14 @@ namespace excelTools.excel
             "卸下",
             "技能",
             "描述",
-            "装备限制消耗"
-        };
+            "装备限制消耗",
+            "自定义属性"
+        ];
         /// <summary>
         /// 地图
         /// </summary>
-        public static readonly string[] map = new string[]
-        {
+        public static readonly string[] map =
+        [
             "位置",
             "前",
             "后",
@@ -75,12 +76,12 @@ namespace excelTools.excel
             "怪物",
             "饥饿减少",
             "限制消耗"
-        };
+        ];
         /// <summary>
         /// 怪物
         /// </summary>
-        public static readonly string[] monster = new string[]
-        {
+        public static readonly string[] monster =
+        [
             "怪物",
             "等级",
             "生命",
@@ -95,23 +96,24 @@ namespace excelTools.excel
             "掉落",
             "描述",
             "对外显示",
-            "地图显示"
-        };
+            "地图显示",
+            "自定义属性"
+        ];
         /// <summary>
         /// 掉落
         /// </summary>
-        public static readonly string[] drop = new string[] {
+        public static readonly string[] drop = [
             "掉落",
             "类型",
             "经验",
             "货币",
             "物品",
             "掉落地图"
-        };
+        ];
         /// <summary>
         /// 物品
         /// </summary>
-        public static readonly string[] goods = new string[] {
+        public static readonly string[] goods = [
             "物品",
             "类型",
             "名称",
@@ -122,11 +124,11 @@ namespace excelTools.excel
             "提示",
             "描述",
             "限制消耗"
-        };
+        ];
         /// <summary>
         /// 商店
         /// </summary>
-        public static readonly string[] shop = new string[] {
+        public static readonly string[] shop = [
             "商店",
             "位置",
             "类型",
@@ -139,11 +141,11 @@ namespace excelTools.excel
             "刷新类型",
             "刷新几率",
             "介绍"
-        };
+        ];
         /// <summary>
         /// 任务
         /// </summary>
-        public static readonly string[] duties = new string[] {
+        public static readonly string[] duties = [
             "任务",
             "类型",
             "掉落",
@@ -154,11 +156,11 @@ namespace excelTools.excel
             "任务目标",
             "放弃",
             "限制消耗"
-        };
+        ];
         /// <summary>
-        /// 单人副本
+        /// 副本
         /// </summary>
-        public static readonly string[] copy = new string[] {
+        public static readonly string[] copy = [
             "副本",
             "副本类型",
             "进入次数",
@@ -180,7 +182,54 @@ namespace excelTools.excel
             "数量",
             "掉落",
             "强制攻击"
-        };
+        ];
+        /// <summary>
+        /// 技能
+        /// </summary>
+        public static readonly string[] skill = [
+            "名称",
+            "类型",
+            "冷却时间",
+            "查询",
+            "暴击",
+            "限制消耗",
+            "描述",
+            "生命回复",
+            "法力回复",
+            "饥饿回复",
+            "复活技能",
+            "队友释放",
+            "持续回复",
+            "伤害",
+            "是否固定吸血",
+            "是否百分比吸血",
+            "固定吸血",
+            "百分比吸血",
+            "吸血概率",
+            "效果类型",
+            "效果",
+            "增幅类型",
+            "增幅时间",
+            "状态名称",
+            "减益",
+            "自己释放",
+            "怪物释放",
+            "嘲讽技能",
+            "生命",
+            "法力",
+            "攻击",
+            "防御",
+            "命中",
+            "闪避",
+            "暴击概率",
+            "暴击伤害",
+            "掉率",
+            "经验固定",
+            "经验百分比",
+            "货币固定",
+            "货币百分比",
+            "叠加上限"
+        ];
 
     }
 
@@ -191,42 +240,43 @@ namespace excelTools.excel
         /// </summary>
         public enum Equip
         {
-            名称 = 1,
-            职业 = 2,
-            绑定 = 3,
-            部位 = 4,
-            等级 = 5,
-            生命 = 6,
-            法力 = 7,
-            攻击 = 8,
-            防御 = 9,
-            命中 = 10,
-            闪避 = 11,
-            暴击概率 = 12,
-            暴击伤害 = 13,
-            饥饿 = 14,
-            卸下 = 15,
-            技能 = 16,
-            描述 = 17,
-            装备限制消耗=18,
+            名称 ,
+            职业 ,
+            绑定 ,
+            部位 ,
+            等级 ,
+            生命 ,
+            法力 ,
+            攻击 ,
+            防御 ,
+            命中 ,
+            闪避 ,
+            暴击概率 ,
+            暴击伤害 ,
+            饥饿 ,
+            卸下 ,
+            技能 ,
+            描述 ,
+            装备限制消耗 ,
+            自定义属性 ,
         };
         /// <summary>
         /// 地图
         /// </summary>
         public enum Map
         {
-            位置 = 1,
-            前 = 2,
-            后 = 3,
-            左 = 4,
-            右 = 5,
-            上 = 6,
-            下 = 7,
-            描述 = 8,
-            安全区 = 9,
-            怪物 = 10,
-            饥饿减少 = 11,
-            限制消耗 = 12
+            位置 ,
+            前 ,
+            后 ,
+            左 ,
+            右 ,
+            上 ,
+            下 ,
+            描述 ,
+            安全区 ,
+            怪物 ,
+            饥饿减少 ,
+            限制消耗 
         };
         /// <summary>
         /// 怪物
@@ -247,7 +297,8 @@ namespace excelTools.excel
             掉落,
             描述,
             对外显示,
-            地图显示
+            地图显示,
+            自定义属性 ,
         };
         /// <summary>
         /// 掉落
@@ -312,10 +363,10 @@ namespace excelTools.excel
             限制消耗
         };
         /// <summary>
-        /// 单人副本
+        /// 副本
         /// </summary>
         public enum Copy
-        {        
+        {
             副本,
             副本类型,
             进入次数,
@@ -337,6 +388,55 @@ namespace excelTools.excel
             数量,
             掉落,
             强制攻击
+        };
+
+        /// <summary>
+        /// 技能
+        /// </summary>
+        public enum Skill
+        {
+            名称,
+            类型,
+            冷却时间,
+            查询,
+            暴击,
+            限制消耗,
+            描述,
+            生命回复,
+            法力回复,
+            饥饿回复,
+            复活技能,
+            队友释放,
+            持续回复,
+            伤害,
+            是否固定吸血,
+            是否百分比吸血,
+            固定吸血,
+            百分比吸血,
+            吸血概率,
+            效果类型,
+            效果,
+            增幅类型,
+            增幅时间,
+            状态名称,
+            减益,
+            自己释放,
+            怪物释放,
+            嘲讽技能,
+            生命,
+            法力,
+            攻击,
+            防御,
+            命中,
+            闪避,
+            暴击概率,
+            暴击伤害,
+            掉率,
+            经验固定,
+            经验百分比,
+            货币固定,
+            货币百分比,
+            叠加上限
         };
     }
 

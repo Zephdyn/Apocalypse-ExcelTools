@@ -29,7 +29,7 @@ namespace ExcelTools.window
         // 数据绑定
         private static readonly WpfInfo WIfon = new();
         // 记录
-        private static int GetDataVersion, GetDataSheetId;
+        private static int GetDataVersion;
         private static string[] GetDataReadType;
         private static string GetDataFileName;
         public int Readint = 0;
@@ -48,12 +48,12 @@ namespace ExcelTools.window
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             // 数据绑定
-            this.DataContext = WIfon;
+            DataContext = WIfon;
             // 设置窗口名称
-            this.Title = "Excel Tools - 数据导入";
+            Title = "Excel Tools - 数据导入";
 
             // 注册可否被关闭事件
-            this.Closing += WpfClosing;
+            Closing += WpfClosing;
 
             // 读取数据
             WriteType = type;
@@ -78,32 +78,33 @@ namespace ExcelTools.window
                 e.Cancel = true;
                 return;
             }
-            if (Config.Status() == (int)System.Data.ConnectionState.Open) Config.Close(); // 如果数据库已连接,则关闭数据库
+            // 此处代码会导致只能读取一次Excel数据,第二次再读取会提示数据库未连接
+            // if (Config.Status() == (int)System.Data.ConnectionState.Open) Config.Close(); // 如果数据库已连接,则关闭数据库
             e.Cancel = false;
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e) // 双击放大缩小
         {
             if (e.ClickCount == 2)
             {
-                this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+               WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             }
         }
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
         private void 顶层_最大_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+           WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
         private void 顶层_关闭_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
-            if (key == Key.Tab)
+            if (key == Key.Tab || key == Key.LeftAlt || key == Key.RightAlt)
             {
                 e.Handled = true;
             }
@@ -156,7 +157,7 @@ namespace ExcelTools.window
             this.Tab_3_DataGrid.IsReadOnly = true;
 
             List<object[]> oList = excelTools.excel.Program.arrShee;
-            List<WpfInfo.TabShee> shee = new();
+            List<WpfInfo.TabShee> shee = [];
             foreach (var item in oList)
             {
                 shee.Add(new WpfInfo.TabShee { ID = (int)item.GetValue(0), Name = (string)item.GetValue(1) });
@@ -164,7 +165,11 @@ namespace ExcelTools.window
             Tab_3_ComboBox_Shhet.ItemsSource = shee;
             Tab_3_ComboBox_Shhet.SelectedIndex = 0;
         }
-
+        /// <summary>
+        /// 写入数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_Writedata(object sender, RoutedEventArgs e)
         {
             if (Readint == 1)
@@ -214,6 +219,9 @@ namespace ExcelTools.window
                     case 8:
                         t1 = new Task(() => V1Write.Copy());
                         break;
+                    case 9:
+                        t1 = new Task(() => V1Write.Skill());
+                        break;
                     default:
                         MessageBox.Show("异常类型", "错误");
                         return;
@@ -239,7 +247,6 @@ namespace ExcelTools.window
             }
 
         }
-
         /// <summary>
         /// 切换Excel 工作表
         /// </summary>
@@ -268,7 +275,6 @@ namespace ExcelTools.window
             GetDataVersion = version;
             GetDataReadType = readType;
             GetDataFileName = _fileName;
-            GetDataSheetId = sheetId;
             Task t = new(() =>
             {
                 TrdRead info = new()

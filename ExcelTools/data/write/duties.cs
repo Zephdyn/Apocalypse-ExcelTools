@@ -26,7 +26,8 @@ namespace ExcelTools.data.write
             SqliteCommand write = con.CreateCommand();
 
             Int64 startTime = Stopwatch.GetTimestamp();
-
+            // 当前数量置0
+            V1Write.Numwrite = 0;
             string duties, show, aim, typeString, drop, dutiesSeries, dutiesNext, dutiesNpc, sqlTxt;
             int errorCheck = 0, tNum = 0;
             try
@@ -37,7 +38,7 @@ namespace ExcelTools.data.write
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     duties = arr[(int)ExcelType_v1.Duties.任务].Trim();
                     if (duties == "") continue;
@@ -51,10 +52,10 @@ namespace ExcelTools.data.write
 
                         transaction = con.BeginTransaction();
                     }
-                    List<object[]> list = new()
-                    {
-                        new object[] { "@任务", duties }
-                    };
+                    List<object[]> list =
+                    [
+                        ["@任务", duties]
+                    ];
 
                     if (Sqlite.Select("SELECT `任务` FROM `任务配置2` WHERE `任务` = @任务", list))
                         Sqlite.NonQuery("DELETE FROM `任务配置2` WHERE `任务` = @任务", list);
@@ -62,12 +63,12 @@ namespace ExcelTools.data.write
 
                 V1Write.state = 1;
                 // 读取所有数据
-                List<string> selectArr = Sqlite.SelectAll("任务配置", "SELECT `任务` FROM `任务配置`", null, "任务");
+                List<string> selectArr = Sqlite.SelectAll("SELECT `任务` FROM `任务配置`", null, "任务");
 
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     duties = arr[(int)ExcelType_v1.Duties.任务].Trim();
                     if (duties == "") continue;
@@ -93,10 +94,10 @@ namespace ExcelTools.data.write
                     };
                     drop = arr[(int)ExcelType_v1.Duties.掉落];
 
-                    List<object[]> sList = new()
-                    {
-                        new object[] { "@任务", duties }
-                    };
+                    List<object[]> sList =
+                    [
+                        ["@任务", duties]
+                    ];
 
                     if (selectArr.Exists(t => t == duties))
                     {
@@ -107,18 +108,18 @@ namespace ExcelTools.data.write
                         sqlTxt = "INSERT INTO `任务配置` (`任务`,`类型`,`掉落`) VALUES (@任务,@类型,@掉落);";
                         selectArr.Add(duties);
                     }
-                    sList.Add(new object[] { "@类型", typeString });
-                    sList.Add(new object[] { "@掉落", drop });
+                    sList.Add(["@类型", typeString]);
+                    sList.Add(["@掉落", drop]);
                     Sqlite.NonQuery(sqlTxt, sList);
 
                     /*任务配置2*/
 
                     aim = arr[(int)ExcelType_v1.Duties.任务目标];
-                    string[] tarr = aim.Split(new char[] { '\n' });
-                    List<object[]> aimList = new();
+                    string[] tarr = aim.Split(['\n']);
+                    List<object[]> aimList = [];
                     foreach (var item in tarr)
                     {
-                        string[] tarr2 = item.Split(new string[] { "[too]" }, StringSplitOptions.None);
+                        string[] tarr2 = item.Split(["[too]"], StringSplitOptions.None);
                         if (tarr2.Length != 3) continue;
                         tarr2[0] = tarr2[0] switch
                         {
@@ -144,15 +145,15 @@ namespace ExcelTools.data.write
 
                     foreach (var item in aimList)
                     {
-                        sList = new()
-                        {
-                            new object[] { "@任务", duties },
-                            new object[] { "@类型", item[0] },
-                            new object[] { "@目标", item[1] }
-                        };
+                        sList =
+                        [
+                            ["@任务", duties],
+                            ["@类型", item[0]],
+                            ["@目标", item[1]]
+                        ];
                         if (Sqlite.Select("SELECT `任务` FROM `任务配置2`  WHERE `任务`=@任务 AND `类型`=@类型 AND `目标`=@目标;", sList)) sqlTxt = "UPDATE `任务配置2` SET `数量` = @数量 WHERE `任务` = @任务 AND `类型`=@类型 AND `目标`=@目标;;";
                         else sqlTxt = "INSERT INTO `任务配置2` (`任务`,`类型`,`目标`,`数量`) VALUES (@任务,@类型,@目标,@数量);";
-                        sList.Add(new object[] { "@数量", item[2] });
+                        sList.Add(["@数量", item[2]]);
                         Sqlite.NonQuery(sqlTxt, sList);
                     }
 
@@ -160,16 +161,16 @@ namespace ExcelTools.data.write
                     dutiesSeries = arr[(int)ExcelType_v1.Duties.任务系列];
                     dutiesNext = arr[(int)ExcelType_v1.Duties.下个任务];
                     dutiesNpc = arr[(int)ExcelType_v1.Duties.交付对象];
-                    sList = new()
-                    {
-                        new object[] { "@任务", duties }
-                    };
+                    sList =
+                    [
+                        ["@任务", duties]
+                    ];
                     if (Sqlite.Select("SELECT `任务` FROM `任务配置3`  WHERE `任务`=@任务", sList)) sqlTxt = "UPDATE `任务配置3` SET `系列`=@系列 , `下个` = @下个, `交付` = @交付, `完成` = @完成 WHERE `任务` = @任务";
                     else sqlTxt = "INSERT INTO `任务配置3` (`任务`,`系列`,`下个`,`交付`,`完成`) VALUES (@任务,@系列,@下个,@交付,@完成)";
-                    sList.Add(new object[] { "@系列", dutiesSeries });
-                    sList.Add(new object[] { "@下个", dutiesNext });
-                    sList.Add(new object[] { "@交付", dutiesNpc });
-                    sList.Add(new object[] { "@完成", "0" });
+                    sList.Add(["@系列", dutiesSeries]);
+                    sList.Add(["@下个", dutiesNext]);
+                    sList.Add(["@交付", dutiesNpc]);
+                    sList.Add(["@完成", "0"]);
                     Sqlite.NonQuery(sqlTxt, sList);
 
                     if (!int.TryParse(arr[(int)ExcelType_v1.Duties.放弃], out int giveUp)) giveUp = 0;

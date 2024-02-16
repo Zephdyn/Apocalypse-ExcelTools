@@ -26,16 +26,17 @@ namespace ExcelTools.data.write
             SqliteCommand write = con.CreateCommand();
 
             Int64 startTime = Stopwatch.GetTimestamp();
-
+            // 当前数量置0
+            V1Write.Numwrite = 0;
             try
             {
                 V1Write.state = 1;
                 // 读取所有数据
-                List<string> selectArr = Sqlite.SelectAll("config_monster", "SELECT `id`,`monster` FROM `config_monster`", null, "monster");
+                List<string> selectArr = Sqlite.SelectAll("SELECT `id`,`monster` FROM `config_monster`", null, "monster");
                 for (var i = 0; i < arrWrite.Count; i++)
                 {
                     // 删除第一个
-                    string[] arr = arrWrite[i].ToArray();
+                    string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     if (arr[(int)ExcelType_v1.Monster.怪物].Trim() == "") continue;
                     V1Write.Numwrite++;
@@ -48,10 +49,10 @@ namespace ExcelTools.data.write
                         write = con.CreateCommand();
                     }
 
-                    List<object[]> list = new()
-                    {
-                        new object[2] { "@monster", arr[(int)ExcelType_v1.Monster.怪物] }
-                    };
+                    List<object[]> list =
+                    [
+                        ["@monster", arr[(int)ExcelType_v1.Monster.怪物]]
+                    ];
 
                     if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Monster.怪物]))
                     {
@@ -112,18 +113,32 @@ namespace ExcelTools.data.write
                     // 怪物技能
                     string skill = arr[(int)ExcelType_v1.Monster.技能];
                     if (skill == "") continue;
-                    string[] tarr = skill.Split(new char[] { '\n' });
+                    string[] tarr = skill.Split([ '\n' ]);
                     Sqlite.NonQuery("DELETE FROM `怪物技能` WHERE `怪物` = @monster", list);
 
 
                     foreach (string item in tarr)
                     {
-                        list = new()
-                        {
-                            new object[] { "@monster", arr[(int)ExcelType_v1.Monster.怪物] },
-                            new object[] { "@skill", item }
-                        };
+                        list =
+                        [
+                            ["@monster", arr[(int)ExcelType_v1.Monster.怪物]],
+                            ["@skill", item]
+                        ];
                         Sqlite.NonQuery("INSERT INTO `怪物技能` (`怪物`,`技能`) VALUES (@monster,@skill)", list);
+                    }
+
+
+                    // 自定义属性
+                    Update.ExtendStatsClear(write, Update.EExtendStats.怪物, arr[(int)ExcelType_v1.Monster.怪物]);
+                    tarr = arr[(int)ExcelType_v1.Equip.自定义属性].Split(['\n']);
+                    foreach (string item in tarr)
+                    {
+                        string[] yarr = item.Split(["[too]"], StringSplitOptions.None);
+                        if (yarr.Length != 2) continue;
+                        if (yarr[0].Trim() == "") continue;
+
+                        if (!Int64.TryParse(yarr[1], out long longNum)) longNum = 0;
+                        Update.ExtendStatsInsert(write, Update.EExtendStats.怪物, arr[(int)ExcelType_v1.Monster.怪物], yarr[0], longNum);
                     }
 
                 }

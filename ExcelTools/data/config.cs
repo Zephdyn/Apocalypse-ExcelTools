@@ -90,6 +90,9 @@ namespace excelTools.data
 
     class Update
     {
+        /// <summary>
+        /// 描述
+        /// </summary>
         public enum EShow
         {
             //类型: 1装备 2道具 3技能 4地图 5怪物 6任务 7NPC 8职业 9成就  10事件 11商店  12道具提示 13坐骑描述 14合成 15婚宴描述
@@ -109,14 +112,17 @@ namespace excelTools.data
             合成 = 14,
             婚宴描述 = 15
         }
-
+        /// <summary>
+        /// 限制消耗
+        /// </summary>
         public enum ECheck
         {
             地图 = 1,
-            任务 =2,
+            任务 = 2,
             物品 = 3,
             单人副本 = 15,
-            装备=19,
+            技能 = 17,
+            装备 = 19,
             /*
             ' 1. 地图
             ' 2. 任务
@@ -140,10 +146,23 @@ namespace excelTools.data
             ' 100.属性修改
             */
         }
+        /// <summary>
+        /// 拓展配置
+        /// </summary>
         public enum EPluginConfig
         {
             地图 = 6,
             物品 = 7
+        }
+        /// <summary>
+        /// 自定义属性配置
+        /// </summary>
+        public enum EExtendStats
+        {
+            等级 = 1,
+            装备 = 2,
+            坐骑 = 3,
+            怪物 = 4
         }
         /// <summary>
         /// 描述
@@ -162,11 +181,11 @@ namespace excelTools.data
             // sql操作
             SqliteCommand command = con.CreateCommand();
 
-            List<object[]> list = new()
-            {
-                new object[2] { "@类型", Code.Asm_TextTo16(((int)type).ToString()) },
-                new object[2] { "@名称", Code.Asm_TextTo16(name) }
-            };
+            List<object[]> list =
+            [
+                ["@类型", Code.Asm_TextTo16(((int)type).ToString())],
+                ["@名称", Code.Asm_TextTo16(name)]
+            ];
             if (Sqlite.Select("SELECT 描述 FROM 描述配置 WHERE 类型 = @类型 AND 名称 = @名称;", list))
             {
                 if (delete)
@@ -216,11 +235,10 @@ namespace excelTools.data
             // sql操作
             SqliteCommand command = con.CreateCommand();
             if (value == "") delete = true;
-            List<object[]> list = new()
-            {
-                new object[2] { "@ID", ((int)type).ToString() },
-                new object[2] { "@name", Code.Asm_TextTo16(name) }
-            };
+            List<object[]> list = [
+                ["@ID", ((int)type).ToString()],
+                ["@name", Code.Asm_TextTo16(name)]
+            ];
             if (Sqlite.Select("SELECT ID FROM `消耗限制` WHERE `ID` = @ID AND `name` = @name;", list))
             {
                 if (delete)
@@ -272,12 +290,11 @@ namespace excelTools.data
             // sql操作
             SqliteCommand command = con.CreateCommand();
             if (msg == "") delete = true;
-            List<object[]> list = new()
-            {
-                new object[2] { "@ID", Code.Asm_TextTo16(((int)id).ToString()) },
-                new object[2] { "@sec", Code.Asm_TextTo16(sec) },
-                new object[2] { "@type", Code.Asm_TextTo16(type) }
-            };
+            List<object[]> list = [
+               ["@ID", Code.Asm_TextTo16(((int)id).ToString())],
+                ["@sec", Code.Asm_TextTo16(sec)],
+                ["@type", Code.Asm_TextTo16(type)]
+            ];
             if (Sqlite.Select("SELECT ID FROM `拓展配置` WHERE `ID` = @ID AND `sec` = @sec AND `type` = @type;", list))
             {
                 if (delete)
@@ -326,12 +343,12 @@ namespace excelTools.data
         public static bool DbConfig(string file, string sec, string key, string value, bool delete)
         {
             string sqlTxt;
-            List<object[]> list = new()
-            {
-                new object[2] { "@file", Code.Asm_TextTo16(file) },
-                new object[2] { "@sec", Code.Asm_TextTo16(sec) },
-                new object[2] { "@key", Code.Asm_TextTo16(key) }
-            };
+            List<object[]> list =
+            [
+                ["@file", Code.Asm_TextTo16(file)],
+                ["@sec", Code.Asm_TextTo16(sec)],
+                ["@key", Code.Asm_TextTo16(key)]
+            ];
             if (Sqlite.Select("SELECT id FROM `record_ini` WHERE `file` = @file AND `sec` = @sec AND `c_key` = @key;", list))
             {
                 if (delete)
@@ -349,8 +366,57 @@ namespace excelTools.data
                 sqlTxt = "INSERT INTO `record_ini` (`file`,`sec`,`c_key`,`value`) VALUES (@file,@sec,@key,@value);";
             }
 
-            list.Add(new object[2] { "@value", Code.Asm_TextTo16(value) });
+            list.Add(["@value", Code.Asm_TextTo16(value)]);
             return Sqlite.NonQuery(sqlTxt, list) > 0;
+        }
+        /// <summary>
+        /// 技能配置插入
+        /// </summary>
+        /// <param name="skill">技能名称</param>
+        /// <param name="type">类型</param>
+        /// <param name="value">值</param>
+        /// <returns></returns>
+        public static bool SkillConfigInsert(string skill, string type, object value)
+        {
+            // 为空不插入
+            if (value.ToString() == "") return false;
+            //CREATE TABLE 技能配置 (技能 TEXT, 类型 TEXT, 内容 TEXT);
+            var con = Config.connection;
+            // sql操作
+            SqliteCommand command = con.CreateCommand();
+
+
+            command.CommandText = "INSERT INTO 技能配置 (技能,类型,内容) VALUES (@skill,@type,@value);";
+
+
+            command.Parameters.AddWithValue("@skill", Code.Asm_TextTo16(skill));
+            command.Parameters.AddWithValue("@type", Code.Asm_TextTo16(type));
+            command.Parameters.AddWithValue("@value", Code.Asm_TextTo16(value.ToString()));
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
+            return true;
+        }
+
+        public static void ExtendStatsInsert(SqliteCommand write, EExtendStats type, string name, string stats, Int64 number)
+        {
+            write.CommandText = "INSERT INTO 自定义属性_数据 (类型,名称,属性,数值) VALUES (@类型,@名称,@属性,@数值);";
+
+            write.Parameters.AddWithValue("@类型", (int)type);
+            write.Parameters.AddWithValue("@名称", name);
+            write.Parameters.AddWithValue("@属性", stats);
+            write.Parameters.AddWithValue("@数值", number);
+            write.ExecuteNonQuery();
+            write.Parameters.Clear();
+        }
+
+        public static void ExtendStatsClear(SqliteCommand write, EExtendStats type, string name)
+        {
+            write.CommandText = "DELETE FROM 自定义属性_数据 WHERE 类型=@类型 AND 名称=@名称;";
+
+            write.Parameters.AddWithValue("@类型", (int)type);
+            write.Parameters.AddWithValue("@名称", name);
+            write.ExecuteNonQuery();
+            write.Parameters.Clear();
         }
     }
 }

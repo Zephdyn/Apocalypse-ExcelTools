@@ -27,16 +27,16 @@ namespace ExcelTools.data.write
             SqliteTransaction transaction = con.BeginTransaction();
             // sql操作
             SqliteCommand write = con.CreateCommand();
-
+            // 当前数量置0
+            V1Write.Numwrite = 0;
             long startTime = Stopwatch.GetTimestamp();
-
-            int testing,errorCheck = 0; ;
+            int testing, errorCheck = 0; ;
             string ret;
             try
             {
                 V1Write.state = 1;
                 // 读取所有数据
-                List<string> selectArr = Sqlite.SelectAll("装备配置", "SELECT `装备` FROM `装备配置`", null, "装备");
+                List<string> selectArr = Sqlite.SelectAll( "SELECT `装备` FROM `装备配置`", null, "装备");
                 for (int i = 0; i < arrWrite.Count; i++)
                 {
                     V1Write.Numwrite++;
@@ -50,12 +50,14 @@ namespace ExcelTools.data.write
                     }
 
 
-                    string[] arr = arrWrite[i].ToArray();
-                    List<object[]> list = new()
-                    {
-                        new object[2] { "@装备", arr[(int)ExcelType_v1.Equip.名称] }
-                    };
+                    string[] arr = [.. arrWrite[i]];
+                    arr = arr.Where((val, idx) => idx > 0).ToArray();
+                    List<object[]> list =
+                    [
+                        ["@装备", arr[(int)ExcelType_v1.Equip.名称]]
+                    ];
 
+                    
                     if (selectArr.Exists(t => t == arr[(int)ExcelType_v1.Equip.名称]))
                     {
                         write.CommandText = @"
@@ -109,7 +111,7 @@ namespace ExcelTools.data.write
                     if (!double.TryParse(arr[(int)ExcelType_v1.Equip.暴击伤害], out dnum)) dnum = 0;
                     write.Parameters.AddWithValue("@暴击伤害", dnum.ToString("0.00"));
                     //"饥饿",
-                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.饥饿], out num)) dnum = 0;
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.饥饿], out num)) num = 0;
                     write.Parameters.AddWithValue("@饥饿", num);
                     //"卸下",
                     //"技能",
@@ -120,11 +122,11 @@ namespace ExcelTools.data.write
                     //"描述"
                     Update.Show(Update.EShow.装备, arr[(int)ExcelType_v1.Equip.名称], arr[(int)ExcelType_v1.Equip.描述], false);
 
-                    list = new()
-                    {
-                        new object[2] { "@装备", arr[(int)ExcelType_v1.Equip.名称] },
-                        new object[2] { "@类型", "1" }
-                    };
+                    list =
+                    [
+                        ["@装备", arr[(int)ExcelType_v1.Equip.名称]],
+                        ["@类型", "1"]
+                    ];
                     // 职业 [装备配置2]
                     // arr[2]
                     // 对arr[2]进行处理
@@ -186,6 +188,22 @@ namespace ExcelTools.data.write
                         else Update.Check(Update.ECheck.装备, arr[(int)ExcelType_v1.Equip.名称], arr[(int)ExcelType_v1.Equip.装备限制消耗], false);
                     }
                     else Update.Check(Update.ECheck.装备, arr[(int)ExcelType_v1.Equip.名称], arr[(int)ExcelType_v1.Equip.装备限制消耗], true);
+
+
+                    // 自定义属性
+                    Update.ExtendStatsClear(write, Update.EExtendStats.装备, arr[(int)ExcelType_v1.Equip.名称]);
+                    string[] tarr = arr[(int)ExcelType_v1.Equip.自定义属性].Split(['\n']);
+                    foreach (string item in tarr)
+                    {
+                        string[] yarr = item.Split(["[too]"], StringSplitOptions.None);
+                        if (yarr.Length != 2) continue;
+                        if (yarr[0].Trim() == "") continue;
+
+                        if (!Int64.TryParse(yarr[1], out long longNum)) longNum = 0;
+                        Update.ExtendStatsInsert(write, Update.EExtendStats.装备, arr[(int)ExcelType_v1.Equip.名称], yarr[0], longNum);
+
+
+                    }
                 }
             }
             catch (Exception ex)
