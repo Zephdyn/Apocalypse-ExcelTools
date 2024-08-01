@@ -43,9 +43,6 @@ namespace ExcelTools.data.write
                     duties = arr[(int)ExcelType_v1.Duties.任务].Trim();
                     if (duties == "") continue;
                     // 每3000提交一次事务
-
-
-                    V1Write.Numwrite++; // 执行的次数
                     if (i > 0 && i % 3000 == 0)
                     {
                         transaction.Commit();

@@ -79,40 +79,30 @@ namespace ExcelTools.data.write
                     write.Parameters.AddWithValue("@装备", arr[(int)ExcelType_v1.Equip.名称]);
                     //"职业",
                     //"绑定",
-                    arr[3] = arr[3] == "1" ? "1" : "0";
+                    arr[(int)ExcelType_v1.Equip.绑定] = arr[(int)ExcelType_v1.Equip.绑定] == "1" ? "1" : "0";
                     write.Parameters.AddWithValue("@bind", arr[(int)ExcelType_v1.Equip.绑定]);
                     //"部位",
                     write.Parameters.AddWithValue("@部位", arr[(int)ExcelType_v1.Equip.部位]);
                     //"等级",
-                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.等级], out int num)) num = 1;
-                    write.Parameters.AddWithValue("@等级", num);
+                    write.Parameters.AddWithValue("@等级", TNumber.Int64TryParse(arr[(int)ExcelType_v1.Equip.等级],1));
                     //"生命",
-                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.生命], out num)) num = 0;
-                    write.Parameters.AddWithValue("@生命", num);
+                    write.Parameters.AddWithValue("@生命", TNumber.Int64TryParse(arr[(int)ExcelType_v1.Equip.生命], 0));
                     //"法力",
-                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.法力], out num)) num = 0;
-                    write.Parameters.AddWithValue("@法力", num);
+                    write.Parameters.AddWithValue("@法力", TNumber.Int64TryParse(arr[(int)ExcelType_v1.Equip.法力], 0));
                     //"攻击",
-                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.攻击], out num)) num = 0;
-                    write.Parameters.AddWithValue("@攻击", num);
+                    write.Parameters.AddWithValue("@攻击", TNumber.Int64TryParse(arr[(int)ExcelType_v1.Equip.攻击], 0));
                     //"防御",
-                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.防御], out num)) num = 0;
-                    write.Parameters.AddWithValue("@防御", num);
+                    write.Parameters.AddWithValue("@防御", TNumber.Int64TryParse(arr[(int)ExcelType_v1.Equip.防御], 0));
                     //"命中",
-                    if (!double.TryParse(arr[(int)ExcelType_v1.Equip.命中], out double dnum)) dnum = 0;
-                    write.Parameters.AddWithValue("@命中", dnum.ToString("0.00"));
+                    write.Parameters.AddWithValue("@命中", TNumber.DoubleTryParse(arr[(int)ExcelType_v1.Equip.命中],0).ToString("0.00"));
                     //"闪避",
-                    if (!double.TryParse(arr[(int)ExcelType_v1.Equip.闪避], out dnum)) dnum = 0;
-                    write.Parameters.AddWithValue("@闪避", dnum.ToString("0.00"));
+                    write.Parameters.AddWithValue("@闪避", TNumber.DoubleTryParse(arr[(int)ExcelType_v1.Equip.闪避], 0).ToString("0.00"));
                     //"暴击概率",
-                    if (!double.TryParse(arr[(int)ExcelType_v1.Equip.暴击概率], out dnum)) dnum = 0;
-                    write.Parameters.AddWithValue("@暴击概率", dnum.ToString("0.00"));
+                    write.Parameters.AddWithValue("@暴击概率", TNumber.DoubleTryParse(arr[(int)ExcelType_v1.Equip.暴击概率], 0).ToString("0.00"));
                     //"暴击伤害",
-                    if (!double.TryParse(arr[(int)ExcelType_v1.Equip.暴击伤害], out dnum)) dnum = 0;
-                    write.Parameters.AddWithValue("@暴击伤害", dnum.ToString("0.00"));
+                    write.Parameters.AddWithValue("@暴击伤害", TNumber.DoubleTryParse(arr[(int)ExcelType_v1.Equip.暴击伤害], 0).ToString("0.00"));
                     //"饥饿",
-                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.饥饿], out num)) num = 0;
-                    write.Parameters.AddWithValue("@饥饿", num);
+                    write.Parameters.AddWithValue("@饥饿", TNumber.IntTryParse(arr[(int)ExcelType_v1.Equip.饥饿], 0));
                     //"卸下",
                     //"技能",
                     if (arr[(int)ExcelType_v1.Equip.技能] == null) arr[(int)ExcelType_v1.Equip.技能] = "";
@@ -172,7 +162,7 @@ namespace ExcelTools.data.write
                         testing = 1;
                     }
                     write.Parameters.AddWithValue("@装备", arr[(int)ExcelType_v1.Equip.名称]);
-                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.卸下], out num)) num = 0;
+                    if (!int.TryParse(arr[(int)ExcelType_v1.Equip.卸下], out int num)) num = 0;
                     if (num < 0 || num > 1) num = 0;
                     write.Parameters.AddWithValue("@状态", num);
                     write.Parameters.AddWithValue("@类型", 1);

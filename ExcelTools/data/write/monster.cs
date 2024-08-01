@@ -113,7 +113,7 @@ namespace ExcelTools.data.write
                     // 怪物技能
                     string skill = arr[(int)ExcelType_v1.Monster.技能];
                     if (skill == "") continue;
-                    string[] tarr = skill.Split([ '\n' ]);
+                    string[] tarr = skill.Split(['\n']);
                     Sqlite.NonQuery("DELETE FROM `怪物技能` WHERE `怪物` = @monster", list);
 
 
@@ -130,7 +130,7 @@ namespace ExcelTools.data.write
 
                     // 自定义属性
                     Update.ExtendStatsClear(write, Update.EExtendStats.怪物, arr[(int)ExcelType_v1.Monster.怪物]);
-                    tarr = arr[(int)ExcelType_v1.Equip.自定义属性].Split(['\n']);
+                    tarr = arr[(int)ExcelType_v1.Monster.自定义属性].Split(['\n']);
                     foreach (string item in tarr)
                     {
                         string[] yarr = item.Split(["[too]"], StringSplitOptions.None);

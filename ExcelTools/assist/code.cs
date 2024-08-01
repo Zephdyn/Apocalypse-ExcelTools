@@ -332,5 +332,38 @@ namespace excelTools.assist
             if (num < min) return def;
             return num;
         }
+        /// <summary>
+        /// 字符串转整数
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <param name="def">默认</param>
+        /// <returns></returns>
+        public static int IntTryParse(string str,int def)
+        {
+            if (!int.TryParse(str, out int num)) num = def;
+            return num;
+        }
+        /// <summary>
+        /// 字符串转长整数
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <param name="def">默认</param>
+        /// <returns></returns>
+        public static Int64 Int64TryParse(string str, Int64 def)
+        {
+            if (!Int64.TryParse(str, out Int64 num)) num = def;
+            return num;
+        }
+        /// <summary>
+        /// 字符串转双精度小数
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <param name="def">默认</param>
+        /// <returns></returns>
+        public static double DoubleTryParse(string str, double def)
+        {
+            if (!double.TryParse(str, out double num)) num = def;
+            return num;
+        }
     }
 }
