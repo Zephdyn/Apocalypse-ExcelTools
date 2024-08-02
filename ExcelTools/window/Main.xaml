@@ -900,7 +900,7 @@
                                                     pu:IconHelper.Margin="0,0,10,0"
                                                     Background="#03A9F4"
                                                     Click="Button_Click_Excel"
-                                                    CommandParameter="4"
+                                                    CommandParameter="5"
                                                     Content="示例导出"
                                                     Foreground="White" />
                                                 <Button
