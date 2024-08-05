@@ -45,11 +45,11 @@ namespace ExcelTools.data.write
 
 
                     /*格式:
-                     *1(普通消耗) 2(礼包) 3(VIP等级) 4(VIP积分) 5(技能学习) 6(坐骑获取) 7(坐骑喂养) 8(亲密度物品) 9(数据清除) 10(鱼饵)
+                     *1消耗类道具 2礼包类道具 3vip类道具(vip卡) 4vip类道具(vip积分卡) 5技能书 6坐骑蛋 7坐骑喂养 8亲密道具 9数据清空 10鱼饵 11任务 12免死亡惩罚
                      */
-                    // 类型必须为1-10
+                    // 类型必须为1-12
                     if (!int.TryParse(arr[(int)ExcelType_v1.Goods.类型], out int goodsType)) continue;
-                    if (goodsType < 1 || goodsType > 10) continue;
+                    if (goodsType < 1 || goodsType > 12) continue;
                     V1Write.Numwrite++; // 当前处理进度
                                         // 每3000提交一次事务
                     if (i > 0 && i % 3000 == 0)
@@ -67,7 +67,7 @@ namespace ExcelTools.data.write
                         if (!int.TryParse(arr[(int)ExcelType_v1.Goods.名称], out int num)) num = 0;
                         goodsName = num;
                     }
-                    else if (goodsType == 9)
+                    else if (goodsType == 9 || goodsType == 12)
                     {
                         // 内容为空
                         goodsName = null;
