@@ -45,7 +45,7 @@ namespace ExcelTools.data.write
 
 
                     /*格式:
-                     *1消耗类道具 2礼包类道具 3vip类道具(vip卡) 4vip类道具(vip积分卡) 5技能书 6坐骑蛋 7坐骑喂养 8亲密道具 9数据清空 10鱼饵 11任务 12免死亡惩罚 13 材料
+                     *1消耗类道具 2礼包类道具 3vip类道具(vip卡) 4vip类道具(vip积分卡) 5技能书 6坐骑蛋 7坐骑喂养 8亲密道具 9数据清空 10鱼饵 11任务 12免死亡惩罚 13材料
                      */
                     // 类型必须为1-13
                     if (!int.TryParse(arr[(int)ExcelType_v1.Goods.类型], out int goodsType)) continue;
@@ -67,7 +67,7 @@ namespace ExcelTools.data.write
                         if (!int.TryParse(arr[(int)ExcelType_v1.Goods.名称], out int num)) num = 0;
                         goodsName = num;
                     }
-                    else if (goodsType == 9 || goodsType == 12 || goodsType == 13)
+                    else if (goodsType == 9 || goodsType == 12 || goodsType==13)
                     {
                         // 内容为空
                         goodsName = null;

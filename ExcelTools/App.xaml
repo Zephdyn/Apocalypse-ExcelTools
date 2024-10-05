@@ -3,12 +3,18 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ExcelTools"
+    xmlns:pu="https://opensource.panuon.com/wpf-ui"
     StartupUri="window/Main.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Panuon.WPF.UI;component/Control.xaml" />
+                <pu:StyleDictionary Includes="All" />
             </ResourceDictionary.MergedDictionaries>
+
+            <pu:GlobalSettings
+                x:Key="globalSettings"
+                FontFamily="Arial"
+                FontSize="14" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
