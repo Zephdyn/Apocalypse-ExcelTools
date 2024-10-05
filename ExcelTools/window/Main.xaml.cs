@@ -61,8 +61,7 @@ namespace ExcelTools.window
             this.Title = "天启幻境II - Excel Tools";
             WIfon.TabControl = 0;
             // 获取版本
-            WIfon.Version = Application.ResourceAssembly.GetName().Version.ToString();
-
+            WIfon.Version = Application.ResourceAssembly.GetName().Version.ToString()[..^2];
             // 数据初始化            
             string configPath = "config.db";
             string filePath = "config.json";
