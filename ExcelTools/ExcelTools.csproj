@@ -29,6 +29,14 @@
     <OutputPath>E:\apo\C#\debug\</OutputPath>
   </PropertyGroup>
 
+  <!-- 单文件自包含发布: dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true
+       WPF 原生库(wpfgfx/PresentationNative 等)和 e_sqlite3.dll 默认不会被打进 exe,
+       不开启自解压会额外输出 7 个文件 -->
+  <PropertyGroup Condition="'$(PublishSingleFile)' == 'true'">
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="images\excel\copy.png" />
     <None Remove="images\excel\drop.png" />
