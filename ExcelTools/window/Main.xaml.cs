@@ -35,10 +35,14 @@ namespace ExcelTools.window
 
         // 数据库路径
         private static string DatabasePath;
-        // 软件支持的数据库版本
-        private static readonly int DatabaseVersion = 4000000;
+        // 软件支持的最低数据库版本(结构要求: 低于此版本没有 4.0.0 新增的自定义属性表)
+        private const int DatabaseVersionMin = 4000000;
+        // 软件兼容的最高数据库版本(4000001 只新增了 group_notice, 不影响本工具)
+        private const int DatabaseVersionMax = 4000001;
         // 当前数据库版本
         private static int DatabaseReadVersion;
+        // 数据库是否已通过 版本 + 结构 校验(通过后才允许导入)
+        private static bool DbReady;
 
         // 打开保存文件
         readonly OpenFileDialog Odialog = new();
@@ -62,6 +66,7 @@ namespace ExcelTools.window
             WIfon.TabControl = 0;
             // 获取版本
             WIfon.Version = Application.ResourceAssembly.GetName().Version.ToString()[..^2];
+            WIfon.DbSupportInfo = $"支持：4.0.0 - 4.0.1 ({DatabaseVersionMin} - {DatabaseVersionMax})";
             // 数据初始化            
             string configPath = "config.db";
             string filePath = "config.json";
@@ -142,13 +147,11 @@ namespace ExcelTools.window
             string content = bt.Content.ToString();
             Debug.WriteLine(content);
             Debug.WriteLine(Config.Status());
-            if (Config.Status() != (int)ConnectionState.Open)
+            // 数据导入必须先通过数据库的版本与结构校验, 否则会写坏数据或导到一半报错
+            if (content == "数据导入" && (!DbReady || Config.Status() != (int)ConnectionState.Open))
             {
-                if (content == "数据导入")
-                {
-                    MessageBox.Show("还未连接数据库");
-                    return;
-                }
+                MessageBox.Show("还未连接数据库，或数据库未通过校验，请先点击「打开数据库」选择 config.db", "提示");
+                return;
             }
             string[] Rtype = [];
             string name = "";
@@ -266,12 +269,23 @@ namespace ExcelTools.window
         /// <returns></returns>
         private static bool GetConfigInfo(string filePath)
         {
+            DbReady = false;
             WIfon.DbConfigInfo = "未连接数据库";
+            WIfon.DbConfigPath = filePath;
+            WIfon.DbConnectButtonBackground = "#F44336";
             if (!File.Exists(filePath))// 路径不存在
             {
                 return false;
             }
-            File.Copy(filePath, filePath + ".back", true);
+            try
+            {
+                // 打开前备份一份, 备份失败(例如被服务端占用)不阻断使用
+                File.Copy(filePath, filePath + ".back", true);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("备份数据库失败: " + ex.Message);
+            }
             if (Config.Open(filePath) == false)// 未打开数据库
             {
                 WIfon.DbConfigInfo = "当前数据库状态：连接失败";
@@ -285,23 +299,35 @@ namespace ExcelTools.window
                 //MessageBox.Show(ver[2], "读取数据库错误");
                 return false;
             }
-            WIfon.DbConfigInfo = $"当前数据库信息：{ver[0]}({ver[1]})";
-            DatabasePath = filePath;
             if (!int.TryParse(ver[1], out DatabaseReadVersion)) DatabaseReadVersion = 0;
-            // 读取版本低于 软件版本
-            if (DatabaseReadVersion < DatabaseVersion)
+            // 读取版本低于 软件要求
+            if (DatabaseReadVersion < DatabaseVersionMin)
             {
-                MessageBox.Show($"当前数据库版本低于本工具, 无法使用本工具, 请将数据库版本升级后使用{System.Environment.NewLine}当前数据库版本：{DatabaseReadVersion} {System.Environment.NewLine} 当前工具支持版本：{DatabaseVersion}", "警告");
+                // 必须先断开连接: 否则界面仍显示已连接, 用户还能继续往旧库里导入
+                Config.Close();
+                WIfon.DbConfigInfo = $"当前数据库版本过低：{ver[0]}({ver[1]})";
+                MessageBox.Show(
+                    $"当前数据库版本低于本工具要求, 无法使用本工具, 请将数据库版本升级后使用{System.Environment.NewLine}" +
+                    $"当前数据库版本：{DatabaseReadVersion}{System.Environment.NewLine}" +
+                    $"本工具要求版本：{DatabaseVersionMin} 及以上{System.Environment.NewLine}" +
+                    $"当前数据库：{filePath}",
+                    "警告");
                 return false;
             }
-            // 读取版本超过 软件版本
-            if (DatabaseReadVersion > DatabaseVersion)
+            // 读取版本超过 软件兼容
+            if (DatabaseReadVersion > DatabaseVersionMax)
             {
                 if (MessageBox.Show(
-                    $"当前数据库版本大于本工具, 推荐使用与数据库版本匹配的工具{System.Environment.NewLine}否则可能出现导入数据后异常的情况{System.Environment.NewLine}当前数据库版本：{DatabaseReadVersion} {System.Environment.NewLine} 当前工具支持版本：{DatabaseVersion}{System.Environment.NewLine} 是否要继续使用?",
+                    $"当前数据库版本高于本工具兼容范围, 推荐使用与数据库版本匹配的工具{System.Environment.NewLine}否则可能出现导入数据后异常的情况{System.Environment.NewLine}" +
+                    $"当前数据库版本：{DatabaseReadVersion}{System.Environment.NewLine}" +
+                    $"本工具兼容版本：{DatabaseVersionMin} - {DatabaseVersionMax}{System.Environment.NewLine}" +
+                    $"当前数据库：{filePath}{System.Environment.NewLine} 是否要继续使用?",
                     "警告",
                     MessageBoxButton.OKCancel) != MessageBoxResult.OK)
+                {
+                    Config.Close();
                     return false;
+                }
                 // 显示黄色
                 WIfon.DbConnectButtonBackground = "#FF9800";
             }
@@ -310,7 +336,35 @@ namespace ExcelTools.window
                 // 显示绿色
                 WIfon.DbConnectButtonBackground = "#4CAF50";
             }
+            // 4.0.0 结构检查: 缺少自定义属性等表时, 装备/怪物导入会在第 1 条数据就失败
+            List<string> missing = DbSchema.Check();
+            if (missing.Count > 0)
+            {
+                MessageBoxResult result = MessageBox.Show(
+                    $"当前数据库缺少 4.0.0 新增的表：{string.Join("、", missing)}{System.Environment.NewLine}" +
+                    "缺少时装备/怪物的自定义属性无法写入。" + System.Environment.NewLine + System.Environment.NewLine +
+                    "是否按 4.0.0 结构自动创建缺失的表?" + System.Environment.NewLine +
+                    $"当前数据库：{filePath}",
+                    "数据库结构不完整",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+                if (result != MessageBoxResult.Yes)
+                {
+                    Config.Close();
+                    WIfon.DbConfigInfo = "当前数据库状态：结构不完整";
+                    return false;
+                }
+                if (!DbSchema.CreateMissingTables(out string error))
+                {
+                    Config.Close();
+                    WIfon.DbConfigInfo = "当前数据库状态：结构不完整";
+                    MessageBox.Show("创建缺失的表失败：" + System.Environment.NewLine + error, "错误");
+                    return false;
+                }
+            }
             WIfon.DbConfigInfo = $"当前版本：{ver[0]}({ver[1]})";
+            DatabasePath = filePath;
+            DbReady = true;
             return true;
         }
 

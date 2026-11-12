@@ -11,6 +11,13 @@ namespace excelTools.assist
     class Code
     {
         /// <summary>
+        /// 静态构造: .NET Core 起 GB2312 等代码页要显式注册, 两个转换方法都依赖它
+        /// </summary>
+        static Code()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
+        /// <summary>
         /// 将16进制转为字符串 [编码为gb2312]
         /// </summary>
         /// <param name="str">要转换的文本</param>
@@ -62,7 +69,6 @@ namespace excelTools.assist
                 strDecode += " ";//空格
                                  //throw new ArgumentException("s is not valid chinese string!");
             }*/
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             System.Text.Encoding chs = System.Text.Encoding.GetEncoding("GB2312");
             byte[] bytes = chs.GetBytes(str);
             string ret = "";

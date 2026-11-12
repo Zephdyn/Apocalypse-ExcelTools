@@ -28,6 +28,8 @@ namespace ExcelTools.data.write
             Int64 startTime = Stopwatch.GetTimestamp();
             // 当前数量置0
             V1Write.Numwrite = 0;
+            // 出错时用于提示是第几条数据
+            string curName = "";
             try
             {
                 V1Write.state = 1;
@@ -40,6 +42,7 @@ namespace ExcelTools.data.write
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
                     if (arr[(int)ExcelType_v1.Monster.怪物].Trim() == "") continue;
                     V1Write.Numwrite++;
+                    curName = arr[(int)ExcelType_v1.Monster.怪物];
                     if (i > 0 && i % 1000 == 0)
                     {
                         transaction.Commit();
@@ -110,43 +113,49 @@ namespace ExcelTools.data.write
                     // 描述
                     Update.Show(Update.EShow.怪物, arr[(int)ExcelType_v1.Monster.怪物], arr[(int)ExcelType_v1.Monster.描述], false);
 
-                    // 怪物技能
+                    // 怪物技能: 没有技能时只跳过技能部分, 不能跳过整条数据(否则自定义属性也不会写入)
                     string skill = arr[(int)ExcelType_v1.Monster.技能];
-                    if (skill == "") continue;
-                    string[] tarr = skill.Split(['\n']);
-                    Sqlite.NonQuery("DELETE FROM `怪物技能` WHERE `怪物` = @monster", list);
-
-
-                    foreach (string item in tarr)
+                    if (!string.IsNullOrWhiteSpace(skill))
                     {
-                        list =
-                        [
-                            ["@monster", arr[(int)ExcelType_v1.Monster.怪物]],
-                            ["@skill", item]
-                        ];
-                        Sqlite.NonQuery("INSERT INTO `怪物技能` (`怪物`,`技能`) VALUES (@monster,@skill)", list);
+                        Sqlite.NonQuery("DELETE FROM `怪物技能` WHERE `怪物` = @monster", list);
+                        foreach (string item in skill.Split(['\n']))
+                        {
+                            list =
+                            [
+                                ["@monster", arr[(int)ExcelType_v1.Monster.怪物]],
+                                ["@skill", item]
+                            ];
+                            Sqlite.NonQuery("INSERT INTO `怪物技能` (`怪物`,`技能`) VALUES (@monster,@skill)", list);
+                        }
                     }
 
-
-                    // 自定义属性
-                    Update.ExtendStatsClear(write, Update.EExtendStats.怪物, arr[(int)ExcelType_v1.Monster.怪物]);
-                    tarr = arr[(int)ExcelType_v1.Monster.自定义属性].Split(['\n']);
-                    foreach (string item in tarr)
+                    // 自定义属性(为空时不做清理)
+                    string extendStats = arr[(int)ExcelType_v1.Monster.自定义属性];
+                    if (!string.IsNullOrWhiteSpace(extendStats))
                     {
-                        string[] yarr = item.Split(["[too]"], StringSplitOptions.None);
-                        if (yarr.Length != 2) continue;
-                        if (yarr[0].Trim() == "") continue;
+                        Update.ExtendStatsClear(write, Update.EExtendStats.怪物, arr[(int)ExcelType_v1.Monster.怪物]);
+                        foreach (string item in extendStats.Split(['\n']))
+                        {
+                            string[] yarr = item.Split(["[too]"], StringSplitOptions.None);
+                            if (yarr.Length != 2) continue;
+                            if (yarr[0].Trim() == "") continue;
 
-                        if (!Int64.TryParse(yarr[1], out long longNum)) longNum = 0;
-                        Update.ExtendStatsInsert(write, Update.EExtendStats.怪物, arr[(int)ExcelType_v1.Monster.怪物], yarr[0], longNum);
+                            if (!Int64.TryParse(yarr[1], out long longNum)) longNum = 0;
+                            Update.ExtendStatsInsert(write, Update.EExtendStats.怪物, arr[(int)ExcelType_v1.Monster.怪物], yarr[0], longNum);
+                        }
                     }
 
                 }
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
-                MessageBox.Show(ex.ToString());
+                V1Write.state = 0;
+                try { transaction.Rollback(); } catch { /* 事务可能已经结束 */ }
+                MessageBox.Show(
+                    $"写入怪物数据失败, 已回滚本次事务。{System.Environment.NewLine}{System.Environment.NewLine}" +
+                    $"第 {V1Write.Numwrite} 条：{curName}{System.Environment.NewLine}" +
+                    $"原因：{ex.Message}",
+                    "写入失败");
                 return 1;
             }
             V1Write.state = 0;

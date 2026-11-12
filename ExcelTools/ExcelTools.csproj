@@ -2,20 +2,21 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <Authors>枭</Authors>
     <Description>天启幻境II - Excel快速操作工具</Description>
     <Copyright>apocalypse - Tapdrd</Copyright>
     <NeutralLanguage>zh-CN</NeutralLanguage>
-    <AssemblyVersion>3.0.2</AssemblyVersion>
+    <AssemblyVersion>3.1.0</AssemblyVersion>
+    <!-- 依赖链(NPOI -> SixLabors.ImageSharp, Microsoft.Data.Sqlite -> SQLitePCLRaw)存在上游未修复的传递漏洞告警,
+         这里只对直接依赖做审计, 避免每次编译输出大量无法处理的 NU1902/NU1903 -->
+    <NuGetAuditMode>direct</NuGetAuditMode>
     <UseWindowsForms>False</UseWindowsForms>
     <PackageIcon>logo.png</PackageIcon>
     <ApplicationIcon>window\favicon.ico</ApplicationIcon>
     <ImplicitUsings>disable</ImplicitUsings>
-    <BaseOutputPath></BaseOutputPath>
-    <BaseIntermediateOutputPath></BaseIntermediateOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -23,7 +24,8 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <!-- 本机调试输出目录, 只有存在 E:\apo 时才生效, 其他机器/CI 上走默认的 bin\Debug -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' And Exists('E:\apo')">
     <OutputPath>E:\apo\C#\debug\</OutputPath>
   </PropertyGroup>
 
@@ -52,9 +54,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NPOI" Version="2.7.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.10" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="NPOI" Version="2.7.4" />
     <PackageReference Include="Panuon.WPF" Version="1.1.2.2" />
     <PackageReference Include="Panuon.WPF.UI" Version="1.2.4.7" />
   </ItemGroup>

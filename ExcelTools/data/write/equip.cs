@@ -32,6 +32,8 @@ namespace ExcelTools.data.write
             long startTime = Stopwatch.GetTimestamp();
             int testing, errorCheck = 0; ;
             string ret;
+            // 出错时用于提示是第几条数据
+            string curName = "";
             try
             {
                 V1Write.state = 1;
@@ -52,6 +54,7 @@ namespace ExcelTools.data.write
 
                     string[] arr = [.. arrWrite[i]];
                     arr = arr.Where((val, idx) => idx > 0).ToArray();
+                    curName = arr[(int)ExcelType_v1.Equip.名称];
                     List<object[]> list =
                     [
                         ["@装备", arr[(int)ExcelType_v1.Equip.名称]]
@@ -180,26 +183,32 @@ namespace ExcelTools.data.write
                     else Update.Check(Update.ECheck.装备, arr[(int)ExcelType_v1.Equip.名称], arr[(int)ExcelType_v1.Equip.装备限制消耗], true);
 
 
-                    // 自定义属性
-                    Update.ExtendStatsClear(write, Update.EExtendStats.装备, arr[(int)ExcelType_v1.Equip.名称]);
-                    string[] tarr = arr[(int)ExcelType_v1.Equip.自定义属性].Split(['\n']);
-                    foreach (string item in tarr)
+                    // 自定义属性(为空时不做清理, 减少无谓的删除)
+                    string extendStats = arr[(int)ExcelType_v1.Equip.自定义属性];
+                    if (!string.IsNullOrWhiteSpace(extendStats))
                     {
-                        string[] yarr = item.Split(["[too]"], StringSplitOptions.None);
-                        if (yarr.Length != 2) continue;
-                        if (yarr[0].Trim() == "") continue;
+                        Update.ExtendStatsClear(write, Update.EExtendStats.装备, arr[(int)ExcelType_v1.Equip.名称]);
+                        foreach (string item in extendStats.Split(['\n']))
+                        {
+                            string[] yarr = item.Split(["[too]"], StringSplitOptions.None);
+                            if (yarr.Length != 2) continue;
+                            if (yarr[0].Trim() == "") continue;
 
-                        if (!Int64.TryParse(yarr[1], out long longNum)) longNum = 0;
-                        Update.ExtendStatsInsert(write, Update.EExtendStats.装备, arr[(int)ExcelType_v1.Equip.名称], yarr[0], longNum);
-
-
+                            if (!Int64.TryParse(yarr[1], out long longNum)) longNum = 0;
+                            Update.ExtendStatsInsert(write, Update.EExtendStats.装备, arr[(int)ExcelType_v1.Equip.名称], yarr[0], longNum);
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
-                MessageBox.Show(ex.ToString());
+                V1Write.state = 0;
+                try { transaction.Rollback(); } catch { /* 事务可能已经结束 */ }
+                MessageBox.Show(
+                    $"写入装备数据失败, 已回滚本次事务。{System.Environment.NewLine}{System.Environment.NewLine}" +
+                    $"第 {V1Write.Numwrite} 条：{curName}{System.Environment.NewLine}" +
+                    $"原因：{ex.Message}",
+                    "写入失败");
                 return 1;
             }
             V1Write.state = 0;

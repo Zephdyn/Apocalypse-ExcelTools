@@ -17,6 +17,8 @@ namespace excelTools.WPF
 
 
         private static string _DbConfigInfo;// 数据库信息
+        private static string _DbConfigPath;// 数据库路径(鼠标悬停显示)
+        private static string _DbSupportInfo;// 支持的数据库版本
         private static string _DbConnectButtonBackground= "F44336";// 数据库连接按钮背景颜色
 
         public string Version
@@ -28,6 +30,16 @@ namespace excelTools.WPF
         {
             get { return _DbConfigInfo; }
             set { _DbConfigInfo = value; OnPropertyChanged(); }
+        }
+        public string DbConfigPath
+        {
+            get { return _DbConfigPath; }
+            set { _DbConfigPath = value; OnPropertyChanged(); }
+        }
+        public string DbSupportInfo
+        {
+            get { return _DbSupportInfo; }
+            set { _DbSupportInfo = value; OnPropertyChanged(); }
         }
         public string DbConnectButtonBackground
         {

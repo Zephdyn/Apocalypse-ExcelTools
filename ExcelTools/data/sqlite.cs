@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +21,7 @@ namespace excelTools.data
         {
             List<string> arr = [];
             var con = Config.connection;
-            SqliteCommand command = con.CreateCommand();
+            using SqliteCommand command = con.CreateCommand();
             command.CommandText = sql;
             if (value != null)
             {
@@ -31,7 +30,7 @@ namespace excelTools.data
                     command.Parameters.AddWithValue((string)value[i].GetValue(0), value[i].GetValue(1) ?? DBNull.Value);
                 }
             }
-            var reader = command.ExecuteReader();
+            using var reader = command.ExecuteReader();
 
             while (reader.Read())
             {
@@ -48,7 +47,7 @@ namespace excelTools.data
         public static bool Select(string sql, List<object[]> value)
         {
             var con = Config.connection;
-            SqliteCommand command = con.CreateCommand();
+            using SqliteCommand command = con.CreateCommand();
             command.CommandText = sql;
             if (value != null)
             {
@@ -57,11 +56,23 @@ namespace excelTools.data
                     command.Parameters.AddWithValue((string)value[i].GetValue(0), value[i].GetValue(1) ?? DBNull.Value);
                 }
             }
-            var reader = command.ExecuteReader();
-            bool state = reader.Read();
-            reader.Close();
-            command.Dispose();
-            return state;
+            using var reader = command.ExecuteReader();
+            return reader.Read();
+        }
+        /// <summary>
+        /// 判断表是否存在
+        /// </summary>
+        /// <param name="table">表名</param>
+        /// <returns></returns>
+        public static bool TableExists(string table)
+        {
+            var con = Config.connection;
+            if (con == null) return false;
+            using SqliteCommand command = con.CreateCommand();
+            command.CommandText = "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = @name LIMIT 1;";
+            command.Parameters.AddWithValue("@name", table);
+            using var reader = command.ExecuteReader();
+            return reader.Read();
         }
         /// <summary>
         /// 执行操作, 返回操作行数
@@ -73,7 +84,7 @@ namespace excelTools.data
         {
 
             var con = Config.connection;
-            SqliteCommand command = con.CreateCommand();
+            using SqliteCommand command = con.CreateCommand();
             command.CommandText = sql;
             if (value != null)
             {
@@ -96,7 +107,7 @@ namespace excelTools.data
                 sql += " WHERE " + where;
             }
             var con = Config.connection;
-            SqliteCommand command = con.CreateCommand();
+            using SqliteCommand command = con.CreateCommand();
             command.CommandText = sql;
             if (value != null)
             {
@@ -105,11 +116,9 @@ namespace excelTools.data
                     command.Parameters.AddWithValue((string)value[i].GetValue(0), value[i].GetValue(1) ?? DBNull.Value);
                 }
             }
-            var reader = command.ExecuteReader();
+            using var reader = command.ExecuteReader();
             reader.Read();
             Int64 count = (Int64)reader[0];
-            reader.Close();
-            command.Dispose();
             return count;
         }
     }

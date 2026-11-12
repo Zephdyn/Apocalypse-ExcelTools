@@ -526,12 +526,15 @@
                                                 FontWeight="Bold"
                                                 Text="数据库信息" />
                                             <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
-                                                <TextBlock Foreground="#757575" Text="支持：4.0.0(4000000)" />
+                                                <TextBlock Foreground="#757575" Text="{Binding DbSupportInfo, FallbackValue=支持：4.0.0 - 4.0.1}" />
                                                 <Rectangle
                                                     Width="1"
                                                     Margin="10,0"
                                                     Fill="#EFEFEF" />
-                                                <TextBlock Foreground="#757575" Text="{Binding DbConfigInfo, FallbackValue=当前版本}" />
+                                                <TextBlock
+                                                    Foreground="#757575"
+                                                    Text="{Binding DbConfigInfo, FallbackValue=当前版本}"
+                                                    ToolTip="{Binding DbConfigPath}" />
                                             </StackPanel>
                                         </StackPanel>
                                         <Grid Grid.Column="2" VerticalAlignment="Center">

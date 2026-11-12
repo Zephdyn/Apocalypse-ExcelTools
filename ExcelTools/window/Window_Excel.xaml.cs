@@ -34,6 +34,8 @@ namespace ExcelTools.window
         private static string GetDataFileName;
         public int Readint = 0;
         private static int WriteType = 0;
+        // 窗口关闭后停止状态刷新线程
+        private volatile bool _statusStop;
         /// <summary>
         /// 初始化
         /// </summary>
@@ -80,6 +82,7 @@ namespace ExcelTools.window
             }
             // 此处代码会导致只能读取一次Excel数据,第二次再读取会提示数据库未连接
             // if (Config.Status() == (int)System.Data.ConnectionState.Open) Config.Close(); // 如果数据库已连接,则关闭数据库
+            _statusStop = true;
             e.Cancel = false;
         }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e) // 双击放大缩小
@@ -117,7 +120,7 @@ namespace ExcelTools.window
         private void Display_Status()
         {
             string temp;
-            while (true)
+            while (!_statusStop)
             {
                 if (Readint == 2)
                 {
@@ -234,6 +237,8 @@ namespace ExcelTools.window
                     new Action(
                             delegate
                             {
+                                // 写入结束(成功或失败)都要复位状态, 否则界面会一直停在"正在写入数据"
+                                V1Write.state = 0;
                                 Readint = 0;
                                 WIfon.TabWriteDataNum = "";
                             }

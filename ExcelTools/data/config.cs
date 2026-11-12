@@ -19,15 +19,22 @@ namespace excelTools.data
         {
             try
             {
+                // 只读写已经存在的库, 避免路径写错时静默创建出一个空库
+                var builder = new SqliteConnectionStringBuilder
+                {
+                    DataSource = filepath,
+                    Mode = SqliteOpenMode.ReadWrite
+                };
                 // 尝试打开数据库
-                connection = new SqliteConnection(@"Data Source=" + filepath);
+                connection = new SqliteConnection(builder.ToString());
                 connection.Open();
+                DbSchema.Reset();
                 // 读取数据库版本
                 return true;
             }
             catch
             {
-                connection.Close();
+                Close();
                 return false;
             }
         }
@@ -36,8 +43,17 @@ namespace excelTools.data
         /// </summary>
         public static void Close()
         {
-            connection.Dispose();
-            connection.Close();
+            DbSchema.Reset();
+            if (connection == null) return;
+            try
+            {
+                connection.Close();
+                connection.Dispose();
+            }
+            finally
+            {
+                connection = null;
+            }
         }
         /// <summary>
         /// 显示数据库连接状态
@@ -399,6 +415,7 @@ namespace excelTools.data
 
         public static void ExtendStatsInsert(SqliteCommand write, EExtendStats type, string name, string stats, Int64 number)
         {
+            DbSchema.Ensure();
             write.CommandText = "INSERT INTO 自定义属性_数据 (类型,名称,属性,数值) VALUES (@类型,@名称,@属性,@数值);";
 
             write.Parameters.AddWithValue("@类型", (int)type);
@@ -411,6 +428,7 @@ namespace excelTools.data
 
         public static void ExtendStatsClear(SqliteCommand write, EExtendStats type, string name)
         {
+            DbSchema.Ensure();
             write.CommandText = "DELETE FROM 自定义属性_数据 WHERE 类型=@类型 AND 名称=@名称;";
 
             write.Parameters.AddWithValue("@类型", (int)type);

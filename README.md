@@ -1,9 +1,14 @@
 # 开发环境
 
 	推荐:
-	IDE: visual studio 2022
-	NET版本: 8.0
-	
+	IDE: visual studio 2026
+	NET版本: 10.0
+
+# 运行环境
+
+	Windows 10 1607 及以上
+	.NET 10 Desktop Runtime（或使用自包含方式发布）
+
 # 天启幻境II_ExcelTools
 
 ## 预览
@@ -22,3 +27,4 @@
 	. 商店
 	. 物品
 	. 装备
+	. 技能
