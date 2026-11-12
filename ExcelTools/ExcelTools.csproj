@@ -29,12 +29,13 @@
     <OutputPath>E:\apo\C#\debug\</OutputPath>
   </PropertyGroup>
 
-  <!-- 单文件自包含发布: dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true
-       WPF 原生库(wpfgfx/PresentationNative 等)和 e_sqlite3.dll 默认不会被打进 exe,
-       不开启自解压会额外输出 7 个文件 -->
+  <!-- 单文件发布: dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true
+       WPF 原生库(wpfgfx/PresentationNative 等)和 e_sqlite3.dll 默认不会被打进 exe, 必须开启自解压;
+       未显式指定是否自包含时默认按独立 exe 处理; 压缩只在自包含时可用, 框架依赖发布会自动关闭 -->
   <PropertyGroup Condition="'$(PublishSingleFile)' == 'true'">
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <SelfContained Condition="'$(SelfContained)' == ''">true</SelfContained>
+    <EnableCompressionInSingleFile Condition="'$(SelfContained)' == 'true'">true</EnableCompressionInSingleFile>
   </PropertyGroup>
 
   <ItemGroup>
